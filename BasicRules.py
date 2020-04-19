@@ -318,10 +318,8 @@ class PawnRules(object):
             r = spt.row
             c = spt.col
             if isinstance(board.board[r][c], numbers.Number):
-                # print(isinstance(board.board[r][c], numbers.Number), r, c)
                 continue
             if board.board[r][c].team == pawn.team:
-                # print(board.board[r][c].team == pawn.team, r, c)
                 continue
             if pawn.team == 0:
                 reached_spots.append(Spot(r, c, is_promoted=(r == 7)))
