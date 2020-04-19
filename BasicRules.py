@@ -66,7 +66,7 @@ class KingRules(object):
         castling_spots = []
         left, right = board.board[row][0], board.board[row][7]
         (p1, p2, p3, p4, p5) = (
-            board.board[0][1], board.board[0][2], board.board[0][4], board.board[0][5], board.board[0][6])
+            board.board[row][1], board.board[row][2], board.board[row][4], board.board[row][5], board.board[row][6])
         if isinstance(left, Rook):
             if not left.is_moved and isinstance(p1, numbers.Number) and isinstance(p2, numbers.Number):
                 castling_spots.append(Spot(row, 1, is_castling=True))
