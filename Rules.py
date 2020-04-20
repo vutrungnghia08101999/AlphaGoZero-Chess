@@ -56,17 +56,20 @@ class Rules(object):
         board = copy.deepcopy(board)
 
         if move.is_castling:
+            assert start.col == 4
+            assert end.col == 2 or end.col == 6
             board.board[end.row][end.col] = board.board[start.row][start.col]
             board.board[start.row][start.col] = 0
             board.board[end.row][end.col].is_moved = True
-            if end.col == 1:
-                board.board[end.row][2] = board.board[start.row][0]
-                board.board[start.row][0] = 0
-                board.board[end.row][2].is_moved = True
-            elif end.col == 5:
-                board.board[end.row][4] = board.board[start.row][7]
-                board.board[start.row][7] = 0
-                board.board[end.row][4].is_moved = True
+            rook_des_col = int((start.col + end.col) / 2)
+            if end.col < 4:
+                rook_start_col = 0
+            else:
+                rook_start_col = 7
+
+            board.board[end.row][rook_des_col] = board.board[start.row][rook_start_col]
+            board.board[start.row][rook_start_col] = 0
+            board.board[end.row][rook_des_col].is_moved = True
 
         elif move.is_promoted:
             board.board[end.row][end.col] = Queen(team)
