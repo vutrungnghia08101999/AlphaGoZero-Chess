@@ -2,7 +2,6 @@ import copy
 import numbers
 
 from BasicRules import BasicRules
-from Utils import Utils
 from ChessObjects import (
     King,
     Queen,
@@ -15,12 +14,22 @@ from ChessObjects import (
     Board
 )
 
+
+def get_king_spot(team: int, board: Board):
+    for row in range(8):
+        for col in range(8):
+            if isinstance(board.board[row][col], King):
+                if board.board[row][col].team == team:
+                    return Spot(row, col)
+    return Spot(-1, -1)
+
+
 class Rules(object):
     def __init__(self):
         super(Rules, self).__init__()
 
     def _is_checked(team: int, board: Board) -> bool:
-        king_position = Utils.get_king_spot(team, board)
+        king_position = get_king_spot(team, board)
         assert king_position.row != -1 and king_position.col != -1
 
         for row in range(8):

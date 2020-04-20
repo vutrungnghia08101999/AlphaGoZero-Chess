@@ -3,7 +3,6 @@ import numbers
 from random import shuffle
 
 from Rules import Rules
-from Utils import Utils
 from ChessObjects import (
     King,
     Queen,
