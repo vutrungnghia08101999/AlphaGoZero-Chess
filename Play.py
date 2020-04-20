@@ -4,6 +4,8 @@ from Minimax import Minimax
 from ChessObjects import Board, Spot, Move
 from Rules import Rules
 
+
+# ************************ MINIMAX ***********************
 # minimax = Minimax()
 # board = Board()
 # board.display()
@@ -70,3 +72,4 @@ while True:
     elif Rules.is_draw(turn, board):
         print(f'draw')
         break
+# ********************************************************
