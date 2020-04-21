@@ -152,10 +152,9 @@ class TensorBoard(object):
 
     def encode_board_to_tensor(self) -> np.array:
         s = np.zeros((8, 8, 26))
-        s1 = self._board_to_tensor(self.boards[0])
-        s2 = self._board_to_tensor(self.boards[1])
-        turn = abs(1 - self.turn) * (-1) + abs(0 - self.turn) * 1
-        turn = np.ones((8, 8)) * turn
+        s1 = self._board_to_tensor(self.boards[-1])
+        s2 = self._board_to_tensor(self.boards[-2])
+        turn = np.ones((8, 8)) * self.turn
         n_mvs = np.ones((8, 8)) * self.boards[1].n_mvs
 
         s[:, :, 0:12] = s1
@@ -232,7 +231,7 @@ class TensorBoard(object):
         return s
 
     @staticmethod
-    def decode_actions_tensor_to_moves(actions: np.array) -> list:
+    def decode_tensor_to_moves(actions: np.array) -> list:
         assert actions.shape[0] == 8 and actions.shape[1] == 8
         assert actions.shape[2] == 78
         moves = []
@@ -252,7 +251,7 @@ class TensorBoard(object):
         return moves
 
     @staticmethod
-    def decode_board_tensor_to_board(tensor_board: np.array) -> tuple:
+    def decode_tensor_to_board(tensor_board: np.array) -> tuple:
         mapping = [
             (0, King, 0), (1, Queen, 0), (2, Rook, 0),
             (3, Bishop, 0), (4, Knight, 0), (5, Pawn, 0),
@@ -270,11 +269,7 @@ class TensorBoard(object):
             for s_row, s_col in s:
                 board.board[s_row][s_col] = c(team)
 
-        if tensor_board[:, :, 24][0][0] == -1:
-            team = 0
-        else:
-            team = 1
-
+        team = tensor_board[:, :, 24][0][0]
         board.n_mvs = tensor_board[:, :, 25][0][0]
         return {'board': board, 'turn': team}
 
@@ -304,7 +299,7 @@ class TensorBoard(object):
 #     tensor_board = TensorBoard(Board(), board, np.random.randint(0, 2))
 #     s = tensor_board.get_valid_moves()
 #     a = tensor_board.encode_actions_to_tensor()
-#     g = TensorBoard.decode_actions_tensor_to_moves(a)
+#     g = TensorBoard.decode_tensor_to_moves(a)
 #     assert len(s) == len(g)
 #     for u in s:
 #         assert u in g

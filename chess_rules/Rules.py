@@ -55,6 +55,9 @@ class Rules(object):
         team = board.board[start.row][start.col].team
         board = copy.deepcopy(board)
 
+        if isinstance(board.board[start.row][start.col], King) or isinstance(board.board[start.row][start.col], Rook):
+            board.board[start.row][start.col].is_moved = True
+
         if move.is_castling:
             assert start.col == 4
             assert end.col == 2 or end.col == 6

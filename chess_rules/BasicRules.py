@@ -324,7 +324,7 @@ class PawnRules(object):
             if pawn.team == 0:
                 reached_spots.append(Spot(r, c, is_promoted=(r == 7)))
             elif pawn.team == 1:
-                reached_spots.append(Spot(r, c, is_promoted=(c == 0)))
+                reached_spots.append(Spot(r, c, is_promoted=(r == 0)))
 
         last_move = copy.deepcopy(board.last_mv)
         start = last_move.start

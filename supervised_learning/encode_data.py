@@ -1,5 +1,7 @@
-import logging
 import pandas as pd
+import logging
+import pickle
+import os
 import numpy as np
 from tqdm import tqdm
 
@@ -17,7 +19,7 @@ from chess_rules.ChessObjects import (
     Knight
 )
 
-logging.basicConfig(filename='logs.txt',
+logging.basicConfig(filename='/media/vutrungnghia/New Volume/ArtificialIntelligence/AlphaGoZero/supervised_learning/logs.txt',
                     filemode='a',
                     format='%(asctime)s, %(levelname)s: %(message)s',
                     datefmt='%y-%m-%d %H:%M:%S',
@@ -32,6 +34,7 @@ configs = read_yaml('supervised_learning/configs.yml')
 
 processed_data = read_yaml(configs['preprocess_data']['output'])
 
+logging.info(configs)
 # n = 0
 # for k, v in dataset.items():
 #     n += len(v)
@@ -140,42 +143,44 @@ def notation_to_move(turn: int, board: Board, notation: str) -> Move:
     else:
         raise RuntimeError(f'move not found: {notation}')
 
+
 # import time
-# s = dataset[1000]
-# turn = 1
-# board = Board()
-# move = notation_to_move(turn, board, s[0])
-# for i in range(len(s)):
-#     turn = abs(1 - (i % 2))
-#     move = notation_to_move(turn, board, s[i])
-#     board = Rules.get_next_state(move, board)
-#     board.display()
-#     print(move)
-#     time.sleep(5)
 
 dataset = []
-# for key, match in processed_data.items():
-tensor_board = TensorBoard(Board(), Board(), 1)
-for notation in tqdm(processed_data[0]):
-    move = notation_to_move(tensor_board.turn, tensor_board.boards[-1], notation)
-    expect_action = TensorBoard.encode_action_to_tensor(move)
-    state = tensor_board.encode_board_to_tensor()
-    valid_actions = tensor_board.encode_actions_to_tensor()
-    dataset.append((state, valid_actions, expect_action))
-    tensor_board = tensor_board.get_next_state(move)
+n = 0
+# match = processed_data[list(processed_data.keys())[44]]
+# counter = 0
+for key, match in tqdm(processed_data.items()):
+    tensor_board = TensorBoard(Board(), Board(), 1)
+    for index in range(len(match)):
+        # time.sleep(5)
+        # index = 84
+        notation = match[index]
+        # counter += 1
+        # tensor_board.boards[-1].display()
+        # print(tensor_board.boards[-1].last_mv)
+        # print('=======')
+        # input()
+        move = notation_to_move(tensor_board.turn, tensor_board.boards[-1], notation)
+        # print(move)
+
+        expect_action = TensorBoard.encode_action_to_tensor(move)
+        state = tensor_board.encode_board_to_tensor()
+        # if counter == 54:
+        #     print(index, match[index])
+        #     break
+        valid_actions = tensor_board.encode_actions_to_tensor()
+        dataset.append((state.astype(np.int16), valid_actions.astype(np.uint8), expect_action.astype(np.uint8)))
+        tensor_board = tensor_board.get_next_state(move)
+
+    n += 1
+    if n % 500 == 0:
+        with open(os.path.join(configs['encoded_data_dir'], f'{n - 500}_{n}.pkl'), 'wb') as f:
+            pickle.dump(dataset, f)
+        logging.info(f'{len(dataset)} moves/ 500 matches')
+        dataset = []
 
 
-dataset = dataset[0:10]
-for i in range(len(dataset)):
-    x = TensorBoard.decode_board_tensor_to_board(dataset[i][0])
-    x['board'].display()
-    print('n_mvs: ' + str(x['board'].n_mvs))
-    print('turn: ' + str(x['turn']))
-    a = TensorBoard.decode_actions_tensor_to_moves(dataset[i][1])
-    for u in a:
-        print(u)
-    print('****')
-    b = TensorBoard.decode_actions_tensor_to_moves(dataset[i][2])
-    for u in b:
-        print(u)
-    print('========================')
+with open(os.path.join(configs['encoded_data_dir'], f'{len(dataset)}.pkl'), 'wb') as f:
+    pickle.dump(dataset, f)
+logging.info(f'{len(dataset)} moves')
