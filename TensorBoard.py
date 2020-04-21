@@ -3,8 +3,8 @@ import numbers
 
 import numpy as np
 
-from Rules import Rules
-from ChessObjects import (
+from chess_rules.Rules import Rules
+from chess_rules.ChessObjects import (
     King,
     Queen,
     Rook,
@@ -25,7 +25,7 @@ PAWN_DOUBLE_MOVE = 'pawn_double_move'
 
 actions_ed = {
     'encoder': {
-        CASTLING: {0: {-1: 10, 1: 11}},
+        CASTLING: {0: {-2: 10, 2: 11}},
         EN_PASSANT: {-1: {-1: 6, 1: 7}, 1: {-1: 8, 1: 9}},
         KNIGHT: {
             -2: {-1: 12, 1: 13},
@@ -64,8 +64,8 @@ actions_ed = {
             7: {-7: 73, 0: 74, 7: 75}},
         PAWN_DOUBLE_MOVE: {-2: {0: 76}, 2: {0: 77}}},
     'decoder': {
-        10: (0, -1, CASTLING),
-        11: (0, 1, CASTLING),
+        10: (0, -2, CASTLING),
+        11: (0, 2, CASTLING),
         6: (-1, -1, EN_PASSANT),
         7: (-1, 1, EN_PASSANT),
         8: (1, -1, EN_PASSANT),
@@ -211,6 +211,27 @@ class TensorBoard(object):
         return s
 
     @staticmethod
+    def encode_action_to_tensor(move: Move) -> np.array:
+        s = np.zeros((8, 8, 78))
+        row_diff = move.end.row - move.start.row
+        col_diff = move.end.col - move.start.col
+        if move.is_castling:
+            mv_type = CASTLING
+        elif move.is_en_passant:
+            mv_type = EN_PASSANT
+        elif move.is_promoted:
+            mv_type = PROMOTED
+        elif move.is_pdb_move:
+            mv_type = PAWN_DOUBLE_MOVE
+        elif row_diff * row_diff + col_diff * col_diff == 5:
+            mv_type = KNIGHT
+        else:
+            mv_type = QUEEN
+        index = actions_ed['encoder'][mv_type][row_diff][col_diff]
+        s[move.start.row][move.start.col][index] = 1
+        return s
+
+    @staticmethod
     def decode_actions_tensor_to_moves(actions: np.array) -> list:
         assert actions.shape[0] == 8 and actions.shape[1] == 8
         assert actions.shape[2] == 78
@@ -230,8 +251,35 @@ class TensorBoard(object):
             moves.append(move)
         return moves
 
+    @staticmethod
+    def decode_board_tensor_to_board(tensor_board: np.array) -> tuple:
+        mapping = [
+            (0, King, 0), (1, Queen, 0), (2, Rook, 0),
+            (3, Bishop, 0), (4, Knight, 0), (5, Pawn, 0),
+            (6, King, 1), (7, Queen, 1), (8, Rook, 1),
+            (9, Bishop, 1), (10, Knight, 1), (11, Pawn, 1),
+        ]
+
+        board = Board()
+        for row in range(8):
+            for col in range(8):
+                board.board[row][col] = 0
+
+        for (index, c, team) in mapping:
+            s = np.argwhere(tensor_board[:, :, index] == 1)
+            for s_row, s_col in s:
+                board.board[s_row][s_col] = c(team)
+
+        if tensor_board[:, :, 24][0][0] == -1:
+            team = 0
+        else:
+            team = 1
+
+        board.n_mvs = tensor_board[:, :, 25][0][0]
+        return {'board': board, 'turn': team}
+
     def get_next_state(self, move):
-        assert self.boards[-1][move.start.row][move.start.col].team == self.turn
+        assert self.boards[-1].board[move.start.row][move.start.col].team == self.turn
         last_board = copy.deepcopy(self.boards[-1])
         board = Rules.get_next_state(move, self.boards[-1])
         turn = abs(1 - self.turn)
@@ -261,3 +309,8 @@ class TensorBoard(object):
 #     for u in s:
 #         assert u in g
 # ***********************************
+
+# export actions encoder and decoder
+# import yaml
+# with open('actions_ed.yml', 'w') as outfile:
+#     yaml.dump(actions_ed, outfile)

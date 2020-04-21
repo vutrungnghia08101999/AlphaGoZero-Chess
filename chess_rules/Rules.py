@@ -1,8 +1,8 @@
 import copy
 import numbers
 
-from BasicRules import BasicRules
-from ChessObjects import (
+from chess_rules.BasicRules import BasicRules
+from chess_rules.ChessObjects import (
     King,
     Queen,
     Rook,

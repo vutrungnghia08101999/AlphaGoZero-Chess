@@ -2,8 +2,8 @@ import copy
 import numbers
 from random import shuffle
 
-from Rules import Rules
-from ChessObjects import (
+from chess_rules.Rules import Rules
+from chess_rules.ChessObjects import (
     King,
     Queen,
     Rook,

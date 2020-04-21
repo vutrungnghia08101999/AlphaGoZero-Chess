@@ -1,0 +1,3 @@
+preprocess_data:
+  input: /media/vutrungnghia/New Volume/ArtificialIntelligence/dataset/supervised-learning/ficsgamesdb_202001_standard2000_nomovetimes_125924.pgn
+  output: /media/vutrungnghia/New Volume/ArtificialIntelligence/dataset/supervised-learning/processed_data.yml

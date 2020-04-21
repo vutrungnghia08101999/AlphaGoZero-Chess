@@ -1,8 +1,10 @@
+import logging
 import copy
 import numbers
 
 import numpy as np
 
+logging.basicConfig(level=logging.INFO)
 
 class King(object):
     def __init__(self, team: int, is_moved=False):

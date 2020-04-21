@@ -306,11 +306,11 @@ decoder:
   76: !!python/tuple
   - -2
   - 0
-  - first_double_move
+  - pawn_double_move
   77: !!python/tuple
   - 2
   - 0
-  - first_double_move
+  - pawn_double_move
 encoder:
   castling:
     0:
@@ -323,11 +323,6 @@ encoder:
     1:
       -1: 8
       1: 9
-  first_double_move:
-    -2:
-      0: 76
-    2:
-      0: 77
   knight:
     -2:
       -1: 12
@@ -341,6 +336,11 @@ encoder:
     2:
       -1: 18
       1: 19
+  pawn_double_move:
+    -2:
+      0: 76
+    2:
+      0: 77
   promoted:
     -1:
       -1: 0

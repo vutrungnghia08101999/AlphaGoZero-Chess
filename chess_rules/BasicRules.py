@@ -1,7 +1,7 @@
 import numbers
 import copy
 
-from ChessObjects import (
+from chess_rules.ChessObjects import (
     King,
     Queen,
     Rook,
