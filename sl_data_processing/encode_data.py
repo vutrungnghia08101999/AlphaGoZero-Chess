@@ -7,6 +7,7 @@ from tqdm import tqdm
 
 from TensorBoard import TensorBoard
 from chess_rules.Rules import Rules
+from sl_data_processing.utils import read_yaml
 from chess_rules.ChessObjects import (
     Board,
     Move,
@@ -19,7 +20,7 @@ from chess_rules.ChessObjects import (
     Knight
 )
 
-logging.basicConfig(filename='/media/vutrungnghia/New Volume/ArtificialIntelligence/AlphaGoZero/supervised_learning/logs.txt',
+logging.basicConfig(filename='logs.txt',
                     filemode='a',
                     format='%(asctime)s, %(levelname)s: %(message)s',
                     datefmt='%y-%m-%d %H:%M:%S',
@@ -27,8 +28,6 @@ logging.basicConfig(filename='/media/vutrungnghia/New Volume/ArtificialIntellige
 console = logging.StreamHandler()
 console.setLevel(logging.INFO)
 logging.getLogger().addHandler(console)
-
-from supervised_learning.utils import read_yaml
 
 configs = read_yaml('supervised_learning/configs.yml')
 

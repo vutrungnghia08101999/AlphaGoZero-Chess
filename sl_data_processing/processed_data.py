@@ -1,6 +1,6 @@
-from supervised_learning.utils import read_yaml, save_yaml
+from sl_data_processing.utils import read_yaml, save_yaml
 
-configs = read_yaml('supervised_learning/configs.yml')
+configs = read_yaml('sl_data_processing/configs.yml')
 
 s = open(configs['preprocess_data']['input']).read()
 
