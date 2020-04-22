@@ -1,6 +1,6 @@
 import time
 
-from Minimax import Minimax
+from minimax.Minimax import Minimax
 from chess_rules.ChessObjects import Board, Spot, Move
 from chess_rules.Rules import Rules
 

@@ -5,7 +5,7 @@ import os
 import numpy as np
 from tqdm import tqdm
 
-from TensorBoard import TensorBoard
+from chess_rules.TensorBoard import TensorBoard
 from chess_rules.Rules import Rules
 from sl_data_processing.utils import read_yaml
 from chess_rules.ChessObjects import (
@@ -29,7 +29,7 @@ console = logging.StreamHandler()
 console.setLevel(logging.INFO)
 logging.getLogger().addHandler(console)
 
-configs = read_yaml('supervised_learning/configs.yml')
+configs = read_yaml('sl_data_processing/configs.yml')
 
 processed_data = read_yaml(configs['preprocess_data']['output'])
 

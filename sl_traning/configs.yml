@@ -1,5 +1,5 @@
-dataroot: /media/vutrungnghia/New Volume/ArtificialIntelligence/dataset/supervised-learning/encoded-data
+dataroot: encoded-data
 train:
   1: 0_500.pkl
 valid:
-  2: valid.pkl
+  2: 500_1000.pkl
