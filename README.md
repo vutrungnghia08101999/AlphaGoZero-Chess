@@ -1,11 +1,16 @@
 AlphaZero-Lusheeta
 ===
 - Except Minimax.py and Play.py, this code has been run and test succefully on 4100 matches in the dataset.
-- dataset: get ~5000 matches from https://www.ficsgames./ with Elo > 2000
+- dataset: get ~8000 matches from https://www.ficsgames./ with Elo > 2000
 
-Play aganist minimax:
+Create environment
 ```
-python -m minimax.Play
+conda env create -f env.yml
+```
+
+Play aganist minimax || supervised learning:
+```
+python battle_field.py
 ```
 
 Process data:

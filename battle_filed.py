@@ -151,5 +151,3 @@ while True:
     elif Rules.is_draw(turn, board):
         print('draw')
         break
-
-
