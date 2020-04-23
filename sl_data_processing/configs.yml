@@ -1,8 +1,7 @@
 preprocess_data:
-  input: /media/vutrungnghia/New Volume/ArtificialIntelligence/dataset/supervised-learning/ficsgamesdb_202001_standard2000_nomovetimes_125924.pgn
-  output: /media/vutrungnghia/New Volume/ArtificialIntelligence/dataset/supervised-learning/processed_data.yml
+  input: /media/vutrungnghia/New Volume/ArtificialIntelligence/dataset/supervised-learning/2019-january/ficsgamesdb_201901_standard2000_nomovetimes_126410.pgn
+  output: /media/vutrungnghia/New Volume/ArtificialIntelligence/dataset/supervised-learning/2019-january/processed_data.yml
 
-small_data: /media/vutrungnghia/New Volume/ArtificialIntelligence/dataset/supervised-learning/small_data.yml
-out_small_data: /media/vutrungnghia/New Volume/ArtificialIntelligence/dataset/supervised-learning/small_data.pkl 
-encoded_data_dir: /media/vutrungnghia/New Volume/ArtificialIntelligence/dataset/supervised-learning/encoded-data
-
+small_data: /media/vutrungnghia/New Volume/ArtificialIntelligence/dataset/supervised-learning/2019-january/small_data.yml
+out_small_data: /media/vutrungnghia/New Volume/ArtificialIntelligence/dataset/supervised-learning/2019-january/small_data.pkl 
+encoded_data_dir: /media/vutrungnghia/New Volume/ArtificialIntelligence/dataset/supervised-learning/2019-january/encoded-data

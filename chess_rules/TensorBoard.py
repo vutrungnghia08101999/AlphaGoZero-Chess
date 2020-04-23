@@ -145,10 +145,14 @@ actions_ed = {
 
 
 class TensorBoard(object):
-    def __init__(self, last_board: Board, board: Board, turn: int):
+    def __init__(self, last_board=None, board=None, turn=None):
         super(TensorBoard, self).__init__()
-        self.boards = [copy.deepcopy(last_board), copy.deepcopy(board)]
-        self.turn = turn
+        if last_board is not None and board is not None and turn is not None:
+            self.boards = [copy.deepcopy(last_board), copy.deepcopy(board)]
+            self.turn = turn
+        else:
+            self.boards = [Board(), Board()]
+            self.turn = 1
 
     def encode_board_to_tensor(self) -> np.array:
         s = np.zeros((8, 8, 26))
