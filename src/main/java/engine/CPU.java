@@ -1,0 +1,464 @@
+package engine;
+
+import chessobjects.*;
+import rules.AbstractRules;
+import rules.Config;
+import utils.Move;
+import utils.Spot;
+import java.lang.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Hashtable;
+import java.util.Random;
+
+public class CPU {
+    private int DFSCalls;
+    private Move nextMoves;
+
+    public boolean isValidMove(Move playerMove, Board board, int team) {
+        assert playerMove != null;
+        assert playerMove.getStart() != null;
+        assert playerMove.getEnd() != null;
+
+        ArrayList<Move> allValidMoves = this.getAllValidMoves(board, team);
+        return Utils.isContainedMove(allValidMoves, playerMove);
+    }
+
+    public boolean isCheckedMate(Board board, int team){
+        ArrayList<Move> allValidMoves = this.getAllValidMoves(board, team);
+        return allValidMoves.size() == 0;
+    }
+
+    public Move searchNextMove(Board board, int team, int ROOT_TREE_DEPTH){
+        DFSCalls = 0;
+        float maximum = dfsAlphaBeta(board, team, ROOT_TREE_DEPTH, team, ROOT_TREE_DEPTH, -1000000000, 1000000000);
+
+        System.out.println("DFSCalls: " + DFSCalls);
+        System.out.println("Minimize-maximize algorithm metrics: " + maximum);
+        return nextMoves;
+    }
+
+    public Board getNextState(Board board, Move move){
+        Board B = board.clone();
+        Spot start = move.getStart();
+        Spot end = move.getEnd();
+
+        int start_row = start.getRow();
+        int start_col = start.getCol();
+        int end_row = end.getRow();
+        int end_col = end.getCol();
+
+        int team = B.board[start_row][start_col].getTeam();
+
+        /********************** Update castling state *************/
+        if(B.board[start_row][start_col] instanceof King)
+            ((King)B.board[start_row][start_col]).setCastlingPossible(false);
+        else if(B.board[start_row][start_col] instanceof Rook)
+            ((Rook)B.board[start_row][start_col]).setCastlingPossible(false);
+
+        /*********** Update board refer to 3 case: castling, promoted, normal **********/
+        if(move.isCastling()){
+            assert B.board[start_row][start_col] instanceof King;
+            B.board[end_row][end_col] = B.board[start_row][start_col];
+            B.board[start_row][start_col] = null;
+            ((King)B.board[end_row][end_col]).setCastlingDone(true);
+
+            if(end_col == 2){
+                B.board[end_row][3] = B.board[end_row][1];
+                B.board[end_row][1] = null;
+                ((Rook)B.board[end_row][3]).setCastlingPossible(false);
+            }
+            else if(end_col == 6){
+                B.board[end_row][5] = B.board[end_row][8];
+                B.board[end_row][8] = null;
+                ((Rook)B.board[end_row][5]).setCastlingPossible(false);
+            }
+
+        }
+        else if(move.isPromoted()){
+            B.board[start_row][start_col] = null;
+            B.board[end_row][end_col] = new Queen(team);
+        }
+        else{
+            B.board[end_row][end_col] = B.board[start_row][start_col];
+            B.board[start_row][start_col] = null;
+        }
+        return B;
+    }
+
+    /*********************** DFS FUNCTIONS *********************************/
+
+    private float dfsAlphaBeta(Board board, int flag, int depth, int team,int ROOT_TREE_DEPTH, float alpha, float beta){
+        DFSCalls++;
+        if(depth == 1)
+            return this.evaluate(board, team);
+
+        ArrayList<Move> moves = this.getAllValidMoves(board, flag);
+        if(moves.size() == 0)
+            return this.evaluate(board, team);
+
+        int nextTeam = Math.abs(1 - flag);
+        if(flag == team){
+            float maximum = -1000000000;
+            for(Move move: moves){
+                Board B = this.getNextState(board, move);
+                float metric = dfsAlphaBeta(B, nextTeam, depth - 1, team, ROOT_TREE_DEPTH, alpha, beta);
+                if(metric > maximum){
+                    maximum = metric;
+                    if(depth == ROOT_TREE_DEPTH)
+                        nextMoves = move;
+                }
+                alpha = Math.max(metric, alpha);
+                if(beta <= alpha)
+                    break;
+            }
+            return maximum;
+        }
+        else{
+            float minimum = 1000000000;
+            for(Move move: moves){
+                Board B = this.getNextState(board, move);
+                float metric = dfsAlphaBeta(B, nextTeam, depth - 1, team, ROOT_TREE_DEPTH, alpha, beta);
+                minimum = Math.min(minimum, metric);
+                beta = Math.min(beta, metric);
+                if(beta <= alpha)
+                    break;
+            }
+            return minimum;
+        }
+    }
+
+    /************************ SUPPORTED FUNCTIONS **************************/
+
+    private ArrayList<Move> getAllValidMoves(Board board, int team){
+        ArrayList<Move> allValidMoves = new ArrayList<Move>();
+        for(int row = 1; row <= 8; ++row){
+            for(int col = 1; col <= 8; ++col){
+                if(board.board[row][col] == null)
+                    continue;
+                if(board.board[row][col].getTeam() != team)
+                    continue;
+                Spot start = new Spot(row, col);
+                ArrayList<Move> validSpots = getValidMoves(start, board);
+                allValidMoves.addAll(validSpots);
+            }
+        }
+
+        Collections.shuffle(allValidMoves);
+        return allValidMoves;
+    }
+
+    private ArrayList<Move> getValidMoves(Spot start, Board board){
+        int row = start.getRow();
+        int col = start.getCol();
+        assert board.board[row][col] != null;
+        int team = board.board[row][col].getTeam();
+        Piece piece = board.board[row][col];
+
+        AbstractRules engine = Utils.chooseRules(board.board[row][col]);
+        ArrayList<Spot> reachedSpots = engine.getReachedSpots(start, board);
+        ArrayList<Move> validMoves = new ArrayList<Move>();
+        for(Spot spot: reachedSpots){
+            boolean isPromotedMove = (piece instanceof Pawn) && ((team == 0 && spot.getRow() == 8) || (team == 1 && spot.getRow() == 1));
+            if(isPromotedMove){
+                Move move = new Move(start, spot, false, true);
+                Board B = this.getNextState(board, move);
+                if(!this.isChecked(B, team))
+                    validMoves.add(move);
+            }
+            else{
+                Move move = new Move(start, spot);
+                Board B = this.getNextState(board, move);
+                if(!this.isChecked(B, team))
+                    validMoves.add(move);
+            }
+        }
+
+        if(board.board[row][col] instanceof King){
+            ArrayList<Move> castlingSpots = this.getCastlingMoves(start, board);
+            validMoves.addAll(castlingSpots);
+        }
+
+        Collections.shuffle(validMoves);
+        return validMoves;
+    }
+
+    public boolean isChecked(Board board, int team){
+        Spot kingPosition = Utils.getKingPosition(board, team);
+        assert kingPosition.getRow() != -1;
+        assert kingPosition.getCol() != -1;
+
+        AbstractRules engine;
+        for(int row = 1; row <= 8; ++row) {
+            for (int col = 1; col <= 8; ++col) {
+                if (board.board[row][col] == null)
+                    continue;
+                if (board.board[row][col].getTeam() == team)
+                    continue;
+
+                engine = Utils.chooseRules(board.board[row][col]);
+                ArrayList<Spot> influenceSpots = engine.getInfluenceSpots(new Spot(row, col), board);
+                if (Utils.isContainedSpot(influenceSpots, kingPosition)) // ERROR: Spot can contain isCastlingPossible and isCastlingDone => this is really bad.
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    private ArrayList<Move> getCastlingMoves(Spot start, Board board){
+        int row = start.getRow();
+        int col = start.getCol();
+        assert board.board[row][col] instanceof King;
+        ArrayList<Move> castlingMoves = new ArrayList<Move>();
+
+        King king = (King)board.board[row][col];
+        int team = king.getTeam();
+
+        if(this.isChecked(board, team))
+            return castlingMoves;
+
+        if(king.isCastlingPossible()){
+            assert col == 4;
+            if(board.board[row][1] instanceof Rook && board.board[row][2] == null && board.board[row][3] == null){
+                Rook rook = (Rook)board.board[row][1];
+                if(rook.isCastlingPossible()){
+                    Board B1 = board.clone();
+                    B1.board[row][3] = B1.board[row][col];
+                    B1.board[row][col] = null;
+                    if(!this.isChecked(B1, team)){
+                        Board B2 = board.clone();
+                        B2.board[row][2] = B2.board[row][col];
+                        B2.board[row][col] = null;
+                        if(!this.isChecked(B2, team)){
+                            Move move = new Move(start, new Spot(row, 2), true, false);
+                            castlingMoves.add(move);
+                        }
+                    }
+                }
+            }
+            if(board.board[row][8] instanceof Rook && board.board[row][5] == null && board.board[row][6] == null && board.board[row][7] == null){
+                Rook rook = (Rook)board.board[row][8];
+                if(rook.isCastlingPossible()){
+                    Board B1 = board.clone();
+                    B1.board[row][5] = B1.board[row][col];
+                    B1.board[row][col] = null;
+                    if(!this.isChecked(B1, team)){
+                        Board B2 = board.clone();
+                        B2.board[row][6] = B2.board[row][col];
+                        B2.board[row][col] = null;
+                        if(!this.isChecked(B2, team)){
+                            Move move = new Move(start, new Spot(row, 6), true, false);
+                            castlingMoves.add(move);
+                        }
+                    }
+                }
+            }
+        }
+        return castlingMoves;
+    }
+
+
+    /*************************** OBJECTIVES **************************************
+     https://chessfox.com/free-chess-course-chessfox-com/introduction-to-the-5-main-objectives-of-a-chess-game/ */
+
+    private float evaluate(Board board, int team){
+        float materialScore = this.getMaterialScore(board, team);
+//        float developmentScore = this.getDevelopmentScore(board, team);
+        float centerControlScore = this.getCenterControlScore(board, team);
+        float kingSafetyScore = this.getKingSafetyScore(board, team);
+        float pawnStructureScore = this.getPawnStructureScore(board, team);
+        return 0.99f*materialScore + 0.01f*kingSafetyScore;
+    }
+
+    private float getMaterialScore(Board board, int team){
+        float MAXIMUM_VALUE = 2*Config.ROOK_POINT + 2*Config.BISHOP_POINT + 2*Config.KNIGHT_POINT + Config.QUEEN_POINT + Config.KING_POINT + 8*Config.PAWN_POINT1;
+        int ourPoint = 0;
+        int opponentPoint = 0;
+        for(int row = 1; row <= 8; ++row){
+            for(int col = 1; col <= 8; ++col){
+                if(board.board[row][col] == null)
+                    continue;
+
+                Piece piece = board.board[row][col];
+                if(board.board[row][col].getTeam() != team){
+                    if(piece instanceof Pawn)
+                        opponentPoint += ((Pawn)piece).getPoint(row);
+                    else
+                        opponentPoint += piece.getPoint();
+                }
+                else{
+                    if(piece instanceof Pawn)
+                        ourPoint += ((Pawn) piece).getPoint(row);
+                    else
+                        ourPoint += piece.getPoint();
+                }
+            }
+        }
+        return (((float)ourPoint) - ((float)opponentPoint))/MAXIMUM_VALUE;
+    }
+
+    private float getCenterControlScore(Board board, int team){
+        int MAXIMUM_VALUE = 10; // 4 pawns + 4 other pieces for influence and 2 for occupied, this is my assumption
+        int ourPieces = 0;
+        int opponentPieces = 0;
+
+        for(int row = 1; row <= 8; ++row){
+            for(int col = 1; col <= 8; ++col){
+                Piece piece = board.board[row][col];
+                if(piece == null)
+                    continue;
+                if(piece instanceof King)
+                    continue;
+
+                if(Utils.isInCenter(new Spot(row, col))){
+                    if(piece.getTeam() == team)
+                        ourPieces++;
+                    else
+                        opponentPieces++;
+                }
+
+                AbstractRules rules = Utils.chooseRules(piece);
+                ArrayList<Spot> influenceSpots = rules.getInfluenceSpots(new Spot(row, col), board);
+                for(Spot spot: influenceSpots){
+                    if(Utils.isInCenter(spot)){
+                        if(piece.getTeam() == team)
+                            ourPieces++;
+                        else
+                            opponentPieces++;
+                        break;
+                    }
+                }
+            }
+        }
+        return ((float)(ourPieces - opponentPieces))/MAXIMUM_VALUE;
+    }
+
+    private float getKingSafetyScore(Board board, int team){
+        int MAXIMUM_VALUE = 12; // 2: castling, 3: 3 pawns, 7: 7 defender (do not consider pawns) and no threaten. This is my
+        int ourKingSafetyScore = 0;
+        int opponentKingSafetyScore = 0;
+
+        int opponent = Math.abs(1-team);
+        Spot ourKingPos = Utils.getKingPosition(board, team);
+        Spot opponentKingPos = Utils.getKingPosition(board, opponent);
+        King ourKing = (King)board.board[ourKingPos.getRow()][ourKingPos.getCol()];
+        King opponentKing = (King)board.board[opponentKingPos.getRow()][opponentKingPos.getCol()];
+        // castling score
+        if(ourKing.isCastlingDone())
+            ourKingSafetyScore += 2;
+        if(opponentKing.isCastlingDone())
+            opponentKingSafetyScore += 2;
+        // pawn score
+        int ourKingStartCol = Math.max(ourKingPos.getCol() - 1, 1);
+        int ourKingEndCol = Math.min(ourKingPos.getCol() + 1, 8);
+        int opponentKingStartCol = Math.max(opponentKingPos.getCol() - 1, 1);
+        int opponentKingEndCol = Math.min(opponentKingPos.getCol() + 1, 8);
+        if(team == 0){
+            if(ourKingPos.getRow() < 8){
+                for(int col = ourKingStartCol; col <= ourKingEndCol; ++col){
+                    Piece piece = board.board[ourKingPos.getRow() + 1][col];
+                    if(piece instanceof Pawn){
+                        if(piece.getTeam() == team)
+                            ourKingSafetyScore++;
+                    }
+                }
+            }
+            if(opponentKingPos.getRow() > 1){
+                for(int col = opponentKingStartCol; col <= opponentKingEndCol; ++col){
+                    Piece piece = board.board[opponentKingPos.getRow() - 1][col];
+                    if(piece instanceof Pawn){
+                        if(piece.getTeam() == opponent)
+                            opponentKingSafetyScore++;
+                    }
+                }
+            }
+        }
+        else{
+            if(ourKingPos.getRow() > 1){
+                for(int col = ourKingStartCol; col <= ourKingEndCol; ++col){
+                    Piece piece = board.board[ourKingPos.getRow() - 1][col];
+                    if(piece instanceof Pawn){
+                        if(piece.getTeam() == team)
+                            ourKingSafetyScore++;
+                    }
+                }
+            }
+            if(opponentKingPos.getRow() < 8){
+                for(int col = opponentKingStartCol; col <= opponentKingEndCol; ++col){
+                    Piece piece = board.board[opponentKingPos.getRow() + 1][col];
+                    if(piece instanceof Pawn){
+                        if(piece.getTeam() == opponent)
+                            opponentKingSafetyScore++;
+                    }
+                }
+            }
+        }
+        // defender and threaten
+        for(int row = 1; row <= 8; ++row){
+            for(int col = 1; col <= 8; ++col){
+                Piece piece = board.board[row][col];
+                if(piece == null)
+                    continue;
+                if(piece instanceof King)
+                    continue;
+                AbstractRules rules = Utils.chooseRules(piece);
+                ArrayList<Spot> influenceSpots = rules.getInfluenceSpots(new Spot(row, col), board);
+                if(piece.getTeam() == team){
+                    for(Spot spot: influenceSpots){
+                        if(Utils.isAdjacentOrTheSame(ourKingPos, spot) && !(piece instanceof Pawn)){
+                            ourKingSafetyScore++;
+                            break;
+                        }
+                    }
+                    for(Spot spot: influenceSpots){
+                        if(Utils.isAdjacentOrTheSame(opponentKingPos, spot)){
+                            opponentKingSafetyScore--;
+                            break;
+                        }
+                    }
+                }
+                else{
+                    for(Spot spot: influenceSpots){
+                        if(Utils.isAdjacentOrTheSame(ourKingPos, spot)){
+                            ourKingSafetyScore--;
+                            break;
+                        }
+                    }
+                    for(Spot spot: influenceSpots){
+                        if(Utils.isAdjacentOrTheSame(opponentKingPos, spot) && !(piece instanceof Pawn)){
+                            opponentKingSafetyScore++;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        return ((float) (ourKingSafetyScore - opponentKingSafetyScore))/MAXIMUM_VALUE;
+    }
+
+    private float getPawnStructureScore(Board board, int team){
+        int MAXIMUM_VALUE = 8; //a weak point if it doesn't connect to other pawn or there are two pawn in a column
+        int ourWeakPawns = 0;
+        int opponentWeakPawns = 0;
+
+        for(int row = 1; row <= 8; ++row) {
+            for (int col = 1; col <= 8; ++col) {
+                Piece piece = board.board[row][col];
+                if (piece == null)
+                    continue;
+                if (piece instanceof Pawn) {
+                    if (Utils.isWeakPawn(new Spot(row, col), board)) {
+                        if (piece.getTeam() == team)
+                            ourWeakPawns++;
+                        else
+                            opponentWeakPawns++;
+                    }
+                }
+            }
+        }
+
+        return (-1) * ((float)(ourWeakPawns - opponentWeakPawns))/MAXIMUM_VALUE;
+    }
+}
