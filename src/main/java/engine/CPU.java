@@ -101,9 +101,9 @@ public class CPU {
         ArrayList<Move> moves = this.getAllValidMoves(board, flag);
         if(moves.size() == 0){
             if (flag == team)
-                return -0.1f + this.evaluate(board, team);
+                return -0.05f + this.evaluate(board, team);
             else
-                return 0.1f + this.evaluate(board, team);
+                return 0.05f + this.evaluate(board, team);
         }
 
         int nextTeam = Math.abs(1 - flag);
