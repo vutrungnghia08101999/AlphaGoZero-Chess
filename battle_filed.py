@@ -108,7 +108,7 @@ while True:
     #         break
     #     except Exception as e:
     #         pass
-    # ************** MINIMAX ************** 
+    # ************** MINIMAX **************
     minimax = Minimax()
     move = minimax.search_next_move(turn, board, DEPTH)
     # **************************************
@@ -126,7 +126,6 @@ while True:
     print(f'last move: {history[-1].last_mv}')
     print(f'n moves: {history[-1].n_mvs}')
     print('===================================')
-
 
     tensor_board = TensorBoard(history[-2], history[-1], turn)
     model.eval()

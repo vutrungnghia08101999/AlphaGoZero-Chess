@@ -1,3 +1,4 @@
+import argparse
 import pandas as pd
 import logging
 import pickle
@@ -20,7 +21,7 @@ from chess_rules.ChessObjects import (
     Knight
 )
 
-logging.basicConfig(filename='logs.txt',
+logging.basicConfig(filename='sl_data_processing/logs.txt',
                     filemode='a',
                     format='%(asctime)s, %(levelname)s: %(message)s',
                     datefmt='%y-%m-%d %H:%M:%S',
@@ -28,34 +29,51 @@ logging.basicConfig(filename='logs.txt',
 console = logging.StreamHandler()
 console.setLevel(logging.INFO)
 logging.getLogger().addHandler(console)
+# logging.basicConfig(level=logging.INFO)
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--time', type=str)
+args = parser.parse_args(['--time', '2020_1_white_1_won'])
 configs = read_yaml('sl_data_processing/configs.yml')
 
-processed_data = read_yaml(configs['preprocess_data']['output'])
+assert 'black' in args.time or 'white' in args.time
+with open(os.path.join(configs['encode_data']['input'], args.time + '.pkl'), 'rb') as f:
+    processed_data = pickle.load(f)
+OUTPUT = os.path.join(configs['encode_data']['output'], args.time)
+os.makedirs(OUTPUT, exist_ok=True)
 
-logging.info(configs)
-# n = 0
-# for k, v in dataset.items():
-#     n += len(v)
+logging.info(configs['encode_data']['input'])
+logging.info(f'TIME: {args.time}')
+logging.info(f'OUTPUT: {OUTPUT}')
 
-# a, b, c, d = [], [], [], []
-# e = []
-# for key, match in dataset.items():
-#     for move in match:
-#         if move == 'O-O-O' or move == 'O-O':
-#             e.append(move)
-#         else:
-#             if len(move) == 2:
-#                 c.append(move[-2]), d.append(move[-1])
-#             elif len(move) == 3:
-#                 b.append(move[-3]), c.append(move[-2]), d.append(move[-1])
-#             elif len(move) == 4:
-#                 a.append(move[-4]), b.append(move[-3]), c.append(move[-2]), d.append(move[-1])
-#             else:
-#                 raise RuntimeError('Fuck')
+n = 0
+for game in processed_data:
+    n += len(game)
 
-# assert len(d) + len(e) == n
-# a, b, c, d, e = pd.Series(a).unique(), pd.Series(b).unique(), pd.Series(c).unique(), pd.Series(d).unique(), pd.Series(e).unique()
+a, b, c, d = [], [], [], []
+e = []
+for game in processed_data:
+    for move in game:
+        if move == 'O-O-O' or move == 'O-O':
+            e.append(move)
+        else:
+            if len(move) == 2:
+                c.append(move[-2]), d.append(move[-1])
+            elif len(move) == 3:
+                b.append(move[-3]), c.append(move[-2]), d.append(move[-1])
+            elif len(move) == 4:
+                a.append(move[-4]), b.append(move[-3]), c.append(move[-2]), d.append(move[-1])
+            else:
+                raise RuntimeError('Fuck')
+
+assert len(d) + len(e) == n
+a, b, c, d, e = pd.Series(a).unique(), pd.Series(b).unique(), pd.Series(c).unique(), pd.Series(d).unique(), pd.Series(e).unique()
+logging.info(a)
+logging.info(b)
+logging.info(c)
+logging.info(d)
+logging.info(e)
+
 
 def notation_to_move(turn: int, board: Board, notation: str) -> Move:
     ranks = {'8': 0, '7': 1, '6': 2, '5': 3, '4': 4, '3': 5, '2': 6, '1': 7}
@@ -143,43 +161,35 @@ def notation_to_move(turn: int, board: Board, notation: str) -> Move:
         raise RuntimeError(f'move not found: {notation}')
 
 
-# import time
-
-dataset = []
-n = 0
-# match = processed_data[list(processed_data.keys())[44]]
-# counter = 0
-for key, match in tqdm(processed_data.items()):
+dataset = {}
+for i in tqdm(range(len(processed_data))):
+    game = processed_data[i]
     tensor_board = TensorBoard(Board(), Board(), 1)
-    for index in range(len(match)):
-        # time.sleep(5)
-        # index = 84
-        notation = match[index]
-        # counter += 1
-        # tensor_board.boards[-1].display()
-        # print(tensor_board.boards[-1].last_mv)
-        # print('=======')
-        # input()
+    data = []
+    for index in range(len(game)):
+        notation = game[index]
         move = notation_to_move(tensor_board.turn, tensor_board.boards[-1], notation)
-        # print(move)
 
         expect_action = TensorBoard.encode_action_to_tensor(move)
         state = tensor_board.encode_board_to_tensor()
-        # if counter == 54:
-        #     print(index, match[index])
-        #     break
+
         valid_actions = tensor_board.encode_actions_to_tensor()
-        dataset.append((state.astype(np.int16), valid_actions.astype(np.uint8), expect_action.astype(np.uint8)))
+        flag = ('black' in args.time and index % 2 == 1) or ('white' in args.time and index % 2 == 0)
+        if flag:
+            data.append((state.astype(np.int16), valid_actions.astype(np.uint8), expect_action.astype(np.uint8)))
         tensor_board = tensor_board.get_next_state(move)
+    dataset[i] = data
 
-    n += 1
-    if n % 500 == 0:
-        with open(os.path.join(configs['encoded_data_dir'], f'{n - 500}_{n}.pkl'), 'wb') as f:
+    if i % 500 == 0 and i > 0:
+        outfile = os.path.join(OUTPUT, f'{i - 500}_{i}.pkl')
+        logging.info(f'Save 500 games at: {outfile}')
+        with open(outfile, 'wb') as f:
             pickle.dump(dataset, f)
-        logging.info(f'{len(dataset)} moves/ 500 matches')
-        dataset = []
+        dataset = {}
 
-
-with open(os.path.join(configs['encoded_data_dir'], f'{len(dataset)}.pkl'), 'wb') as f:
+n = len(processed_data) % 500
+outfile = os.path.join(OUTPUT, f'{len(processed_data) - n}_{len(processed_data)}')
+logging.info(f'Save {n} games at: {outfile}')
+with open(outfile, 'wb') as f:
     pickle.dump(dataset, f)
-logging.info(f'{len(dataset)} moves')
+logging.info('Completed')
