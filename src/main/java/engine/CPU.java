@@ -30,9 +30,13 @@ public class CPU {
         return allValidMoves.size() == 0;
     }
 
-    public Move searchNextMove(Board board, int team, int ROOT_TREE_DEPTH){
+    public Move searchNextMove(Board board, int team, int ROOT_TREE_DEPTH, boolean is_new){
         DFSCalls = 0;
-        float maximum = dfsAlphaBeta(board, team, ROOT_TREE_DEPTH, team, ROOT_TREE_DEPTH, -1000000000, 1000000000);
+        float maximum;
+        if(is_new)
+            maximum = dfsAlphaBeta(board, team, ROOT_TREE_DEPTH, team, ROOT_TREE_DEPTH, -1000000000, 1000000000);
+        else
+            maximum = dfsAlphaBeta_old(board, team, ROOT_TREE_DEPTH, team, ROOT_TREE_DEPTH, -1000000000, 1000000000);
 
         System.out.println("DFSCalls: " + DFSCalls);
         System.out.println("Minimize-maximize algorithm metrics: " + maximum);
@@ -95,8 +99,12 @@ public class CPU {
             return this.evaluate(board, team);
 
         ArrayList<Move> moves = this.getAllValidMoves(board, flag);
-        if(moves.size() == 0)
-            return this.evaluate(board, team);
+        if(moves.size() == 0){
+            if (flag == team)
+                return -0.1f + this.evaluate(board, team);
+            else
+                return 0.1f + this.evaluate(board, team);
+        }
 
         int nextTeam = Math.abs(1 - flag);
         if(flag == team){
@@ -129,6 +137,45 @@ public class CPU {
         }
     }
 
+    private float dfsAlphaBeta_old(Board board, int flag, int depth, int team,int ROOT_TREE_DEPTH, float alpha, float beta){
+        DFSCalls++;
+        if(depth == 1)
+            return this.evaluate_old(board, team);
+
+        ArrayList<Move> moves = this.getAllValidMoves(board, flag);
+        if(moves.size() == 0)
+            return this.evaluate_old(board, team);
+
+        int nextTeam = Math.abs(1 - flag);
+        if(flag == team){
+            float maximum = -1000000000;
+            for(Move move: moves){
+                Board B = this.getNextState(board, move);
+                float metric = dfsAlphaBeta_old(B, nextTeam, depth - 1, team, ROOT_TREE_DEPTH, alpha, beta);
+                if(metric > maximum){
+                    maximum = metric;
+                    if(depth == ROOT_TREE_DEPTH)
+                        nextMoves = move;
+                }
+                alpha = Math.max(metric, alpha);
+                if(beta <= alpha)
+                    break;
+            }
+            return maximum;
+        }
+        else{
+            float minimum = 1000000000;
+            for(Move move: moves){
+                Board B = this.getNextState(board, move);
+                float metric = dfsAlphaBeta_old(B, nextTeam, depth - 1, team, ROOT_TREE_DEPTH, alpha, beta);
+                minimum = Math.min(minimum, metric);
+                beta = Math.min(beta, metric);
+                if(beta <= alpha)
+                    break;
+            }
+            return minimum;
+        }
+    }
     /************************ SUPPORTED FUNCTIONS **************************/
 
     private ArrayList<Move> getAllValidMoves(Board board, int team){
@@ -263,6 +310,15 @@ public class CPU {
      https://chessfox.com/free-chess-course-chessfox-com/introduction-to-the-5-main-objectives-of-a-chess-game/ */
 
     private float evaluate(Board board, int team){
+        float materialScore = this.getMaterialScore(board, team);
+//        float developmentScore = this.getDevelopmentScore(board, team);
+        float centerControlScore = this.getCenterControlScore(board, team);
+        float kingSafetyScore = this.getKingSafetyScore(board, team);
+        float pawnStructureScore = this.getPawnStructureScore(board, team);
+        return materialScore; //+ 0.01f*kingSafetyScore;
+    }
+
+    private float evaluate_old(Board board, int team){
         float materialScore = this.getMaterialScore(board, team);
 //        float developmentScore = this.getDevelopmentScore(board, team);
         float centerControlScore = this.getCenterControlScore(board, team);
