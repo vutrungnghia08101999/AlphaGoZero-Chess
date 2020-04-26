@@ -10,26 +10,37 @@ from sl_traning.model import ChessModel
 
 
 class Node(object):
-    def __init__(self, perspective: int, tensor_board: TensorBoard, model: ChessModel, parent=None):
+    def __init__(self,
+                 perspective: int,
+                 tensor_board: TensorBoard,
+                 model: ChessModel,
+                 index: int,
+                 is_draw: bool,
+                 is_checkmate: bool,
+                 parent=None):
         self.model = model
+        self.index_in_parent_list = index
         self.perspective = perspective
         self.tensor_board = tensor_board
         self.parent = parent
         self.children = []
         self.is_expand = False
-
-    def is_draw(self) -> bool:
-        return self.tensor_board.is_draw()
-
-    def is_checkmate(self) -> bool:
-        return self.tensor_board.is_checkmate()
+        self.is_draw = is_draw
+        self.is_checkmate = is_checkmate
 
     def expand(self) -> None:
         self.is_expand = True
         predictions = predict(self.model, self.tensor_board)
-        for move, prob, tensor_board in predictions:
+        for i in range(len(predictions)):
+            move, prob, tensor_board = predictions[i]
             self.children.append({
-                'node': Node(self.perspective, tensor_board, self.model, self),
+                'node': Node(perspective=self.perspective,
+                             tensor_board=tensor_board,
+                             model=self.model,
+                             index=i,
+                             is_draw=tensor_board.is_draw(),
+                             is_checkmate=tensor_board.is_checkmate(),
+                             parent=self),
                 'W': 0,
                 'N': 0,
                 'Q': 0,
@@ -54,6 +65,11 @@ class Node(object):
                 next_node = dic['node']
                 PUCT = dic['PUCT']
         return next_node
+
+    def get_best_child(self):
+        current = self
+        while current.is_expand:
+            next = 
 
 # model = ChessModel()
 # checkpoint = torch.load(
