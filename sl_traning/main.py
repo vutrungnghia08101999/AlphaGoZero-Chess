@@ -14,26 +14,29 @@ from model import ChessModel
 from dataset import FICSDataset
 from utils import read_yaml
 
-# logging.basicConfig(filename='logs.txt',
-#                     filemode='a',
-#                     format='%(asctime)s, %(levelname)s: %(message)s',
-#                     datefmt='%y-%m-%d %H:%M:%S',
-#                     level=logging.INFO)
-# console = logging.StreamHandler()
-# console.setLevel(logging.INFO)
-# logging.getLogger().addHandler(console)
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(filename='logs.txt',
+                    filemode='a',
+                    format='%(asctime)s, %(levelname)s: %(message)s',
+                    datefmt='%y-%m-%d %H:%M:%S',
+                    level=logging.INFO)
+console = logging.StreamHandler()
+console.setLevel(logging.INFO)
+logging.getLogger().addHandler(console)
+# logging.basicConfig(level=logging.INFO)
 
 configs = read_yaml('configs.yml')
 logging.info('\n\n========== ALPHAZERO ========\n\n')
 logging.info(configs)
 
-def read_data(sets: dict):
+def read_data(sets: list):
     s = []
-    for k, v in sets.items():
-        with open(os.path.join(configs['dataroot'], v), 'rb') as f:
+    for batch in sets:
+        path = os.path.join(configs['root'], batch)
+        logging.info(f'Load {path}')
+        with open(path, 'rb') as f:
             a = pickle.load(f)
-        s = s + a
+        for k, v in a.items():
+            s = s + v
     return s
 
 def evaluate(valid_dataloader, model: ChessModel) -> torch.float:
@@ -57,7 +60,7 @@ def loss_func(pred: torch.tensor, valid_moves: torch.tensor, y: torch.tensor) ->
     valid_moves: N x C
     y: N
     """
-    pred = pred + (valid_moves == 0) * (-20)
+    # pred = pred + (valid_moves == 0) * (-20)
     loss_func = nn.CrossEntropyLoss()
     return loss_func(pred, y)
 

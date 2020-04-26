@@ -1,14 +1,17 @@
-# dataroot: /content/gdrive/My Drive/MOUNT/encoded-data
-dataroot: /media/vutrungnghia/New Volume/ArtificialIntelligence/dataset/supervised-learning/2020-january/encoded-data
-train:
-  1: 0_500.pkl
-  2: 500_1000.pkl
-  3: 1000_1500.pkl
-  4: 1500_2000.pkl
-  5: 2000_2500.pkl
-  6: 2500_3000.pkl
-  7: 3000_3500.pkl
-valid:
-  1: 3500_4000.pkl
+# root: /content/gdrive/My Drive/MOUNT/encoded-data
+root: /media/vutrungnghia/New Volume/ArtificialIntelligence/dataset/supervised-learning/cloud-form
+train: [
+  2017_black_0_500.pkl,
+  2017_white_0_500.pkl,
+  2018_black_0_500.pkl,
+  2018_white_0_500.pkl,
+  2019_black_0_500.pkl,
+  2019_white_0_500.pkl
+]
 
-resume: /content/gdrive/My Drive/MOUNT/models/checkpoint_20-04-22_20:22:34_9.pth
+valid: [
+  2020_black_0_314.pkl,
+  2020_white_0_298.pkl
+]
+
+resume: ''
