@@ -287,6 +287,12 @@ class TensorBoard(object):
     def get_valid_moves(self):
         return Rules.get_all_valid_moves(self.turn, self.boards[-1])
 
+    def is_draw(self):
+        return Rules.is_draw(self.turn, self.boards[-1])
+
+    def is_checkmate(self):
+        return Rules.is_checkmate(self.turn, self.boards[-1])
+
 
 # ************* TEST ****************
 # from tqdm import tqdm

@@ -163,6 +163,8 @@ def notation_to_move(turn: int, board: Board, notation: str) -> Move:
 
 dataset = {}
 for i in tqdm(range(len(processed_data))):
+    if i <= 500:
+        continue
     game = processed_data[i]
     tensor_board = TensorBoard(Board(), Board(), 1)
     data = []
