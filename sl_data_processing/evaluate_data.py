@@ -20,7 +20,7 @@ for folder in configs['evaluate_data']['folders']:
         print(f'white won: {white_won}')
 
         for k, game in tqdm(games.items()):
-            assert len(game) >= 50
+            assert len(game) >= 10 and len(game) <= 30
             # print(len(game))
             first_state, first_valid_moves, first_expect_move = game[0]
             assert sum(sum(sum(first_valid_moves))) > 0 and sum(sum(sum(first_valid_moves))) < 532

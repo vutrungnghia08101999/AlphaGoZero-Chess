@@ -105,3 +105,60 @@
 20-04-26 08:26:06, INFO: save white 1 won at: /media/vutrungnghia/New Volume/ArtificialIntelligence/dataset/supervised-learning/processed/2020_2_black_0_won.pkl
 20-04-26 08:26:06, INFO: completed
 
+20-04-26 18:22:00, INFO: TIME: 2017
+20-04-26 18:22:03, INFO: No.games: 81558
+20-04-26 18:22:03, INFO: Average moves per game: 77.08227273841928
+20-04-26 18:22:03, INFO: No.games after remove draw and < 100 moves: 14838
+20-04-26 18:22:03, INFO: No.games after filtering promoted to knight, rook and bishop: 14612
+20-04-26 18:22:03, INFO: No.games after filtering move like Qe2d1, ..: 14610
+20-04-26 18:22:05, INFO: No.games white-1 won: 7453
+20-04-26 18:22:05, INFO: No.games black-0 won: 7157
+20-04-26 18:22:05, INFO: save white 1 won at: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/supervised-learning/processed/2017_white_1_won.pkl
+20-04-26 18:22:05, INFO: save white 1 won at: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/supervised-learning/processed/2017_black_0_won.pkl
+20-04-26 18:22:06, INFO: completed
+20-04-26 18:22:07, INFO: TIME: 2018
+20-04-26 18:22:08, INFO: TIME: 2020
+20-04-26 18:23:53, INFO: TIME: 2017
+20-04-26 18:23:56, INFO: No.games: 81558
+20-04-26 18:23:56, INFO: Average moves per game: 77.08227273841928
+20-04-26 18:23:56, INFO: No.games after remove draw and < 100 moves: 22687
+20-04-26 18:23:56, INFO: No.games after filtering promoted to knight, rook and bishop: 22669
+20-04-26 18:23:56, INFO: No.games after filtering move like Qe2d1, ..: 22669
+20-04-26 18:23:57, INFO: No.games white-1 won: 12350
+20-04-26 18:23:57, INFO: No.games black-0 won: 10319
+20-04-26 18:23:57, INFO: save white 1 won at: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/supervised-learning/processed/2017_white_1_won.pkl
+20-04-26 18:23:57, INFO: save white 1 won at: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/supervised-learning/processed/2017_black_0_won.pkl
+20-04-26 18:23:57, INFO: completed
+20-04-26 18:23:58, INFO: TIME: 2018
+20-04-26 18:24:00, INFO: No.games: 78869
+20-04-26 18:24:00, INFO: Average moves per game: 73.37445637703027
+20-04-26 18:24:00, INFO: No.games after remove draw and < 100 moves: 26287
+20-04-26 18:24:00, INFO: No.games after filtering promoted to knight, rook and bishop: 26257
+20-04-26 18:24:00, INFO: No.games after filtering move like Qe2d1, ..: 26257
+20-04-26 18:24:01, INFO: No.games white-1 won: 14169
+20-04-26 18:24:01, INFO: No.games black-0 won: 12088
+20-04-26 18:24:01, INFO: save white 1 won at: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/supervised-learning/processed/2018_white_1_won.pkl
+20-04-26 18:24:01, INFO: save white 1 won at: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/supervised-learning/processed/2018_black_0_won.pkl
+20-04-26 18:24:01, INFO: completed
+20-04-26 18:24:02, INFO: TIME: 2019
+20-04-26 18:24:03, INFO: No.games: 50642
+20-04-26 18:24:03, INFO: Average moves per game: 72.89650882666561
+20-04-26 18:24:03, INFO: No.games after remove draw and < 100 moves: 18815
+20-04-26 18:24:03, INFO: No.games after filtering promoted to knight, rook and bishop: 18794
+20-04-26 18:24:04, INFO: No.games after filtering move like Qe2d1, ..: 18794
+20-04-26 18:24:04, INFO: No.games white-1 won: 10070
+20-04-26 18:24:04, INFO: No.games black-0 won: 8724
+20-04-26 18:24:04, INFO: save white 1 won at: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/supervised-learning/processed/2019_white_1_won.pkl
+20-04-26 18:24:04, INFO: save white 1 won at: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/supervised-learning/processed/2019_black_0_won.pkl
+20-04-26 18:24:04, INFO: completed
+20-04-26 18:24:05, INFO: TIME: 2020
+20-04-26 18:24:05, INFO: No.games: 8698
+20-04-26 18:24:05, INFO: Average moves per game: 75.32007358013337
+20-04-26 18:24:05, INFO: No.games after remove draw and < 100 moves: 2903
+20-04-26 18:24:05, INFO: No.games after filtering promoted to knight, rook and bishop: 2897
+20-04-26 18:24:05, INFO: No.games after filtering move like Qe2d1, ..: 2897
+20-04-26 18:24:05, INFO: No.games white-1 won: 1568
+20-04-26 18:24:05, INFO: No.games black-0 won: 1329
+20-04-26 18:24:05, INFO: save white 1 won at: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/supervised-learning/processed/2020_white_1_won.pkl
+20-04-26 18:24:05, INFO: save white 1 won at: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/supervised-learning/processed/2020_black_0_won.pkl
+20-04-26 18:24:05, INFO: completed

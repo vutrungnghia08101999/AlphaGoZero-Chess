@@ -71,7 +71,7 @@ logging.info(f'Average moves per game: {sum(n_moves)/len(n_moves)}')
 # get results and matches wich n_moves >= 100
 dataset = []
 for i in range(len(games)):
-    if len(games[i]) < 100:
+    if len(games[i]) >= 60 or len(games[i]) <= 20:
         continue
     if results[i] == '1/2-1/2':
         continue
