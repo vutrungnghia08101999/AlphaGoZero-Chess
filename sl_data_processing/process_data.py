@@ -86,23 +86,33 @@ for match in dataset:
     assert '3' in first_move or '4' in first_move
 
 # filter promote to knight, rook and bishop because I don't code for it
-filtered_dataset = []
-for match in dataset:
+filtered_dataset_1 = []
+for game in dataset:
     flag = False
-    for move in match['moves']:
+    for move in game['moves']:
         if '=' in move:
             flag = True
-        if flag:
             break
     if not flag:
-        filtered_dataset.append(match)
+        filtered_dataset_1.append(game)
+logging.info(f'No.games after filtering promoted to knight, rook and bishop: {len(filtered_dataset_1)}')
 
-logging.info(f'No.games after filter promoted to knight, rook and bishop: {len(filtered_dataset)}')
+# Remove game that has move like Qe2d1 because I don't code for it
+filtered_dataset = []
+for game in filtered_dataset_1:
+    flag = False
+    for move in game['moves']:
+        if len(move) == 5 and move != 'O-O-O':
+            flag = True
+            break
+    if not flag:
+        filtered_dataset.append(game)
+logging.info(f'No.games after filtering move like Qe2d1, ..: {len(filtered_dataset)}')
 
 # make sure there is no special synbol in moves excep 'O-O-O' and 'O-O'
-for match in filtered_dataset:
+for game in filtered_dataset:
     flag = False
-    for move in match['moves']:
+    for move in game['moves']:
         if move == 'O-O-O' or move == 'O-O':
             continue
         s = list(move)

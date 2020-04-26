@@ -25,15 +25,15 @@ logging.basicConfig(filename='sl_data_processing/logs.txt',
                     filemode='a',
                     format='%(asctime)s, %(levelname)s: %(message)s',
                     datefmt='%y-%m-%d %H:%M:%S',
-                    level=logging.DEBUG)
-console = logging.StreamHandler()
-console.setLevel(logging.INFO)
-logging.getLogger().addHandler(console)
+                    level=logging.INFO)
+# console = logging.StreamHandler()
+# console.setLevel(logging.INFO)
+# logging.getLogger().addHandler(console)
 # logging.basicConfig(level=logging.INFO)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--time', type=str)
-args = parser.parse_args(['--time', '2020_1_white_1_won'])
+args = parser.parse_args()
 configs = read_yaml('sl_data_processing/configs.yml')
 
 assert 'black' in args.time or 'white' in args.time
@@ -64,7 +64,7 @@ for game in processed_data:
             elif len(move) == 4:
                 a.append(move[-4]), b.append(move[-3]), c.append(move[-2]), d.append(move[-1])
             else:
-                raise RuntimeError('Fuck')
+                raise RuntimeError(f'{move}')
 
 assert len(d) + len(e) == n
 a, b, c, d, e = pd.Series(a).unique(), pd.Series(b).unique(), pd.Series(c).unique(), pd.Series(d).unique(), pd.Series(e).unique()
@@ -188,7 +188,7 @@ for i in tqdm(range(len(processed_data))):
         dataset = {}
 
 n = len(processed_data) % 500
-outfile = os.path.join(OUTPUT, f'{len(processed_data) - n}_{len(processed_data)}')
+outfile = os.path.join(OUTPUT, f'{len(processed_data) - n}_{len(processed_data)}.pkl')
 logging.info(f'Save {n} games at: {outfile}')
 with open(outfile, 'wb') as f:
     pickle.dump(dataset, f)

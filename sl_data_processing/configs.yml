@@ -5,3 +5,16 @@ preprocess_data:
 encode_data:
   input: /media/vutrungnghia/New Volume/ArtificialIntelligence/dataset/supervised-learning/processed
   output: /media/vutrungnghia/New Volume/ArtificialIntelligence/dataset/supervised-learning/encoded
+
+evaluate_data:
+  root: /media/vutrungnghia/New Volume/ArtificialIntelligence/dataset/supervised-learning/encoded
+  folders: [
+    2017_black_0_won,
+    2017_white_1_won,
+    2018_black_0_won,
+    2018_white_1_won,
+    2019_black_0_won,
+    2019_white_1_won,
+    2020_black_0_won,
+    2020_white_1_won,
+  ]
