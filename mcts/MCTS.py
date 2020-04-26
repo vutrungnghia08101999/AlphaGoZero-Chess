@@ -17,4 +17,3 @@ model.load_state_dict(checkpoint['state_dict'])
 tensor_board = TensorBoard(Board(), Board(), 1)
 
 root = Node(1, tensor_board, model, parent=None)
-
