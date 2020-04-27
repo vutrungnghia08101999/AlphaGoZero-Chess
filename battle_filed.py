@@ -84,7 +84,7 @@ from chess_rules.Rules import Rules
 
 # ************************ SUPERVISED LEARNING VS PLAYER || MINIMAX ***********************
 
-MODEL_PATH = '/media/vutrungnghia/New Volume/ArtificialIntelligence/models/SL/checkpoint_20-04-23_14_26_50_0.pth'
+MODEL_PATH = '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/SL/best_model_1.pth'
 DEPTH = 4
 model = ChessModel()
 checkpoint = torch.load(
@@ -98,26 +98,26 @@ history[-1].display()
 turn = 1
 while True:
     # ************** PLAYER **************
-    # while True:
-    #     try:
-    #         s = input(f'your move: ')
-    #         s = [int(x) for x in list(s)]
-    #         move = Move(Spot(s[0], s[1]), Spot(s[2], s[3]))
-    #         if not Rules.is_valid_move(turn, move, board):
-    #             continue
-    #         break
-    #     except Exception as e:
-    #         pass
+    while True:
+        try:
+            s = input(f'your move: ')
+            s = [int(x) for x in list(s)]
+            move = Move(Spot(s[0], s[1]), Spot(s[2], s[3]))
+            if not Rules.is_valid_move(turn, move, board):
+                continue
+            break
+        except Exception as e:
+            pass
     # ************** MINIMAX **************
-    minimax = Minimax()
-    move = minimax.search_next_move(turn, board, DEPTH)
+    # minimax = Minimax()
+    # move = minimax.search_next_move(turn, board, DEPTH)
     # **************************************
-    if Rules.is_checkmate(turn, board):
-        print(f'Team {abs(1-turn)} win')
-        break
-    elif Rules.is_draw(turn, board):
-        print('draw')
-        break
+    # if Rules.is_checkmate(turn, board):
+    #    print(f'Team {abs(1-turn)} win')
+    #    break
+    # elif Rules.is_draw(turn, board):
+    #    print('draw')
+    #    break
     # *************************************
     board = Rules.get_next_state(move, board)
     turn = abs(1 - turn)

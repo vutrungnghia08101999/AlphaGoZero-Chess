@@ -6,13 +6,6 @@ import torch.nn.functional as F
 from sl_traning.model import ChessModel
 from chess_rules.TensorBoard import TensorBoard, Move, Board
 
-# model = ChessModel()
-# checkpoint = torch.load(
-#     '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/SL/checkpoint_20-04-26_14_06_38_39.pth',
-#     map_location=torch.device('cpu'))
-# model.load_state_dict(checkpoint['state_dict'])
-# tensor_board = TensorBoard(Board(), Board(), 1)
-
 def decode(index: int) -> Move:
     assert index >= 0 and index < 8 * 8 * 78
     s = np.zeros((4992))
@@ -32,8 +25,9 @@ def predict(model: ChessModel, tensor_board: TensorBoard) -> list:
     valid_moves = tensor_board.encode_actions_to_tensor()
     valid_moves = torch.tensor(valid_moves).flatten()
     pred = pred - (valid_moves == 0) * 10
-    pred = F.softmax(pred)
+    pred = F.softmax(pred, dim=0)
     pred = pred * (valid_moves == 1)
+    pred = pred + (1e-10) * (valid_moves == 1)
     n_mvs = int(sum(valid_moves))
     probs, indices = torch.topk(pred, k=n_mvs, dim=0, largest=True)
     predictions = []

@@ -51,9 +51,9 @@ def evaluate(valid_dataloader, model: ChessModel) -> torch.float:
         pred = pred * (valid_actions == 1)
         pred = torch.argmax(pred, dim=1)
         corrent_predictions += sum(pred == y)
-    
+
     logging.info(f'Acc: {corrent_predictions}/{n} = {corrent_predictions * 1.0/n}')
-    
+
 def loss_func(pred: torch.tensor, valid_moves: torch.tensor, y: torch.tensor) -> torch.float:
     """
     pred: N x C
@@ -66,6 +66,9 @@ def loss_func(pred: torch.tensor, valid_moves: torch.tensor, y: torch.tensor) ->
 
 train_dataset = FICSDataset(read_data(configs['train']))
 train_dataloader = DataLoader(train_dataset, batch_size=32, shuffle=True)
+train_test_dataset = FICSDataset(read_data(configs['train_test']))
+train_test_dataloader = DataLoader(train_dataset, batch_size=32, shuffle=True)
+
 valid_dataset = FICSDataset(read_data(configs['valid']))
 valid_dataloader = DataLoader(valid_dataset, batch_size=32, shuffle=True)
 
@@ -103,4 +106,5 @@ for epoch in range(50):
     logging.info(model_checkpoint)
     with torch.no_grad():
         torch.save({'epoch': epoch + 1, 'state_dict': model.state_dict()}, model_checkpoint)
+    evaluate(train_test_dataloader, model)
     evaluate(valid_dataloader, model)
