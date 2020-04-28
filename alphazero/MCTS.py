@@ -12,7 +12,6 @@ from sl_traning.model import ChessModel
 
 np.random.seed(0)
 
-
 class Node(object):
     def __init__(self,
                  perspective: int,
@@ -84,79 +83,88 @@ class Node(object):
 
     def backpropagate(self):
         assert self.is_expand
-        future_reward = self.rollout()
-        print('Future reward:', future_reward)
+        # future_reward = self.rollout()
+        perspective = self.perspective
+        if tensor_board.is_checkmate():
+            if perspective == tensor_board.turn:
+                future_rewards = -1
+            else:
+                future_rewards = 1
+        else:
+            future_rewards = 0
+
+        print('Future reward:', future_rewards)
 
         current = self.parent
         index = self.index
         while current is not None:
             current.children[index]['N'] += 1
-            current.children[index]['W'] += future_reward
+            current.children[index]['W'] += future_rewards
             current.children[index]['Q'] = current.children[index]['W'] / current.children[index]['N']
             index = current.index
             current = current.parent
 
-    def rollout(self, n=1024):
-        tensor_board = copy.deepcopy(self.tensor_board)
-        perspective = self.perspective
+    # def rollout(self, n=1024):
+    #     tensor_board = copy.deepcopy(self.tensor_board)
+    #     perspective = self.perspective
 
-        for simulation in range(n):
-            if tensor_board.is_draw():
-                return 0
-            elif tensor_board.is_checkmate():
-                if perspective == tensor_board.turn:
-                    return -1
-                else:
-                    return 1
-            moves = tensor_board.get_valid_moves()
-            assert len(moves) > 0
-            r = np.random.randint(0, len(moves))
-            move = moves[r]
-            tensor_board = tensor_board.get_next_state(move=move)
+    #     for simulation in range(n):
+    #         if tensor_board.is_draw():
+    #             return 0
+    #         elif tensor_board.is_checkmate():
+    #             if perspective == tensor_board.turn:
+    #                 return -1
+    #             else:
+    #                 return 1
+    #         moves = tensor_board.get_valid_moves()
+    #         assert len(moves) > 0
+    #         r = np.random.randint(0, len(moves))
+    #         move = moves[r]
+    #         tensor_board = tensor_board.get_next_state(move=move)
 
-        return 0
+    #     return 0
 
 
-def sl_and_mcts(tensor_board: TensorBoard, model: ChessModel, n=30):
-    assert len(tensor_board.get_valid_moves()) > 0
-    print(f'PERSPECTIVE: {tensor_board.turn}')
-    print('==============================')
-    model.eval()
-    root = Node(
-        perspective=tensor_board.turn,
-        tensor_board=tensor_board,
-        model=model,
-        index=-1,
-        is_draw=tensor_board.is_draw(),
-        is_checkmate=tensor_board.is_checkmate(),
-        parent=None)
-    root.expand()
-    for idx in range(n):
-        print(f'{idx + 1}/{n}')
-        print('Trajectory: ', end='')
-        best_child = root.traverse()
-        best_child.expand()
-        print(f'\nNo.Children: {len(best_child.children)}')
-        print('Rollout and backpropagate.....')
-        best_child.backpropagate()
-        print('***********************')
+# def sl_and_mcts(tensor_board: TensorBoard, model: ChessModel, n=300):
+#     assert len(tensor_board.get_valid_moves()) > 0
+#     print(f'PERSPECTIVE: {tensor_board.turn}')
+#     print('==============================')
+#     model.eval()
+#     root = Node(
+#         perspective=tensor_board.turn,
+#         tensor_board=tensor_board,
+#         model=model,
+#         index=-1,
+#         is_draw=tensor_board.is_draw(),
+#         is_checkmate=tensor_board.is_checkmate(),
+#         parent=None)
+#     root.expand()
+#     for idx in range(n):
+#         print(f'{idx + 1}/{n}')
+#         print('Trajectory: ', end='')
+#         best_child = root.traverse()
+#         best_child.expand()
+#         print(f'\nNo.Children: {len(best_child.children)}')
+#         print('Rollout and backpropagate.....')
+#         best_child.backpropagate()
+#         print('***********************')
 
-    for k, dic in root.children.items():
-        N = dic['N']
-        W = dic['W']
-        P = dic['P']
-        Q = dic['Q']
-        mv = dic['node'].tensor_board.boards[-1].last_mv
-        print(f'N: {N} - W: {W} - P: {P} - Q: {Q} - Move: {mv}')
+#     for k, dic in root.children.items():
+#         N = dic['N']
+#         W = dic['W']
+#         P = dic['P']
+#         Q = dic['Q']
+#         mv = dic['node'].tensor_board.boards[-1].last_mv
+#         print(f'N: {N} - W: {W} - P: {P} - Q: {Q} - Move: {mv}')
 
-    move = None
-    n_visits = -1
-    for k, dic in root.children.items():
-        if dic['N'] > n_visits:
-            n_visits = dic['N']
-            move = dic['node'].tensor_board.boards[-1].last_mv
-    print(f'Best move: {move}')
-    return move
+#     move = None
+#     n_visits = -1
+#     for k, dic in root.children.items():
+#         if dic['N'] > n_visits:
+#             n_visits = dic['N']
+#             move = dic['node'].tensor_board.boards[-1].last_mv
+#     print(f'Best move: {move}')
+#     return move
 
 model = ChessModel()
 checkpoint = torch.load(
@@ -165,5 +173,22 @@ checkpoint = torch.load(
 model.load_state_dict(checkpoint['state_dict'])
 tensor_board = TensorBoard(Board(), Board(), 1)
 
-model.eval()
-move = sl_and_mcts(tensor_board, model)
+root = Node(
+    perspective=tensor_board.turn,
+    tensor_board=tensor_board,
+    model=model,
+    index=-1,
+    is_draw=tensor_board.is_draw(),
+    is_checkmate=tensor_board.is_checkmate(),
+    parent=None)
+root.expand()
+n = 5
+for idx in range(n):
+    # print(f'{idx + 1}/{n}')
+    # print('Trajectory: ', end='')
+    best_child = root.traverse()
+    best_child.expand()
+    # print(f'\nNo.Children: {len(best_child.children)}')
+    # print('Rollout and backpropagate.....')
+    best_child.backpropagate()
+    print('***********************')
