@@ -1,3 +1,4 @@
+import time
 import copy
 import math
 import numpy as np
@@ -7,50 +8,64 @@ import torch
 import torch.nn.functional as F
 
 from chess_rules.TensorBoard import TensorBoard, Board, Move
-from mcts.ModeInference import predict
-from sl_traning.model import ChessModel
+from alphazero.model import ChessModel
 
 np.random.seed(0)
 
-class Node(object):
+def decode(index: int) -> Move:
+    assert index >= 0 and index < 8 * 8 * 78
+    s = np.zeros((4992))
+    s[index] = 1
+    s = s.reshape(8, 8, 78)
+    move = TensorBoard.decode_tensor_to_moves(s)
+    assert len(move) == 1
+    return move[0]
+
+def predict_p_and_v(model: ChessModel, tensor_board: TensorBoard) -> list:
+    encoded_board, valid_moves, n_mvs = tensor_board.encode_to_tensor()
+    encoded_board = torch.tensor(encoded_board, dtype=torch.float)
+    encoded_board = encoded_board.view(-1, 8, 8, 104)
+
+    with torch.no_grad():  # 22.450927734375
+        p, v = model(encoded_board)
+
+    p = p.squeeze()
+    valid_moves = torch.tensor(valid_moves).flatten()
+    p = p * (valid_moves == 1) + (1e-6) * (valid_moves == 1)
+    probs, indices = torch.topk(p, k=n_mvs, dim=0, largest=True)
+    predictions = []
+    for i in range(n_mvs):   # 29.221435546875
+        move = decode(indices[i])
+        s = tensor_board.get_next_state(move)  # 1.255859375
+        prob = probs[i]
+
+        predictions.append((move, prob, s))
+    return predictions, float(v.squeeze())
+
+def predict_v(model: ChessModel, tensor_board: TensorBoard) -> float:
+    encoded_board, _, _ = tensor_board.encode_to_tensor()
+    encoded_board = torch.tensor(encoded_board, dtype=torch.float)
+    encoded_board = encoded_board.view(-1, 8, 8, 104)
+    with torch.no_grad():
+        p, v = model(encoded_board)
+    return float(v.squeeze())
+
+class MCTSNode(object):
     def __init__(self,
-                 perspective: int,
                  tensor_board: TensorBoard,
-                 model: ChessModel,
+                 model,
                  index: int,
-                 is_draw: bool,
-                 is_checkmate: bool,
-                 parent):
+                 parent,
+                 temperature=1):
         self.model = model
         self.index = index
-        self.perspective = perspective
         self.tensor_board = tensor_board
         self.parent = parent
-        self.is_draw = is_draw
-        self.is_checkmate = is_checkmate
         self.children = {}
+        self.is_terminate = False
         self.is_expand = False
-
-    def expand(self) -> None:
-        assert self.is_expand is False
-        self.is_expand = True
-        predictions = predict(self.model, self.tensor_board)
-        for i in range(len(predictions)):
-            move, prob, tensor_board = predictions[i]
-            self.children[i] = {
-                'node': Node(
-                    perspective=self.perspective,
-                    tensor_board=tensor_board,
-                    model=self.model,
-                    index=i,
-                    is_draw=tensor_board.is_draw(),
-                    is_checkmate=tensor_board.is_checkmate(),
-                    parent=self),
-                'W': 0,
-                'N': 0,
-                'Q': 0,
-                'P': prob
-            }
+        if self.parent is None:
+            self.temperature = temperature
 
     def _compute_PUCT(self) -> None:
         N = 0
@@ -59,8 +74,8 @@ class Node(object):
         for k, dic in self.children.items():
             dic['PUCT'] = dic['Q'] + dic['P'] * np.sqrt(N + 1e-8) / (1 + dic['N'])
 
-    def get_best_child(self):
-        assert not self.is_checkmate and not self.is_draw and self.is_expand
+    def _get_best_child(self):
+        assert not self.is_terminate and self.is_expand
         assert len(self.children) > 0
 
         self._compute_PUCT()
@@ -75,120 +90,89 @@ class Node(object):
 
     def traverse(self):
         current = self
-        print('root', end='')
-        while not current.is_checkmate and not current.is_draw and current.is_expand:
-            current = current.get_best_child()
-            print(f' => {current.index}', end='')
+        # print('root', end='')
+        while not current.is_terminate and current.is_expand:
+            current = current._get_best_child()
+            # print(f' => {current.index}', end='')
+        # print()
         return current
 
-    def backpropagate(self):
-        assert self.is_expand
-        # future_reward = self.rollout()
-        perspective = self.perspective
-        if tensor_board.is_checkmate():
-            if perspective == tensor_board.turn:
-                future_rewards = -1
+    def expand_and_backpropagate(self) -> None:
+        assert (not self.is_expand and not self.is_terminate) or (self.is_expand and self.is_terminate)
+        v = None
+        # s1 = time.time() * 1000
+        if not self.is_expand and not self.is_terminate:
+            self.is_expand = True
+            self.is_terminate = self.tensor_board.is_terminate()
+            if self.is_terminate:
+                v = predict_v(self.model, self.tensor_board)
+                print('case 1.1')
             else:
-                future_rewards = 1
+                # print('case 1.2')
+                # s1 = time.time() * 1000
+                predictions, v = predict_p_and_v(self.model, self.tensor_board)
+                # s2 = time.time() * 1000
+                for i in range(len(predictions)):
+                    move, prob, tensor_board = predictions[i]
+                    self.children[i] = {
+                        'node': MCTSNode(
+                            tensor_board=tensor_board,
+                            model=self.model,
+                            index=i,
+                            parent=self),
+                        'move': move,
+                        'W': 0,
+                        'N': 0,
+                        'Q': 0,
+                        'P': prob
+                    }
+                # s3 = time.time() * 1000
+                # print(s2 - s1, s3 - s2)
         else:
-            future_rewards = 0
+            print('case 2')
+            v = predict_v(self.model, self.tensor_board)
 
-        print('Future reward:', future_rewards)
-
+        # s2 = time.time() * 1000
+        # print(v)
+        assert v is not None
         current = self.parent
         index = self.index
         while current is not None:
             current.children[index]['N'] += 1
-            current.children[index]['W'] += future_rewards
+            current.children[index]['W'] += v
             current.children[index]['Q'] = current.children[index]['W'] / current.children[index]['N']
             index = current.index
             current = current.parent
+        # s3 = time.time() * 1000
+        # print(s2 - s1)
+        # print(s3 - s2)
 
-    # def rollout(self, n=1024):
-    #     tensor_board = copy.deepcopy(self.tensor_board)
-    #     perspective = self.perspective
+    def get_pi_policy_and_most_visited_move(self) -> np.array:
+        assert self.parent is None
+        denominator = 0
+        for k, dic in self.children.items():
+            denominator += dic['N'] ** (1 / self.temperature)
+        visit_count = []
+        for k, dic in self.children.items():
+            numerator = dic['N'] ** (1 / self.temperature)
+            visit_count.append((dic['move'], numerator / denominator))
 
-    #     for simulation in range(n):
-    #         if tensor_board.is_draw():
-    #             return 0
-    #         elif tensor_board.is_checkmate():
-    #             if perspective == tensor_board.turn:
-    #                 return -1
-    #             else:
-    #                 return 1
-    #         moves = tensor_board.get_valid_moves()
-    #         assert len(moves) > 0
-    #         r = np.random.randint(0, len(moves))
-    #         move = moves[r]
-    #         tensor_board = tensor_board.get_next_state(move=move)
+        # for move, f in visit_count:
+        #     print('%.4f' % f, move)
+        # print(len(visit_count))
 
-    #     return 0
+        # get best move
+        mv = None
+        metric = -1
+        for move, f in visit_count:
+            if f > metric:
+                metric = f
+                mv = move
 
-
-# def sl_and_mcts(tensor_board: TensorBoard, model: ChessModel, n=300):
-#     assert len(tensor_board.get_valid_moves()) > 0
-#     print(f'PERSPECTIVE: {tensor_board.turn}')
-#     print('==============================')
-#     model.eval()
-#     root = Node(
-#         perspective=tensor_board.turn,
-#         tensor_board=tensor_board,
-#         model=model,
-#         index=-1,
-#         is_draw=tensor_board.is_draw(),
-#         is_checkmate=tensor_board.is_checkmate(),
-#         parent=None)
-#     root.expand()
-#     for idx in range(n):
-#         print(f'{idx + 1}/{n}')
-#         print('Trajectory: ', end='')
-#         best_child = root.traverse()
-#         best_child.expand()
-#         print(f'\nNo.Children: {len(best_child.children)}')
-#         print('Rollout and backpropagate.....')
-#         best_child.backpropagate()
-#         print('***********************')
-
-#     for k, dic in root.children.items():
-#         N = dic['N']
-#         W = dic['W']
-#         P = dic['P']
-#         Q = dic['Q']
-#         mv = dic['node'].tensor_board.boards[-1].last_mv
-#         print(f'N: {N} - W: {W} - P: {P} - Q: {Q} - Move: {mv}')
-
-#     move = None
-#     n_visits = -1
-#     for k, dic in root.children.items():
-#         if dic['N'] > n_visits:
-#             n_visits = dic['N']
-#             move = dic['node'].tensor_board.boards[-1].last_mv
-#     print(f'Best move: {move}')
-#     return move
-
-model = ChessModel()
-checkpoint = torch.load(
-    '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/SL/best_model_1.pth',
-    map_location=torch.device('cpu'))
-model.load_state_dict(checkpoint['state_dict'])
-tensor_board = TensorBoard(Board(), Board(), 1)
-
-root = Node(
-    perspective=tensor_board.turn,
-    tensor_board=tensor_board,
-    model=model,
-    index=-1,
-    is_draw=tensor_board.is_draw(),
-    is_checkmate=tensor_board.is_checkmate(),
-    parent=None)
-root.expand()
-n = 5
-for idx in range(n):
-    # print(f'{idx + 1}/{n}')
-    # print('Trajectory: ', end='')
-    best_child = root.traverse()
-    best_child.expand()
-    # print(f'\nNo.Children: {len(best_child.children)}')
-    # print('Rollout and backpropagate.....')
-    best_child.backpropagate()
-    print('***********************')
+        # encode pi policy to numpy array size 8 x 8 x 78
+        pi_policy = np.zeros((8, 8, 78)) * 0.0
+        for move, p in visit_count:
+            s = TensorBoard.encode_action_to_tensor(move)
+            pi_policy = pi_policy + s * (p + 1e-6)
+        assert sum(sum(sum(pi_policy != 0))) == sum(sum(sum(self.tensor_board.encode_actions_to_tensor())))
+        return pi_policy, mv

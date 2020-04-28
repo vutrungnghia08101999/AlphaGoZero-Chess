@@ -167,6 +167,13 @@ class TensorBoard(object):
         s[:, :, 25] = n_mvs
         return s
 
+    def encode_to_tensor(self) -> tuple:
+        s = np.zeros((8, 8, 104))
+        valid_moves, n_mvs = self.encode_actions_to_tensor(RL=True)
+        s[:, :, 0:26] = self.encode_board_to_tensor()
+        s[:, :, 26:104] = valid_moves
+        return s, valid_moves, n_mvs
+
     def _board_to_tensor(self, board: Board) -> np.array:
         def _get_layer(piece):
             assert not isinstance(piece, numbers.Number)
@@ -191,7 +198,7 @@ class TensorBoard(object):
                 s[row][col][channel] = 1
         return s
 
-    def encode_actions_to_tensor(self) -> np.array:
+    def encode_actions_to_tensor(self, RL=False) -> np.array:
         valid_moves = Rules.get_all_valid_moves(self.turn, self.boards[-1])
         s = np.zeros((8, 8, 78))
         for move in valid_moves:
@@ -211,6 +218,8 @@ class TensorBoard(object):
                 mv_type = QUEEN
             index = actions_ed['encoder'][mv_type][row_diff][col_diff]
             s[move.start.row][move.start.col][index] = 1
+        if RL:
+            return s, len(valid_moves)
         return s
 
     @staticmethod
@@ -292,6 +301,9 @@ class TensorBoard(object):
 
     def is_checkmate(self):
         return Rules.is_checkmate(self.turn, self.boards[-1])
+
+    def is_terminate(self):
+        return len(Rules.get_all_valid_moves(self.turn, self.boards[-1])) == 0
 
 
 # ************* TEST ****************
