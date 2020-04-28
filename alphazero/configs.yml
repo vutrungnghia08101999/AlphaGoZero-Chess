@@ -1,0 +1,10 @@
+dataroot: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning
+modelsroot: /media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL
+last_iter: 0
+
+self_play:
+  n_moves: 10
+  n_simulation: 10
+  n_games: 10
+
+evaluate_data: [0, 1]
