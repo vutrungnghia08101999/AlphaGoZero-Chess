@@ -37,8 +37,14 @@ args = parser.parse_args()
 logging.info('\n\n********* SELF PLAY *********\n\n')
 logging.info(args._get_kwargs())
 
+def save_file(game: list, filepath: str):
+    logging.info(f'Save game at {filepath}')
+    with open(filepath, 'wb') as f:
+        pickle.dump(game, f)
+
 def self_play(latest_model: ChessModel, game_id: int, iter_path: str, n_moves=512, n_simulation=400) -> None:
     game = []
+    filepath = os.path.join(iter_path, str(game_id) + '.pkl')
     # latest_model.eval()
     tensor_board = TensorBoard(Board(), Board(), 1)
     # tensor_board.boards[-1].display()
@@ -79,21 +85,18 @@ def self_play(latest_model: ChessModel, game_id: int, iter_path: str, n_moves=51
                     game[i].append(value)
                 else:
                     game[i].append(-1 * value)
-            return game
+            save_file(game, filepath=filepath)
         elif tensor_board.is_draw():
             logging.info('Draw')
             logging.info('0 for both team')
             for tup in game:
                 tup.append(0)
-            return game
+            save_file(game, filepath=filepath)
     for tup in game:
         tup.append(0)
     logging.info(f'Finish after {n_moves} moves')
     logging.info('0 for both team')
-    filepath = os.path.join(iter_path, str(game_id) + '.pkl')
-    logging.info(f'Save game {game_id} at {filepath}')
-    with open(filepath, 'wb') as f:
-        pickle.dump(game, f)
+    save_file(game, filepath=filepath)
 
 
 model = ChessModel()
