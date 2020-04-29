@@ -111,9 +111,13 @@ class MCTSNode(object):
                 # print('case 1.2')
                 # s1 = time.time() * 1000
                 predictions, v = predict_p_and_v(self.model, self.tensor_board)
-                # s2 = time.time() * 1000
+                noise = np.random.dirichlet(np.zeros([len(predictions)], dtype=np.float32) + 192)
+                # print(noise)
                 for i in range(len(predictions)):
                     move, prob, tensor_board = predictions[i]
+                    if self.parent is None:  # add dirichle noise to the root node
+                        prob = 0.7 * prob + 0.3 * noise[i]
+                        # print(noise[i])
                     self.children[i] = {
                         'node': MCTSNode(
                             tensor_board=tensor_board,

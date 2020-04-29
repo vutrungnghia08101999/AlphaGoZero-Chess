@@ -1,10 +1,12 @@
 import logging
 import os
+import numpy as np
 import pickle
 import time
 from tqdm import tqdm
 
 import torch
+import torch.multiprocessing as mp
 
 from chess_rules.ChessObjects import Board
 from chess_rules.TensorBoard import TensorBoard
@@ -12,12 +14,20 @@ from alphazero.model import ChessModel
 from alphazero.MCTS import MCTSNode
 from alphazero.utils import read_yaml
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(filename='./alphazero/logs.txt',
+                    filemode='a',
+                    format='%(asctime)s, %(levelname)s: %(message)s',
+                    datefmt='%y-%m-%d %H:%M:%S',
+                    level=logging.DEBUG)
+console = logging.StreamHandler()
+console.setLevel(logging.INFO)
+logging.getLogger().addHandler(console)
+# logging.basicConfig(level=logging.INFO)
 
 configs = read_yaml('alphazero/configs.yml')
 
 
-def self_play(latest_model: ChessModel, n_moves=512, n_simulation=100):
+def self_play(latest_model: ChessModel, game_id: int, iter_path: str, n_moves=512, n_simulation=300) -> None:
     game = []
     tensor_board = TensorBoard(Board(), Board(), 1)
     # tensor_board.boards[-1].display()
@@ -69,26 +79,44 @@ def self_play(latest_model: ChessModel, n_moves=512, n_simulation=100):
         tup.append(0)
     logging.info(f'Finish after {n_moves} moves')
     logging.info('0 for both team')
-    return game
+    filepath = os.path.join(iter_path, str(game_id) + '.pkl')
+    logging.info(f'Save game {game_id} at {filepath}')
+    with open(filepath, 'wb') as f:
+        pickle.dump(game, f)
 
 
 model = ChessModel()
 checkpoint = torch.load(os.path.join(configs['modelsroot'], str(configs['last_iter']) + '.pth'))
 model.load_state_dict(checkpoint['state_dict'])
 
-games = {}
-for i in range(configs['self_play']['n_games']):
-    logging.info(f'Self playing game: {i}')
-    game = self_play(latest_model=model,
-                     n_moves=configs['self_play']['n_moves'],
-                     n_simulation=configs['self_play']['n_simulation'])
-    games[i] = game
+iter_path = os.path.join(configs['dataroot'], str(configs['last_iter'] + 1))
+os.makedirs(iter_path, exist_ok=True)
 
-outfile = os.path.join(configs['dataroot'], str(configs['last_iter'] + 1) + '.pkl')
-logging.info(f'Save data at: {outfile}')
-assert not os.path.isfile(outfile)
-with open(outfile, 'wb') as f:
-    pickle.dump(games, f)
+START_GAME = configs['self_play']['start_game']
+END_GAME = configs['self_play']['end_game']
+N_GAMES = END_GAME - START_GAME + 1
+N_PROCESSES = configs['self_play']['n_processes']
+
+games = list(range(START_GAME, END_GAME + 1))
+n_batches = int(np.ceil(N_GAMES / N_PROCESSES))
+logging.info(f'No.CPUs in system: {mp.cpu_count()}')
+logging.info(f'No.Processess: {N_PROCESSES}')
+logging.info(f'No.Games: {N_GAMES}')
+logging.info(f'No.Batches: {n_batches}')
+logging.info(f'========================================')
+for batch in range(n_batches):
+    sub_games = games[batch * N_PROCESSES: (batch + 1) * N_PROCESSES]
+    logging.info(f'Processing {sub_games}')
+    processes = []
+    for game in sub_games:
+        p = mp.Process(target=self_play, args=(
+            model, game, iter_path, configs['self_play']['n_moves'], configs['self_play']['n_simulation']
+        ))
+        p.start()
+        processes.append(p)
+    for p in processes:
+        p.join()
+    logging.info(f'Completed {sub_games}')
 
 logging.info('Completed self play\n\n')
 

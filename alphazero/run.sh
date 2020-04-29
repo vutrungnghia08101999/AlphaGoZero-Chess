@@ -1,3 +1,3 @@
 python -m alphazero.self_play
 python -m alphazero.evaluate_data
-#python -m alphazero.training
+python -m alphazero.training

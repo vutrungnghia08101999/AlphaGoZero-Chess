@@ -3,8 +3,13 @@ modelsroot: /media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL
 last_iter: 0
 
 self_play:
+  start_game: 0
+  end_game: 10
+  n_processes: 4
   n_moves: 10
   n_simulation: 10
-  n_games: 10
 
-evaluate_data: [0, 1]
+training:
+  epochs: 5
+  batch_size: 32
+  lr: 0.001
