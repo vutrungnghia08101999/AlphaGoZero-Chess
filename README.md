@@ -25,9 +25,9 @@ python -m sl_data_processing.encode_data
 ```
 AlphaZero
 ===
-Self-play and training (change configs.yml and run.sh)
+Self-play and training (change run.py)
 ```
-alphazero/run.sh
+python run.py
 ```
 Play against alphazero
 ```
