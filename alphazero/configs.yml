@@ -4,7 +4,7 @@ last_iter:  # get from args
 
 self_play:
   start_game: 0
-  end_game: 64
+  end_game: 15
   n_processes: 32
   n_moves: 512
   n_simulation: 400
