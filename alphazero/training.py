@@ -9,7 +9,6 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 import torch.nn.functional as F
 
-from alphazero.utils import read_yaml
 from alphazero.model import ChessModel
 
 logging.basicConfig(filename='alphazero/logs.txt',
@@ -23,15 +22,17 @@ logging.getLogger().addHandler(console)
 # logging.basicConfig(level=logging.INFO)
 
 parser = argparse.ArgumentParser()
+parser.add_argument('--dataroot', type=str)
+parser.add_argument('--modelszoo', type=str)
 parser.add_argument('--last_iter', type=int)
+parser.add_argument('--lr', type=float, default=0.001)
+parser.add_argument('--epochs', type=int, default=10)
+parser.add_argument('--batch_size', type=int, default=200)
 args = parser.parse_args()
 
-configs = read_yaml('alphazero/configs.yml')
-configs['last_iter'] = args.last_iter
 
 logging.info('\n\n********* TRAINING *********\n\n')
-logging.info(configs)
-
+logging.info(args._get_kwargs())
 
 class ALPHAZERODataset(Dataset):
     def __init__(self, games: list):
@@ -66,8 +67,8 @@ def compute_loss(p, v, pi, value, parameters) -> torch.tensor:
 
     return l1.mean() + l2.mean() + 0.0001 * reg
 
-LASTEST_ITER_PATH = os.path.join(configs['dataroot'], str(configs['last_iter'] + 1))
-LASTEST_MODEL_PATH = os.path.join(configs['modelsroot'], str(configs['last_iter']) + '.pth')
+LASTEST_ITER_PATH = os.path.join(args.dataroot, str(args.last_iter + 1))
+LASTEST_MODEL_PATH = os.path.join(args.modelszoo, str(args.last_iter) + '.pth')
 games = []
 for filename in os.listdir(LASTEST_ITER_PATH):
     filepath = os.path.join(LASTEST_ITER_PATH, filename)
@@ -78,20 +79,22 @@ for filename in os.listdir(LASTEST_ITER_PATH):
 
 dataset = ALPHAZERODataset(games)
 logging.info(f'Train on {len(dataset)} positions')
-dataloader = DataLoader(dataset, batch_size=configs['training']['batch_size'], shuffle=True)
+dataloader = DataLoader(dataset, batch_size=args.batch_size, shuffle=True)
 
 model = ChessModel()
-checkpoint = torch.load(LASTEST_MODEL_PATH)
-model.load_state_dict(checkpoint['state_dict'])
+if args.last_iter != 0:
+    checkpoint = torch.load(LASTEST_MODEL_PATH)
+    logging.info(f'Load model: {LASTEST_MODEL_PATH}')
+    model.load_state_dict(checkpoint['state_dict'])
 
 optimizer = torch.optim.Adam(model.parameters(),
-                             lr=configs['training']['lr'],
+                             lr=args.lr,
                              betas=(0.9, 0.999),
                              eps=1e-08,
                              weight_decay=0,
                              amsgrad=False)
 
-for epoch in range(configs['training']['epochs']):
+for epoch in range(args.epochs):
     logging.info(f'EPOCH: {epoch}')
     for batch_id, (state, pi, value) in enumerate(dataloader):
         p, v = model(state)
@@ -102,7 +105,7 @@ for epoch in range(configs['training']['epochs']):
         with torch.no_grad():
             logging.info(f'Loss: {loss.item()}')
 
-OUT_MODEL_PATH = os.path.join(configs['modelsroot'], str(configs['last_iter'] + 1) + '.pth')
+OUT_MODEL_PATH = os.path.join(args.modelszoo, str(args.last_iter + 1) + '.pth')
 torch.save({'state_dict': model.state_dict()}, OUT_MODEL_PATH)
 logging.info(f'Save model at: {OUT_MODEL_PATH}')
 logging.info(f'Completed training')

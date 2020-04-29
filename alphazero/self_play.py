@@ -5,15 +5,14 @@ import numpy as np
 import pickle
 import time
 from tqdm import tqdm
+import copy
 
 import torch
-import torch.multiprocessing as mp
 
 from chess_rules.ChessObjects import Board
 from chess_rules.TensorBoard import TensorBoard
 from alphazero.MCTS import MCTSNode
 from alphazero.model import ChessModel
-from alphazero.utils import read_yaml
 
 logging.basicConfig(filename='alphazero/logs.txt',
                     filemode='a',
@@ -26,18 +25,21 @@ logging.getLogger().addHandler(console)
 # logging.basicConfig(level=logging.INFO)
 
 parser = argparse.ArgumentParser()
+parser.add_argument('--dataroot', type=str)
+parser.add_argument('--modelszoo', type=str)
 parser.add_argument('--last_iter', type=int)
+parser.add_argument('--game_id', type=int)
+
+parser.add_argument('--n_moves', type=int, default=512)
+parser.add_argument('--n_simulation', type=int, default=400)
 args = parser.parse_args()
 
-configs = read_yaml('alphazero/configs.yml')
-configs['last_iter'] = args.last_iter
-
 logging.info('\n\n********* SELF PLAY *********\n\n')
-logging.info(configs)
+logging.info(args._get_kwargs())
 
-
-def self_play(latest_model: ChessModel, game_id: int, iter_path: str, n_moves=512, n_simulation=300) -> None:
+def self_play(latest_model: ChessModel, game_id: int, iter_path: str, n_moves=512, n_simulation=400) -> None:
     game = []
+    # latest_model.eval()
     tensor_board = TensorBoard(Board(), Board(), 1)
     # tensor_board.boards[-1].display()
     latest_model.eval()
@@ -95,40 +97,30 @@ def self_play(latest_model: ChessModel, game_id: int, iter_path: str, n_moves=51
 
 
 model = ChessModel()
-checkpoint = torch.load(os.path.join(configs['modelsroot'], str(configs['last_iter']) + '.pth'))
-model.load_state_dict(checkpoint['state_dict'])
+if args.last_iter != 0:
+    path = os.path.join(args.modelszoo, str(args.last_iter) + '.pth')
+    checkpoint = torch.load(path)
+    logging.info(f'Load model: {path}')
+    model.load_state_dict(checkpoint['state_dict'])
 model.eval()
 
-iter_path = os.path.join(configs['dataroot'], str(configs['last_iter'] + 1))
+iter_path = os.path.join(args.dataroot, str(args.last_iter + 1))
 os.makedirs(iter_path, exist_ok=True)
 
-START_GAME = configs['self_play']['start_game']
-END_GAME = configs['self_play']['end_game']
-N_GAMES = END_GAME - START_GAME + 1
-N_PROCESSES = configs['self_play']['n_processes']
+# START_GAME = configs['self_play']['start_game']
+# END_GAME = configs['self_play']['end_game']
+# N_GAMES = END_GAME - START_GAME + 1
+# N_PROCESSES = configs['self_play']['n_processes']
 
-games = list(range(START_GAME, END_GAME + 1))
-n_batches = int(np.ceil(N_GAMES / N_PROCESSES))
-logging.info(f'No.CPUs in system: {mp.cpu_count()}')
-logging.info(f'No.Processess: {N_PROCESSES}')
-logging.info(f'No.Games: {N_GAMES}')
-logging.info(f'No.Batches: {n_batches}')
-logging.info(f'========================================')
-for batch in range(n_batches):
-    sub_games = games[batch * N_PROCESSES: (batch + 1) * N_PROCESSES]
-    logging.info(f'Processing {sub_games}')
-    processes = []
-    for game in sub_games:
-        p = mp.Process(target=self_play, args=(
-            model, game, iter_path, configs['self_play']['n_moves'], configs['self_play']['n_simulation']
-        ))
-        p.start()
-        processes.append(p)
-    for p in processes:
-        p.join()
-    logging.info(f'Completed {sub_games}')
-
-logging.info('Completed self play\n\n')
+# games = list(range(START_GAME, END_GAME + 1))
+# n_batches = int(np.ceil(N_GAMES / N_PROCESSES))
+# logging.info(f'No.CPUs in system: {mp.cpu_count()}')
+# logging.info(f'No.Processess: {N_PROCESSES}')
+# logging.info(f'No.Games: {N_GAMES}')
+# logging.info(f'No.Batches: {n_batches}')
+# logging.info(f'========================================')
+self_play(model, args.game_id, iter_path, args.n_moves, args.n_simulation)
+logging.info(f'Completed self play - game_id: {args.game_id}\n\n')
 
 # import datetime
 # # games = {}

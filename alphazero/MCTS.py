@@ -1,3 +1,4 @@
+import logging
 import time
 import copy
 import math
@@ -106,7 +107,7 @@ class MCTSNode(object):
             self.is_terminate = self.tensor_board.is_terminate()
             if self.is_terminate:
                 v = predict_v(self.model, self.tensor_board)
-                print('case 1.1')
+                logging.info('case 1.1')
             else:
                 # print('case 1.2')
                 # s1 = time.time() * 1000
@@ -133,7 +134,7 @@ class MCTSNode(object):
                 # s3 = time.time() * 1000
                 # print(s2 - s1, s3 - s2)
         else:
-            print('case 2')
+            logging.info('case 2')
             v = predict_v(self.model, self.tensor_board)
 
         # s2 = time.time() * 1000

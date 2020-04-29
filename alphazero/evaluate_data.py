@@ -4,8 +4,6 @@ import os
 import pickle
 from tqdm import tqdm
 
-from alphazero.utils import read_yaml
-
 logging.basicConfig(filename='alphazero/logs.txt',
                     filemode='a',
                     format='%(asctime)s, %(levelname)s: %(message)s',
@@ -17,16 +15,14 @@ logging.getLogger().addHandler(console)
 # logging.basicConfig(level=logging.INFO)
 
 parser = argparse.ArgumentParser()
+parser.add_argument('--dataroot', type=str)
 parser.add_argument('--last_iter', type=int)
 args = parser.parse_args()
 
-configs = read_yaml('alphazero/configs.yml')
-configs['last_iter'] = args.last_iter
-
 logging.info('\n\n********* EVALUATE DATA *********\n\n')
-logging.info(configs)
+logging.info(args._get_kwargs())
 
-PATH = os.path.join(configs['dataroot'], str(configs['last_iter'] + 1))
+PATH = os.path.join(args.dataroot, str(args.last_iter + 1))
 for filename in os.listdir(PATH):
     filepath = os.path.join(PATH, filename)
 
