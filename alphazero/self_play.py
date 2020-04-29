@@ -1,3 +1,4 @@
+import argparse
 import logging
 import os
 import numpy as np
@@ -10,11 +11,11 @@ import torch.multiprocessing as mp
 
 from chess_rules.ChessObjects import Board
 from chess_rules.TensorBoard import TensorBoard
-from alphazero.model import ChessModel
 from alphazero.MCTS import MCTSNode
+from alphazero.model import ChessModel
 from alphazero.utils import read_yaml
 
-logging.basicConfig(filename='./alphazero/logs.txt',
+logging.basicConfig(filename='alphazero/logs.txt',
                     filemode='a',
                     format='%(asctime)s, %(levelname)s: %(message)s',
                     datefmt='%y-%m-%d %H:%M:%S',
@@ -24,7 +25,15 @@ console.setLevel(logging.INFO)
 logging.getLogger().addHandler(console)
 # logging.basicConfig(level=logging.INFO)
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--last_iter', type=int)
+args = parser.parse_args()
+
 configs = read_yaml('alphazero/configs.yml')
+configs['last_iter'] = args.last_iter
+
+logging.info('\n\n********* SELF PLAY *********\n\n')
+logging.info(configs)
 
 
 def self_play(latest_model: ChessModel, game_id: int, iter_path: str, n_moves=512, n_simulation=300) -> None:
@@ -88,6 +97,7 @@ def self_play(latest_model: ChessModel, game_id: int, iter_path: str, n_moves=51
 model = ChessModel()
 checkpoint = torch.load(os.path.join(configs['modelsroot'], str(configs['last_iter']) + '.pth'))
 model.load_state_dict(checkpoint['state_dict'])
+model.eval()
 
 iter_path = os.path.join(configs['dataroot'], str(configs['last_iter'] + 1))
 os.makedirs(iter_path, exist_ok=True)

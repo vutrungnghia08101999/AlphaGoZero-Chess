@@ -1,0 +1,216 @@
+20-04-29 15:40:43, INFO: 
+
+********* SELF PLAY *********
+
+
+20-04-29 15:40:43, INFO: {'dataroot': '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning', 'modelsroot': '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL', 'last_iter': 0, 'self_play': {'start_game': 0, 'end_game': 10, 'n_processes': 4, 'n_moves': 10, 'n_simulation': 10}, 'training': {'epochs': 5, 'batch_size': 32, 'lr': 0.001}}
+20-04-29 15:40:43, INFO: No.CPUs in system: 8
+20-04-29 15:40:43, INFO: No.Processess: 4
+20-04-29 15:40:43, INFO: No.Games: 11
+20-04-29 15:40:43, INFO: No.Batches: 3
+20-04-29 15:40:43, INFO: ========================================
+20-04-29 15:40:43, INFO: Processing [0, 1, 2, 3]
+20-04-29 15:40:43, INFO: 1-white-move first
+20-04-29 15:40:43, INFO: 1-white-move first
+20-04-29 15:40:43, INFO: 1-white-move first
+20-04-29 15:40:43, INFO: 1-white-move first
+20-04-29 15:41:48, INFO: Finish after 10 moves
+20-04-29 15:41:48, INFO: 0 for both team
+20-04-29 15:41:48, INFO: Save game 0 at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/0.pkl
+20-04-29 15:41:49, INFO: Finish after 10 moves
+20-04-29 15:41:49, INFO: 0 for both team
+20-04-29 15:41:49, INFO: Save game 3 at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/3.pkl
+20-04-29 15:41:50, INFO: Finish after 10 moves
+20-04-29 15:41:50, INFO: 0 for both team
+20-04-29 15:41:50, INFO: Save game 2 at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/2.pkl
+20-04-29 15:41:50, INFO: Finish after 10 moves
+20-04-29 15:41:50, INFO: 0 for both team
+20-04-29 15:41:50, INFO: Save game 1 at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/1.pkl
+20-04-29 15:41:50, INFO: Completed [0, 1, 2, 3]
+20-04-29 15:41:50, INFO: Processing [4, 5, 6, 7]
+20-04-29 15:41:50, INFO: 1-white-move first
+20-04-29 15:41:50, INFO: 1-white-move first
+20-04-29 15:41:50, INFO: 1-white-move first
+20-04-29 15:41:50, INFO: 1-white-move first
+20-04-29 15:43:01, INFO: Finish after 10 moves
+20-04-29 15:43:01, INFO: 0 for both team
+20-04-29 15:43:01, INFO: Save game 4 at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/4.pkl
+20-04-29 15:43:02, INFO: Finish after 10 moves
+20-04-29 15:43:02, INFO: 0 for both team
+20-04-29 15:43:02, INFO: Save game 5 at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/5.pkl
+20-04-29 15:43:02, INFO: Finish after 10 moves
+20-04-29 15:43:02, INFO: 0 for both team
+20-04-29 15:43:02, INFO: Save game 7 at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/7.pkl
+20-04-29 15:43:02, INFO: Finish after 10 moves
+20-04-29 15:43:02, INFO: 0 for both team
+20-04-29 15:43:02, INFO: Save game 6 at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/6.pkl
+20-04-29 15:43:02, INFO: Completed [4, 5, 6, 7]
+20-04-29 15:43:02, INFO: Processing [8, 9, 10]
+20-04-29 15:43:02, INFO: 1-white-move first
+20-04-29 15:43:02, INFO: 1-white-move first
+20-04-29 15:43:02, INFO: 1-white-move first
+20-04-29 15:43:52, INFO: Finish after 10 moves
+20-04-29 15:43:52, INFO: 0 for both team
+20-04-29 15:43:52, INFO: Save game 10 at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/10.pkl
+20-04-29 15:43:53, INFO: Finish after 10 moves
+20-04-29 15:43:53, INFO: 0 for both team
+20-04-29 15:43:53, INFO: Save game 9 at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/9.pkl
+20-04-29 15:43:54, INFO: Finish after 10 moves
+20-04-29 15:43:54, INFO: 0 for both team
+20-04-29 15:43:54, INFO: Save game 8 at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/8.pkl
+20-04-29 15:43:54, INFO: Completed [8, 9, 10]
+20-04-29 15:43:54, INFO: Completed self play
+
+
+20-04-29 15:43:54, INFO: 
+
+********* EVALUATE DATA *********
+
+
+20-04-29 15:43:54, INFO: {'dataroot': '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning', 'modelsroot': '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL', 'last_iter': None, 'self_play': {'start_game': 0, 'end_game': 10, 'n_processes': 4, 'n_moves': 10, 'n_simulation': 10}, 'training': {'epochs': 5, 'batch_size': 32, 'lr': 0.001}}
+20-04-29 15:43:55, INFO: 
+
+********* TRAINING *********
+
+
+20-04-29 15:43:55, INFO: {'dataroot': '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning', 'modelsroot': '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL', 'last_iter': None, 'self_play': {'start_game': 0, 'end_game': 10, 'n_processes': 4, 'n_moves': 10, 'n_simulation': 10}, 'training': {'epochs': 5, 'batch_size': 32, 'lr': 0.001}}
+20-04-29 15:45:25, INFO: 
+
+********* SELF PLAY *********
+
+
+20-04-29 15:45:25, INFO: {'dataroot': '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning', 'modelsroot': '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL', 'last_iter': 0, 'self_play': {'start_game': 0, 'end_game': 10, 'n_processes': 4, 'n_moves': 10, 'n_simulation': 10}, 'training': {'epochs': 5, 'batch_size': 32, 'lr': 0.001}}
+20-04-29 15:45:25, INFO: No.CPUs in system: 8
+20-04-29 15:45:25, INFO: No.Processess: 4
+20-04-29 15:45:25, INFO: No.Games: 11
+20-04-29 15:45:25, INFO: No.Batches: 3
+20-04-29 15:45:25, INFO: ========================================
+20-04-29 15:45:25, INFO: Processing [0, 1, 2, 3]
+20-04-29 15:45:25, INFO: 1-white-move first
+20-04-29 15:45:25, INFO: 1-white-move first
+20-04-29 15:45:25, INFO: 1-white-move first
+20-04-29 15:45:25, INFO: 1-white-move first
+20-04-29 15:46:33, INFO: Finish after 10 moves
+20-04-29 15:46:33, INFO: 0 for both team
+20-04-29 15:46:33, INFO: Save game 2 at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/2.pkl
+20-04-29 15:46:33, INFO: Finish after 10 moves
+20-04-29 15:46:33, INFO: 0 for both team
+20-04-29 15:46:33, INFO: Save game 1 at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/1.pkl
+20-04-29 15:46:33, INFO: Finish after 10 moves
+20-04-29 15:46:33, INFO: 0 for both team
+20-04-29 15:46:33, INFO: Save game 0 at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/0.pkl
+20-04-29 15:46:34, INFO: Finish after 10 moves
+20-04-29 15:46:34, INFO: 0 for both team
+20-04-29 15:46:34, INFO: Save game 3 at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/3.pkl
+20-04-29 15:46:34, INFO: Completed [0, 1, 2, 3]
+20-04-29 15:46:34, INFO: Processing [4, 5, 6, 7]
+20-04-29 15:46:34, INFO: 1-white-move first
+20-04-29 15:46:34, INFO: 1-white-move first
+20-04-29 15:46:34, INFO: 1-white-move first
+20-04-29 15:46:34, INFO: 1-white-move first
+20-04-29 15:47:54, INFO: Finish after 10 moves
+20-04-29 15:47:54, INFO: 0 for both team
+20-04-29 15:47:54, INFO: Save game 6 at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/6.pkl
+20-04-29 15:47:54, INFO: Finish after 10 moves
+20-04-29 15:47:54, INFO: 0 for both team
+20-04-29 15:47:54, INFO: Save game 7 at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/7.pkl
+20-04-29 15:47:54, INFO: Finish after 10 moves
+20-04-29 15:47:54, INFO: 0 for both team
+20-04-29 15:47:54, INFO: Save game 5 at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/5.pkl
+20-04-29 15:47:55, INFO: Finish after 10 moves
+20-04-29 15:47:55, INFO: 0 for both team
+20-04-29 15:47:55, INFO: Save game 4 at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/4.pkl
+20-04-29 15:47:55, INFO: Completed [4, 5, 6, 7]
+20-04-29 15:47:55, INFO: Processing [8, 9, 10]
+20-04-29 15:47:55, INFO: 1-white-move first
+20-04-29 15:47:55, INFO: 1-white-move first
+20-04-29 15:47:55, INFO: 1-white-move first
+20-04-29 15:48:51, INFO: Finish after 10 moves
+20-04-29 15:48:51, INFO: 0 for both team
+20-04-29 15:48:51, INFO: Save game 8 at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/8.pkl
+20-04-29 15:48:52, INFO: Finish after 10 moves
+20-04-29 15:48:52, INFO: 0 for both team
+20-04-29 15:48:52, INFO: Save game 10 at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/10.pkl
+20-04-29 15:48:52, INFO: Finish after 10 moves
+20-04-29 15:48:52, INFO: 0 for both team
+20-04-29 15:48:52, INFO: Save game 9 at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/9.pkl
+20-04-29 15:48:52, INFO: Completed [8, 9, 10]
+20-04-29 15:48:52, INFO: Completed self play
+
+
+20-04-29 15:48:52, INFO: 
+
+********* EVALUATE DATA *********
+
+
+20-04-29 15:48:52, INFO: {'dataroot': '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning', 'modelsroot': '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL', 'last_iter': 0, 'self_play': {'start_game': 0, 'end_game': 10, 'n_processes': 4, 'n_moves': 10, 'n_simulation': 10}, 'training': {'epochs': 5, 'batch_size': 32, 'lr': 0.001}}
+20-04-29 15:48:52, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/0.pkl
+20-04-29 15:48:53, INFO: Value of team 1: 0 - team 0: 0
+20-04-29 15:48:53, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/1.pkl
+20-04-29 15:48:53, INFO: Value of team 1: 0 - team 0: 0
+20-04-29 15:48:53, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/10.pkl
+20-04-29 15:48:53, INFO: Value of team 1: 0 - team 0: 0
+20-04-29 15:48:53, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/2.pkl
+20-04-29 15:48:53, INFO: Value of team 1: 0 - team 0: 0
+20-04-29 15:48:53, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/3.pkl
+20-04-29 15:48:53, INFO: Value of team 1: 0 - team 0: 0
+20-04-29 15:48:53, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/4.pkl
+20-04-29 15:48:53, INFO: Value of team 1: 0 - team 0: 0
+20-04-29 15:48:53, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/5.pkl
+20-04-29 15:48:53, INFO: Value of team 1: 0 - team 0: 0
+20-04-29 15:48:53, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/6.pkl
+20-04-29 15:48:53, INFO: Value of team 1: 0 - team 0: 0
+20-04-29 15:48:53, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/7.pkl
+20-04-29 15:48:53, INFO: Value of team 1: 0 - team 0: 0
+20-04-29 15:48:53, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/8.pkl
+20-04-29 15:48:53, INFO: Value of team 1: 0 - team 0: 0
+20-04-29 15:48:53, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/9.pkl
+20-04-29 15:48:53, INFO: Value of team 1: 0 - team 0: 0
+20-04-29 15:48:53, INFO: Evaluate Sucessfully
+
+
+20-04-29 15:48:53, INFO: 
+
+********* TRAINING *********
+
+
+20-04-29 15:48:53, INFO: {'dataroot': '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning', 'modelsroot': '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL', 'last_iter': 0, 'self_play': {'start_game': 0, 'end_game': 10, 'n_processes': 4, 'n_moves': 10, 'n_simulation': 10}, 'training': {'epochs': 5, 'batch_size': 32, 'lr': 0.001}}
+20-04-29 15:48:53, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/0.pkl
+20-04-29 15:48:53, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/1.pkl
+20-04-29 15:48:53, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/10.pkl
+20-04-29 15:48:53, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/2.pkl
+20-04-29 15:48:53, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/3.pkl
+20-04-29 15:48:53, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/4.pkl
+20-04-29 15:48:53, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/5.pkl
+20-04-29 15:48:53, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/6.pkl
+20-04-29 15:48:53, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/7.pkl
+20-04-29 15:48:53, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/8.pkl
+20-04-29 15:48:53, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/9.pkl
+20-04-29 15:48:53, INFO: Train on 110 positions
+20-04-29 15:48:54, INFO: EPOCH: 0
+20-04-29 15:48:56, INFO: Loss: 10.064994812011719
+20-04-29 15:48:58, INFO: Loss: 9.992422103881836
+20-04-29 15:49:01, INFO: Loss: 9.68504524230957
+20-04-29 15:49:02, INFO: Loss: 9.578901290893555
+20-04-29 15:49:02, INFO: EPOCH: 1
+20-04-29 15:49:05, INFO: Loss: 9.235330581665039
+20-04-29 15:49:08, INFO: Loss: 9.181991577148438
+20-04-29 15:49:10, INFO: Loss: 9.006691932678223
+20-04-29 15:49:12, INFO: Loss: 8.862558364868164
+20-04-29 15:49:12, INFO: EPOCH: 2
+20-04-29 15:49:14, INFO: Loss: 8.816905975341797
+20-04-29 15:49:17, INFO: Loss: 8.50605297088623
+20-04-29 15:49:19, INFO: Loss: 8.43841552734375
+20-04-29 15:49:20, INFO: Loss: 8.32391357421875
+20-04-29 15:49:20, INFO: EPOCH: 3
+20-04-29 15:49:23, INFO: Loss: 8.112245559692383
+20-04-29 15:49:26, INFO: Loss: 8.146196365356445
+20-04-29 15:49:29, INFO: Loss: 7.8921990394592285
+20-04-29 15:49:30, INFO: Loss: 7.834368705749512
+20-04-29 15:49:30, INFO: EPOCH: 4
+20-04-29 15:49:33, INFO: Loss: 7.698519706726074
+20-04-29 15:49:36, INFO: Loss: 7.455030918121338
+20-04-29 15:49:38, INFO: Loss: 7.501252174377441
+20-04-29 15:49:40, INFO: Loss: 7.312249183654785
+20-04-29 15:49:40, INFO: Save model at: /media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL/1.pth
+20-04-29 15:49:40, INFO: Completed training

@@ -1,3 +1,4 @@
+import argparse
 import logging
 import os
 import pickle
@@ -15,7 +16,15 @@ console.setLevel(logging.INFO)
 logging.getLogger().addHandler(console)
 # logging.basicConfig(level=logging.INFO)
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--last_iter', type=int)
+args = parser.parse_args()
+
 configs = read_yaml('alphazero/configs.yml')
+configs['last_iter'] = args.last_iter
+
+logging.info('\n\n********* EVALUATE DATA *********\n\n')
+logging.info(configs)
 
 PATH = os.path.join(configs['dataroot'], str(configs['last_iter'] + 1))
 for filename in os.listdir(PATH):

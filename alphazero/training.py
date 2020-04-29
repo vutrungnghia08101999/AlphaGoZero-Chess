@@ -1,3 +1,4 @@
+import argparse
 import logging
 import os
 import pickle
@@ -21,7 +22,15 @@ console.setLevel(logging.INFO)
 logging.getLogger().addHandler(console)
 # logging.basicConfig(level=logging.INFO)
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--last_iter', type=int)
+args = parser.parse_args()
+
 configs = read_yaml('alphazero/configs.yml')
+configs['last_iter'] = args.last_iter
+
+logging.info('\n\n********* TRAINING *********\n\n')
+logging.info(configs)
 
 
 class ALPHAZERODataset(Dataset):
@@ -68,6 +77,7 @@ for filename in os.listdir(LASTEST_ITER_PATH):
     games = games + game
 
 dataset = ALPHAZERODataset(games)
+logging.info(f'Train on {len(dataset)} positions')
 dataloader = DataLoader(dataset, batch_size=configs['training']['batch_size'], shuffle=True)
 
 model = ChessModel()
@@ -89,11 +99,10 @@ for epoch in range(configs['training']['epochs']):
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-
-        # if batch_id % 10 == 0:
         with torch.no_grad():
             logging.info(f'Loss: {loss.item()}')
 
 OUT_MODEL_PATH = os.path.join(configs['modelsroot'], str(configs['last_iter'] + 1) + '.pth')
 torch.save({'state_dict': model.state_dict()}, OUT_MODEL_PATH)
 logging.info(f'Save model at: {OUT_MODEL_PATH}')
+logging.info(f'Completed training')

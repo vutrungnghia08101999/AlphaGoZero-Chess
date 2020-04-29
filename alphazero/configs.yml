@@ -1,15 +1,16 @@
 dataroot: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning
 modelsroot: /media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL
-last_iter: 0
+last_iter:  # get from args
 
 self_play:
   start_game: 0
-  end_game: 10
-  n_processes: 4
-  n_moves: 10
-  n_simulation: 10
+  end_game: 64
+  n_processes: 32
+  n_moves: 512
+  n_simulation: 400
 
 training:
-  epochs: 5
-  batch_size: 32
+  epochs: 10
+  batch_size: 200
   lr: 0.001
+ 

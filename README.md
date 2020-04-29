@@ -12,7 +12,8 @@ Play aganist minimax || supervised learning:
 ```
 python battle_field.py
 ```
-
+Supervised Learning
+===
 Process data:
 ```
 python -m sl_data_processing.process_data
@@ -21,4 +22,14 @@ python -m sl_data_processing.process_data
 Encode data:
 ```
 python -m sl_data_processing.encode_data
+```
+AlphaZero
+===
+Self-play and training (change configs.yml and run.sh)
+```
+alphazero/run.sh
+```
+Play against alphazero
+```
+python battle_field.py
 ```
