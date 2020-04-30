@@ -4,7 +4,7 @@ import os
 import pickle
 from tqdm import tqdm
 
-logging.basicConfig(filename='alphazero/logs.txt',
+logging.basicConfig(filename='main/logs.txt',
                     filemode='a',
                     format='%(asctime)s, %(levelname)s: %(message)s',
                     datefmt='%y-%m-%d %H:%M:%S',

@@ -11,10 +11,10 @@ import torch
 
 from chess_rules.ChessObjects import Board
 from chess_rules.TensorBoard import TensorBoard
-from alphazero.MCTS import MCTSNode
-from alphazero.model import ChessModel
+from main.MCTS import MCTSNode
+from main.model import ChessModel
 
-logging.basicConfig(filename='alphazero/logs.txt',
+logging.basicConfig(filename='main/logs.txt',
                     filemode='a',
                     format='%(asctime)s, %(levelname)s: %(message)s',
                     datefmt='%y-%m-%d %H:%M:%S',
@@ -86,18 +86,20 @@ def self_play(latest_model: ChessModel, game_id: int, iter_path: str, n_moves=51
                 else:
                     game[i].append(-1 * value)
             save_file(game, filepath=filepath)
+            return
         elif tensor_board.is_draw():
             logging.info('Draw')
             logging.info('0 for both team')
             for tup in game:
                 tup.append(0)
             save_file(game, filepath=filepath)
+            return
     for tup in game:
         tup.append(0)
     logging.info(f'Finish after {n_moves} moves')
     logging.info('0 for both team')
     save_file(game, filepath=filepath)
-
+    return
 
 model = ChessModel()
 if args.last_iter != 0:

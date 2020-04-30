@@ -9,9 +9,9 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 import torch.nn.functional as F
 
-from alphazero.model import ChessModel
+from main.model import ChessModel
 
-logging.basicConfig(filename='alphazero/logs.txt',
+logging.basicConfig(filename='main/logs.txt',
                     filemode='a',
                     format='%(asctime)s, %(levelname)s: %(message)s',
                     datefmt='%y-%m-%d %H:%M:%S',
