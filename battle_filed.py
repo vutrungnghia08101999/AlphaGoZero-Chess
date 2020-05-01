@@ -7,8 +7,8 @@ import torch.nn.functional as F
 
 from chess_rules.TensorBoard import TensorBoard
 # from sl_traning.model import ChessModel
-from alphazero.MCTS import MCTSNode
-from alphazero.model import ChessModel
+from main.MCTS import MCTSNode
+from main.model import ChessModel
 from minimax.Minimax import Minimax
 from chess_rules.ChessObjects import Board, Spot, Move
 from chess_rules.Rules import Rules
@@ -168,7 +168,7 @@ from chess_rules.Rules import Rules
 #         break
 
 # ************************ REINFORCEMENT LEARNING VS MINIMAX || PLAYER ***********************
-MODEL_PATH = '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL/0.pth'
+MODEL_PATH = '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL/1.pth'
 DEPTH = 4
 N_SIMULATIONS = 200
 model = ChessModel()
