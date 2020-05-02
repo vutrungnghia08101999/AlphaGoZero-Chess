@@ -5,11 +5,11 @@ import subprocess
 # MODELSZOO = '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL'
 DATAROOT = '/home/nghiavt/workspace/nghia/dataset'
 MODELSZOO = '/home/nghiavt/workspace/nghia/models'
-N_GAMES = 31
+N_GAMES = 32
 
 for iteration in range(1, 10):
     processes = []
-    for i in range(1, N_GAMES + 1):
+    for i in range(N_GAMES):
         command = [
             'taskset',
             '--cpu-list', str(i),

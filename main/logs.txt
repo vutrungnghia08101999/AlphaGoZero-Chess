@@ -838,3 +838,369 @@
 20-04-30 06:52:03, INFO: Loss: 9.649885177612305
 20-04-30 06:52:05, INFO: Save model at: /media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL/3.pth
 20-04-30 06:52:05, INFO: Completed training
+20-05-02 23:07:08, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-02 23:07:08, INFO: [('dataroot', '/home/nghiavt/workspace/nghia/dataset'), ('game_id', 2), ('last_iter', 0), ('modelszoo', '/home/nghiavt/workspace/nghia/models'), ('n_moves', 10), ('n_simulation', 10)]
+20-05-02 23:07:08, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-02 23:07:08, INFO: [('dataroot', '/home/nghiavt/workspace/nghia/dataset'), ('game_id', 6), ('last_iter', 0), ('modelszoo', '/home/nghiavt/workspace/nghia/models'), ('n_moves', 10), ('n_simulation', 10)]
+20-05-02 23:07:08, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-02 23:07:08, INFO: [('dataroot', '/home/nghiavt/workspace/nghia/dataset'), ('game_id', 5), ('last_iter', 0), ('modelszoo', '/home/nghiavt/workspace/nghia/models'), ('n_moves', 10), ('n_simulation', 10)]
+20-05-02 23:07:08, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-02 23:07:08, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-02 23:07:08, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-02 23:07:08, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-02 23:07:08, INFO: [('dataroot', '/home/nghiavt/workspace/nghia/dataset'), ('game_id', 1), ('last_iter', 0), ('modelszoo', '/home/nghiavt/workspace/nghia/models'), ('n_moves', 10), ('n_simulation', 10)]
+20-05-02 23:07:08, INFO: [('dataroot', '/home/nghiavt/workspace/nghia/dataset'), ('game_id', 4), ('last_iter', 0), ('modelszoo', '/home/nghiavt/workspace/nghia/models'), ('n_moves', 10), ('n_simulation', 10)]
+20-05-02 23:07:08, INFO: [('dataroot', '/home/nghiavt/workspace/nghia/dataset'), ('game_id', 3), ('last_iter', 0), ('modelszoo', '/home/nghiavt/workspace/nghia/models'), ('n_moves', 10), ('n_simulation', 10)]
+20-05-02 23:07:08, INFO: [('dataroot', '/home/nghiavt/workspace/nghia/dataset'), ('game_id', 7), ('last_iter', 0), ('modelszoo', '/home/nghiavt/workspace/nghia/models'), ('n_moves', 10), ('n_simulation', 10)]
+20-05-02 23:07:08, INFO: 
+
+********* EVALUATE DATA *********
+
+
+20-05-02 23:07:08, INFO: [('dataroot', '/home/nghiavt/workspace/nghia/dataset'), ('last_iter', 0)]
+20-05-02 23:07:45, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-02 23:07:45, INFO: [('dataroot', '/home/nghiavt/workspace/nghia/dataset'), ('game_id', 1), ('last_iter', 0), ('modelszoo', '/home/nghiavt/workspace/nghia/models'), ('n_moves', 10), ('n_simulation', 10)]
+20-05-02 23:07:45, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-02 23:07:45, INFO: [('dataroot', '/home/nghiavt/workspace/nghia/dataset'), ('game_id', 3), ('last_iter', 0), ('modelszoo', '/home/nghiavt/workspace/nghia/models'), ('n_moves', 10), ('n_simulation', 10)]
+20-05-02 23:07:46, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-02 23:07:46, INFO: [('dataroot', '/home/nghiavt/workspace/nghia/dataset'), ('game_id', 2), ('last_iter', 0), ('modelszoo', '/home/nghiavt/workspace/nghia/models'), ('n_moves', 10), ('n_simulation', 10)]
+20-05-02 23:07:46, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-02 23:07:46, INFO: [('dataroot', '/home/nghiavt/workspace/nghia/dataset'), ('game_id', 4), ('last_iter', 0), ('modelszoo', '/home/nghiavt/workspace/nghia/models'), ('n_moves', 10), ('n_simulation', 10)]
+20-05-02 23:07:46, INFO: 
+
+********* EVALUATE DATA *********
+
+
+20-05-02 23:07:46, INFO: [('dataroot', '/home/nghiavt/workspace/nghia/dataset'), ('last_iter', 0)]
+20-05-02 23:07:47, INFO: 
+
+********* TRAINING *********
+
+
+20-05-02 23:07:47, INFO: [('batch_size', 200), ('dataroot', '/home/nghiavt/workspace/nghia/dataset'), ('epochs', 20), ('last_iter', 0), ('lr', 0.001), ('modelszoo', '/home/nghiavt/workspace/nghia/models')]
+20-05-02 23:08:06, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-02 23:08:06, INFO: [('dataroot', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning'), ('game_id', 1), ('last_iter', 0), ('modelszoo', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL'), ('n_moves', 10), ('n_simulation', 10)]
+20-05-02 23:08:06, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-02 23:08:06, INFO: [('dataroot', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning'), ('game_id', 3), ('last_iter', 0), ('modelszoo', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL'), ('n_moves', 10), ('n_simulation', 10)]
+20-05-02 23:08:06, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-02 23:08:06, INFO: [('dataroot', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning'), ('game_id', 2), ('last_iter', 0), ('modelszoo', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL'), ('n_moves', 10), ('n_simulation', 10)]
+20-05-02 23:08:06, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-02 23:08:06, INFO: [('dataroot', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning'), ('game_id', 4), ('last_iter', 0), ('modelszoo', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL'), ('n_moves', 10), ('n_simulation', 10)]
+20-05-02 23:08:06, INFO: 1-white-move first
+20-05-02 23:08:06, INFO: 1-white-move first
+20-05-02 23:08:06, INFO: 1-white-move first
+20-05-02 23:08:06, INFO: 1-white-move first
+20-05-02 23:08:31, INFO: Finish after 10 moves
+20-05-02 23:08:31, INFO: 0 for both team
+20-05-02 23:08:31, INFO: Save game at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/3.pkl
+20-05-02 23:08:31, INFO: Completed self play - game_id: 3
+
+
+20-05-02 23:08:33, INFO: Finish after 10 moves
+20-05-02 23:08:33, INFO: 0 for both team
+20-05-02 23:08:33, INFO: Save game at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/1.pkl
+20-05-02 23:08:33, INFO: Completed self play - game_id: 1
+
+
+20-05-02 23:08:34, INFO: Finish after 10 moves
+20-05-02 23:08:34, INFO: 0 for both team
+20-05-02 23:08:34, INFO: Save game at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/2.pkl
+20-05-02 23:08:34, INFO: Completed self play - game_id: 2
+
+
+20-05-02 23:08:38, INFO: Finish after 10 moves
+20-05-02 23:08:38, INFO: 0 for both team
+20-05-02 23:08:38, INFO: Save game at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/4.pkl
+20-05-02 23:08:38, INFO: Completed self play - game_id: 4
+
+
+20-05-02 23:08:38, INFO: 
+
+********* EVALUATE DATA *********
+
+
+20-05-02 23:08:38, INFO: [('dataroot', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning'), ('last_iter', 0)]
+20-05-02 23:08:38, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/0.pkl
+20-05-02 23:08:38, INFO: Value of team 1: 0 - team 0: 0
+20-05-02 23:08:38, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/1.pkl
+20-05-02 23:08:38, INFO: Value of team 1: 0 - team 0: 0
+20-05-02 23:08:38, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/2.pkl
+20-05-02 23:08:38, INFO: Value of team 1: 0 - team 0: 0
+20-05-02 23:08:38, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/3.pkl
+20-05-02 23:08:38, INFO: Value of team 1: 0 - team 0: 0
+20-05-02 23:08:38, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/4.pkl
+20-05-02 23:08:38, INFO: Value of team 1: 0 - team 0: 0
+20-05-02 23:08:38, INFO: Evaluate Sucessfully
+
+
+20-05-02 23:08:39, INFO: 
+
+********* TRAINING *********
+
+
+20-05-02 23:08:39, INFO: [('batch_size', 200), ('dataroot', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning'), ('epochs', 20), ('last_iter', 0), ('lr', 0.001), ('modelszoo', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL')]
+20-05-02 23:08:39, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/0.pkl
+20-05-02 23:08:39, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/1.pkl
+20-05-02 23:08:39, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/2.pkl
+20-05-02 23:08:39, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/3.pkl
+20-05-02 23:08:39, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/4.pkl
+20-05-02 23:08:39, INFO: Train on 50 positions
+20-05-02 23:08:39, INFO: EPOCH: 0
+20-05-02 23:08:43, INFO: Loss: 10.166071891784668
+20-05-02 23:08:43, INFO: EPOCH: 1
+20-05-02 23:08:48, INFO: Loss: 9.944596290588379
+20-05-02 23:08:48, INFO: EPOCH: 2
+20-05-02 23:08:52, INFO: Loss: 9.824369430541992
+20-05-02 23:08:52, INFO: EPOCH: 3
+20-05-02 23:10:20, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-02 23:10:20, INFO: [('dataroot', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning'), ('game_id', 1), ('last_iter', 0), ('modelszoo', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL'), ('n_moves', 10), ('n_simulation', 10)]
+20-05-02 23:10:20, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-02 23:10:20, INFO: [('dataroot', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning'), ('game_id', 2), ('last_iter', 0), ('modelszoo', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL'), ('n_moves', 10), ('n_simulation', 10)]
+20-05-02 23:10:20, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-02 23:10:20, INFO: [('dataroot', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning'), ('game_id', 3), ('last_iter', 0), ('modelszoo', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL'), ('n_moves', 10), ('n_simulation', 10)]
+20-05-02 23:10:21, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-02 23:10:21, INFO: [('dataroot', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning'), ('game_id', 4), ('last_iter', 0), ('modelszoo', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL'), ('n_moves', 10), ('n_simulation', 10)]
+20-05-02 23:10:21, INFO: 1-white-move first
+20-05-02 23:10:21, INFO: 1-white-move first
+20-05-02 23:10:21, INFO: 1-white-move first
+20-05-02 23:10:21, INFO: 1-white-move first
+20-05-02 23:10:44, INFO: Finish after 10 moves
+20-05-02 23:10:44, INFO: 0 for both team
+20-05-02 23:10:44, INFO: Save game at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/2.pkl
+20-05-02 23:10:44, INFO: Completed self play - game_id: 2
+
+
+20-05-02 23:10:46, INFO: Finish after 10 moves
+20-05-02 23:10:46, INFO: 0 for both team
+20-05-02 23:10:46, INFO: Save game at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/1.pkl
+20-05-02 23:10:46, INFO: Completed self play - game_id: 1
+
+
+20-05-02 23:10:48, INFO: Finish after 10 moves
+20-05-02 23:10:48, INFO: 0 for both team
+20-05-02 23:10:48, INFO: Save game at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/3.pkl
+20-05-02 23:10:48, INFO: Completed self play - game_id: 3
+
+
+20-05-02 23:10:48, INFO: Finish after 10 moves
+20-05-02 23:10:48, INFO: 0 for both team
+20-05-02 23:10:48, INFO: Save game at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/4.pkl
+20-05-02 23:10:48, INFO: Completed self play - game_id: 4
+
+
+20-05-02 23:10:49, INFO: 
+
+********* EVALUATE DATA *********
+
+
+20-05-02 23:10:49, INFO: [('dataroot', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning'), ('last_iter', 0)]
+20-05-02 23:10:49, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/0.pkl
+20-05-02 23:10:49, INFO: Value of team 1: 0 - team 0: 0
+20-05-02 23:10:49, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/1.pkl
+20-05-02 23:10:49, INFO: Value of team 1: 0 - team 0: 0
+20-05-02 23:10:49, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/2.pkl
+20-05-02 23:10:49, INFO: Value of team 1: 0 - team 0: 0
+20-05-02 23:10:49, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/3.pkl
+20-05-02 23:10:49, INFO: Value of team 1: 0 - team 0: 0
+20-05-02 23:10:49, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/4.pkl
+20-05-02 23:10:49, INFO: Value of team 1: 0 - team 0: 0
+20-05-02 23:10:49, INFO: Evaluate Sucessfully
+
+
+20-05-02 23:10:50, INFO: 
+
+********* TRAINING *********
+
+
+20-05-02 23:10:50, INFO: [('batch_size', 200), ('dataroot', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning'), ('epochs', 20), ('last_iter', 0), ('lr', 0.001), ('modelszoo', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL')]
+20-05-02 23:10:50, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/0.pkl
+20-05-02 23:10:50, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/1.pkl
+20-05-02 23:10:50, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/2.pkl
+20-05-02 23:10:50, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/3.pkl
+20-05-02 23:10:50, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/4.pkl
+20-05-02 23:10:50, INFO: Train on 50 positions
+20-05-02 23:10:50, INFO: EPOCH: 0
+20-05-02 23:10:54, INFO: Loss: 8.641273498535156
+20-05-02 23:10:54, INFO: EPOCH: 1
+20-05-02 23:10:58, INFO: Loss: 8.414340019226074
+20-05-02 23:10:58, INFO: EPOCH: 2
+20-05-02 23:11:02, INFO: Loss: 8.350197792053223
+20-05-02 23:11:02, INFO: EPOCH: 3
+20-05-02 23:11:06, INFO: Loss: 8.03722858428955
+20-05-02 23:11:06, INFO: EPOCH: 4
+20-05-02 23:11:10, INFO: Loss: 7.858695030212402
+20-05-02 23:11:10, INFO: EPOCH: 5
+20-05-02 23:11:14, INFO: Loss: 7.716318607330322
+20-05-02 23:11:14, INFO: EPOCH: 6
+20-05-02 23:12:38, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-02 23:12:38, INFO: [('dataroot', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning'), ('game_id', 2), ('last_iter', 0), ('modelszoo', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL'), ('n_moves', 10), ('n_simulation', 10)]
+20-05-02 23:12:38, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-02 23:12:38, INFO: [('dataroot', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning'), ('game_id', 3), ('last_iter', 0), ('modelszoo', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL'), ('n_moves', 10), ('n_simulation', 10)]
+20-05-02 23:12:38, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-02 23:12:38, INFO: [('dataroot', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning'), ('game_id', 1), ('last_iter', 0), ('modelszoo', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL'), ('n_moves', 10), ('n_simulation', 10)]
+20-05-02 23:12:38, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-02 23:12:38, INFO: [('dataroot', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning'), ('game_id', 4), ('last_iter', 0), ('modelszoo', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL'), ('n_moves', 10), ('n_simulation', 10)]
+20-05-02 23:12:38, INFO: 1-white-move first
+20-05-02 23:12:38, INFO: 1-white-move first
+20-05-02 23:12:38, INFO: 1-white-move first
+20-05-02 23:12:38, INFO: 1-white-move first
+20-05-02 23:13:04, INFO: Finish after 10 moves
+20-05-02 23:13:04, INFO: 0 for both team
+20-05-02 23:13:04, INFO: Save game at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/3.pkl
+20-05-02 23:13:04, INFO: Completed self play - game_id: 3
+
+
+20-05-02 23:13:05, INFO: Finish after 10 moves
+20-05-02 23:13:05, INFO: 0 for both team
+20-05-02 23:13:05, INFO: Save game at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/1.pkl
+20-05-02 23:13:05, INFO: Completed self play - game_id: 1
+
+
+20-05-02 23:13:06, INFO: Finish after 10 moves
+20-05-02 23:13:06, INFO: 0 for both team
+20-05-02 23:13:06, INFO: Save game at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/2.pkl
+20-05-02 23:13:06, INFO: Completed self play - game_id: 2
+
+
+20-05-02 23:13:10, INFO: Finish after 10 moves
+20-05-02 23:13:10, INFO: 0 for both team
+20-05-02 23:13:10, INFO: Save game at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/4.pkl
+20-05-02 23:13:10, INFO: Completed self play - game_id: 4
+
+
+20-05-02 23:13:11, INFO: 
+
+********* EVALUATE DATA *********
+
+
+20-05-02 23:13:11, INFO: [('dataroot', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning'), ('last_iter', 0)]
+20-05-02 23:13:11, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/0.pkl
+20-05-02 23:13:11, INFO: Value of team 1: 0 - team 0: 0
+20-05-02 23:13:11, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/1.pkl
+20-05-02 23:13:11, INFO: Value of team 1: 0 - team 0: 0
+20-05-02 23:13:11, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/2.pkl
+20-05-02 23:13:11, INFO: Value of team 1: 0 - team 0: 0
+20-05-02 23:13:11, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/3.pkl
+20-05-02 23:13:11, INFO: Value of team 1: 0 - team 0: 0
+20-05-02 23:13:11, INFO: Load /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/4.pkl
+20-05-02 23:13:11, INFO: Value of team 1: 0 - team 0: 0
+20-05-02 23:13:11, INFO: Evaluate Sucessfully
+
+
+20-05-02 23:13:11, INFO: 
+
+********* TRAINING *********
+
+
+20-05-02 23:13:11, INFO: [('batch_size', 200), ('dataroot', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning'), ('epochs', 20), ('last_iter', 0), ('lr', 0.001), ('modelszoo', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL')]
+20-05-02 23:13:11, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/0.pkl
+20-05-02 23:13:11, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/1.pkl
+20-05-02 23:13:11, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/2.pkl
+20-05-02 23:13:11, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/3.pkl
+20-05-02 23:13:11, INFO: Load: /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/4.pkl
+20-05-02 23:13:11, INFO: Train on 50 positions
+20-05-02 23:13:12, INFO: EPOCH: 0
+20-05-02 23:13:16, INFO: value loss: 0.012857253663241863 - prob loss: 8.538453102111816
+20-05-02 23:13:16, INFO: EPOCH: 1
+20-05-02 23:13:20, INFO: value loss: 0.06925874948501587 - prob loss: 8.352912902832031
+20-05-02 23:13:20, INFO: EPOCH: 2
+20-05-02 23:13:25, INFO: value loss: 0.0015791566111147404 - prob loss: 8.178006172180176
+20-05-02 23:13:25, INFO: EPOCH: 3
+20-05-02 23:13:29, INFO: value loss: 0.001043368480168283 - prob loss: 8.138834953308105
+20-05-02 23:13:29, INFO: EPOCH: 4
+20-05-02 23:13:33, INFO: value loss: 0.0005297590978443623 - prob loss: 8.008411407470703
+20-05-02 23:13:33, INFO: EPOCH: 5
+20-05-02 23:13:37, INFO: value loss: 0.0004906087997369468 - prob loss: 7.85064697265625
+20-05-02 23:13:37, INFO: EPOCH: 6

@@ -57,6 +57,7 @@ class MCTSNode(object):
                  model,
                  index: int,
                  parent,
+                 perspective: int,
                  temperature=1):
         self.model = model
         self.index = index
@@ -64,7 +65,10 @@ class MCTSNode(object):
         self.parent = parent
         self.children = {}
         self.is_terminate = False
+        self.is_checkmate = False
+        self.is_draw = False
         self.is_expand = False
+        self.perspective = perspective
         if self.parent is None:
             self.temperature = temperature
 
@@ -104,10 +108,19 @@ class MCTSNode(object):
         # s1 = time.time() * 1000
         if not self.is_expand and not self.is_terminate:
             self.is_expand = True
-            self.is_terminate = self.tensor_board.is_terminate()
+            self.is_terminate, self.is_checkmate = self.tensor_board.is_terminate_and_checkmate()
             if self.is_terminate:
-                v = predict_v(self.model, self.tensor_board)
-                logging.info('case 1.1')
+                self.is_draw = not self.is_checkmate
+                if self.is_draw:
+                    v = 0
+                    logging.info('case 1.1')
+                else:
+                    if self.perspective == self.tensor_board.turn:
+                        v = -1
+                        logging.info('case 1.2')
+                    else:
+                        v = 1
+                        logging.info('case 1.3')
             else:
                 # print('case 1.2')
                 # s1 = time.time() * 1000
@@ -117,13 +130,14 @@ class MCTSNode(object):
                 for i in range(len(predictions)):
                     move, prob, tensor_board = predictions[i]
                     if self.parent is None:  # add dirichle noise to the root node
-                        prob = 0.7 * prob + 0.3 * noise[i]
+                        prob = 0.5 * prob + 0.5 * noise[i]
                         # print(noise[i])
                     self.children[i] = {
                         'node': MCTSNode(
                             tensor_board=tensor_board,
                             model=self.model,
                             index=i,
+                            perspective=self.perspective,
                             parent=self),
                         'move': move,
                         'W': 0,
@@ -134,11 +148,19 @@ class MCTSNode(object):
                 # s3 = time.time() * 1000
                 # print(s2 - s1, s3 - s2)
         else:
-            logging.info('case 2')
-            v = predict_v(self.model, self.tensor_board)
+            assert self.is_checkmate or self.is_draw
+            assert (self.is_checkmate and self.is_draw) is False
+            if self.is_draw:
+                v = 0
+                logging.info('case 2.1')
+            else:
+                if self.perspective == self.tensor_board.turn:
+                    v = -1
+                    logging.info('case 2.2')
+                else:
+                    v = 1
+                    logging.info('case 2.3')
 
-        # s2 = time.time() * 1000
-        # print(v)
         assert v is not None
         current = self.parent
         index = self.index

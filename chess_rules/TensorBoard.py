@@ -302,9 +302,11 @@ class TensorBoard(object):
     def is_checkmate(self):
         return Rules.is_checkmate(self.turn, self.boards[-1])
 
-    def is_terminate(self):
-        return len(Rules.get_all_valid_moves(self.turn, self.boards[-1])) == 0
-
+    def is_terminate_and_checkmate(self):
+        terminate = len(Rules.get_all_valid_moves(self.turn, self.boards[-1])) == 0
+        if terminate:
+            return terminate, Rules._is_checked(self.turn, self.boards[-1])
+        return terminate, False
 
 # ************* TEST ****************
 # from tqdm import tqdm

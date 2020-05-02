@@ -56,6 +56,7 @@ def self_play(latest_model: ChessModel, game_id: int, iter_path: str, n_moves=51
             tensor_board=tensor_board,
             model=latest_model,
             index=-1,
+            perspective=tensor_board.turn,
             parent=None)
         root.expand_and_backpropagate()
 
@@ -112,43 +113,5 @@ model.eval()
 iter_path = os.path.join(args.dataroot, str(args.last_iter + 1))
 os.makedirs(iter_path, exist_ok=True)
 
-# START_GAME = configs['self_play']['start_game']
-# END_GAME = configs['self_play']['end_game']
-# N_GAMES = END_GAME - START_GAME + 1
-# N_PROCESSES = configs['self_play']['n_processes']
-
-# games = list(range(START_GAME, END_GAME + 1))
-# n_batches = int(np.ceil(N_GAMES / N_PROCESSES))
-# logging.info(f'No.CPUs in system: {mp.cpu_count()}')
-# logging.info(f'No.Processess: {N_PROCESSES}')
-# logging.info(f'No.Games: {N_GAMES}')
-# logging.info(f'No.Batches: {n_batches}')
-# logging.info(f'========================================')
 self_play(model, args.game_id, iter_path, args.n_moves, args.n_simulation)
 logging.info(f'Completed self play - game_id: {args.game_id}\n\n')
-
-# import datetime
-# # games = {}
-# model = ChessModel()
-# model.state_dict()
-# x = datetime.datetime.now()
-# time = x.strftime("%y_%m_%d_%H_%M_%S")
-# model_checkpoint = f'/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL/{time}_0.pth'
-# torch.save({'epoch': 0, 'state_dict': model.state_dict()}, model_checkpoint)
-# latest_model = model
-# latest_model.eval()
-# game = self_play(latest_model, 512, 200)
-# games[0] = game
-# with open('tmp.pkl', 'wb') as f:
-#     pickle.dump(games, f)
-
-# tensor_board = TensorBoard(Board(), Board(), 1)
-# root = MCTSNode(
-#     tensor_board=tensor_board,
-#     model=latest_model,
-#     index=-1,
-#     parent=None)
-# root.expand_and_backpropagate()
-
-# best_child = root.traverse()
-# best_child.expand_and_backpropagate()

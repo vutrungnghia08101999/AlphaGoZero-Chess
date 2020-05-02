@@ -61,11 +61,11 @@ def compute_loss(p, v, pi, value, parameters) -> torch.tensor:
     l2 = -1 * pi * torch.log(p)
     l2 = l2.sum(dim=1)
 
-    reg = torch.tensor(0.0)
-    for param in parameters:
-        reg += (param ** 2).sum()
+    # reg = torch.tensor(0.0)
+    # for param in parameters:
+    #     reg += (param ** 2).sum()
 
-    return l1.mean() + l2.mean() + 0.0001 * reg
+    return l1.mean(), l2.mean()  # + 0.0001 * reg
 
 LASTEST_ITER_PATH = os.path.join(args.dataroot, str(args.last_iter + 1))
 LASTEST_MODEL_PATH = os.path.join(args.modelszoo, str(args.last_iter) + '.pth')
@@ -91,19 +91,20 @@ optimizer = torch.optim.Adam(model.parameters(),
                              lr=args.lr,
                              betas=(0.9, 0.999),
                              eps=1e-08,
-                             weight_decay=0,
+                             weight_decay=0.0002,
                              amsgrad=False)
 
 for epoch in range(args.epochs):
     logging.info(f'EPOCH: {epoch}')
     for batch_id, (state, pi, value) in enumerate(dataloader):
         p, v = model(state)
-        loss = compute_loss(p, v, pi, value, model.parameters())
+        l1, l2 = compute_loss(p, v, pi, value, model.parameters())
+        loss = l1 + l2
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
         with torch.no_grad():
-            logging.info(f'Loss: {loss.item()}')
+            logging.info(f'value loss: {l1.item()} - prob loss: {l2.item()}')
 
 OUT_MODEL_PATH = os.path.join(args.modelszoo, str(args.last_iter + 1) + '.pth')
 torch.save({'state_dict': model.state_dict()}, OUT_MODEL_PATH)
