@@ -168,9 +168,9 @@ from chess_rules.Rules import Rules
 #         break
 
 # ************************ REINFORCEMENT LEARNING VS MINIMAX || PLAYER ***********************
-MODEL_PATH = '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL/1.pth'
+MODEL_PATH = '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL/2.pth'
 DEPTH = 4
-N_SIMULATIONS = 200
+N_SIMULATIONS = 400
 model = ChessModel()
 checkpoint = torch.load(
     MODEL_PATH, map_location=torch.device('cpu'))
