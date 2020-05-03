@@ -8,41 +8,26 @@ MODELSZOO = '/home/nghiavt/workspace/nghia/models'
 N_GAMES = 32
 
 for iteration in range(2, 10):
-    processes = []
-    for i in range(N_GAMES):
-        command = [
-            'taskset',
-            '--cpu-list', str(i),
-            'python',
-            '-m', 'main.self_play',
-            '--last_iter', str(iteration - 1),
-            '--game_id', str(i),
-            '--dataroot', DATAROOT,
-            '--modelszoo', MODELSZOO,
-            '--n_moves', '512',
-            '--n_simulation', '200']
-        p = subprocess.Popen(command)
-        processes.append(p)
-    for process in processes:
-        process.wait()
-
-    for i in range(N_GAMES):
-        command = [
-            'taskset',
-            '--cpu-list', str(i),
-            'python',
-            '-m', 'main.self_play',
-            '--last_iter', str(iteration - 1),
-            '--game_id', str(i + 32),
-            '--dataroot', DATAROOT,
-            '--modelszoo', MODELSZOO,
-            '--n_moves', '512',
-            '--n_simulation', '200']
-        p = subprocess.Popen(command)
-        processes.append(p)
-    for process in processes:
-        process.wait()
-    print('==============================================')
+    if iteration != 2:
+        processes = []
+        for i in range(N_GAMES):
+            command = [
+                'taskset',
+                '--cpu-list', str(i),
+                'python',
+                '-m', 'main.self_play',
+                '--last_iter', str(iteration - 1),
+                '--game_id', str(i),
+                '--dataroot', DATAROOT,
+                '--modelszoo', MODELSZOO,
+                '--seed', str(i),
+                '--n_moves', '200',
+                '--n_simulation', '200']
+            p = subprocess.Popen(command)
+            processes.append(p)
+        for process in processes:
+            process.wait()
+        print('==============================================')
 
     command = ['python',
                '-m', 'main.evaluate_data',

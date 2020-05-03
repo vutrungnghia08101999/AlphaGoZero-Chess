@@ -129,7 +129,7 @@ class MCTSNode(object):
                 for i in range(len(predictions)):
                     move, prob, tensor_board = predictions[i]
                     if self.parent is None:  # add dirichle noise to the root node
-                        prob = 0.5 * prob + 0.5 * noise[i]
+                        prob = 0.65 * prob + 0.35 * noise[i]
                         # print(noise[i])
                     self.children[i] = {
                         'node': MCTSNode(

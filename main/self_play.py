@@ -29,10 +29,13 @@ parser.add_argument('--dataroot', type=str)
 parser.add_argument('--modelszoo', type=str)
 parser.add_argument('--last_iter', type=int)
 parser.add_argument('--game_id', type=int)
+parser.add_argument('--seed', type=int)
 
 parser.add_argument('--n_moves', type=int, default=512)
 parser.add_argument('--n_simulation', type=int, default=400)
 args = parser.parse_args()
+
+np.random.seed(args.seed)
 
 logging.info('\n\n********* SELF PLAY *********\n\n')
 logging.info(args._get_kwargs())

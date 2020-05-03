@@ -1204,3 +1204,51 @@
 20-05-02 23:13:33, INFO: EPOCH: 5
 20-05-02 23:13:37, INFO: value loss: 0.0004906087997369468 - prob loss: 7.85064697265625
 20-05-02 23:13:37, INFO: EPOCH: 6
+20-05-04 01:34:38, INFO: 
+
+********* EVALUATE DATA *********
+
+
+20-05-04 01:34:38, INFO: [('dataroot', '/home/nghiavt/workspace/nghia/dataset'), ('last_iter', 1)]
+20-05-04 01:34:40, INFO: 
+
+********* TRAINING *********
+
+
+20-05-04 01:34:40, INFO: [('batch_size', 200), ('dataroot', '/home/nghiavt/workspace/nghia/dataset'), ('epochs', 20), ('last_iter', 1), ('lr', 0.001), ('modelszoo', '/home/nghiavt/workspace/nghia/models')]
+20-05-04 01:34:41, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-04 01:34:41, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-04 01:34:41, INFO: [('dataroot', '/home/nghiavt/workspace/nghia/dataset'), ('game_id', 2), ('last_iter', 2), ('modelszoo', '/home/nghiavt/workspace/nghia/models'), ('n_moves', 200), ('n_simulation', 200), ('seed', 2)]
+20-05-04 01:34:41, INFO: [('dataroot', '/home/nghiavt/workspace/nghia/dataset'), ('game_id', 4), ('last_iter', 2), ('modelszoo', '/home/nghiavt/workspace/nghia/models'), ('n_moves', 200), ('n_simulation', 200), ('seed', 4)]
+20-05-04 01:34:41, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-04 01:34:41, INFO: [('dataroot', '/home/nghiavt/workspace/nghia/dataset'), ('game_id', 1), ('last_iter', 2), ('modelszoo', '/home/nghiavt/workspace/nghia/models'), ('n_moves', 200), ('n_simulation', 200), ('seed', 1)]
+20-05-04 01:34:41, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-04 01:34:41, INFO: [('dataroot', '/home/nghiavt/workspace/nghia/dataset'), ('game_id', 7), ('last_iter', 2), ('modelszoo', '/home/nghiavt/workspace/nghia/models'), ('n_moves', 200), ('n_simulation', 200), ('seed', 7)]
+20-05-04 01:34:41, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-04 01:34:41, INFO: [('dataroot', '/home/nghiavt/workspace/nghia/dataset'), ('game_id', 3), ('last_iter', 2), ('modelszoo', '/home/nghiavt/workspace/nghia/models'), ('n_moves', 200), ('n_simulation', 200), ('seed', 3)]
+20-05-04 01:34:41, INFO: 
+
+********* SELF PLAY *********
+
+
+20-05-04 01:34:41, INFO: [('dataroot', '/home/nghiavt/workspace/nghia/dataset'), ('game_id', 0), ('last_iter', 2), ('modelszoo', '/home/nghiavt/workspace/nghia/models'), ('n_moves', 200), ('n_simulation', 200), ('seed', 0)]
