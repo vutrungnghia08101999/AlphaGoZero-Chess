@@ -7,7 +7,7 @@ DATAROOT = '/home/nghiavt/workspace/nghia/dataset'
 MODELSZOO = '/home/nghiavt/workspace/nghia/models'
 N_GAMES = 32
 
-for iteration in range(3, 10):
+for iteration in range(2, 10):
     processes = []
     for i in range(N_GAMES):
         command = [
