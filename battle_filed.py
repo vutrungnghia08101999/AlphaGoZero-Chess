@@ -226,6 +226,7 @@ while True:
     root = MCTSNode(tensor_board=tensor_board,
                     model=model,
                     index=-1,
+                    perspective=tensor_board.turn,
                     parent=None)
     print(f'Running {N_SIMULATIONS} simulations')
     for i in tqdm(range(N_SIMULATIONS)):
