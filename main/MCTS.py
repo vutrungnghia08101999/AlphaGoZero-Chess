@@ -11,7 +11,6 @@ import torch.nn.functional as F
 from chess_rules.TensorBoard import TensorBoard, Board, Move
 from main.model import ChessModel
 
-np.random.seed(0)
 
 def decode(index: int) -> Move:
     assert index >= 0 and index < 8 * 8 * 78
