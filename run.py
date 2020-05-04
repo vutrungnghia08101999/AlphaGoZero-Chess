@@ -7,7 +7,7 @@ DATAROOT = '/home/nghiavt/workspace/nghia/dataset'
 MODELSZOO = '/home/nghiavt/workspace/nghia/models'
 N_GAMES = 32
 
-for iteration in range(2, 10):
+for iteration in range(4, 10):
     if iteration != 2:
         processes = []
         for i in range(N_GAMES):
@@ -21,7 +21,7 @@ for iteration in range(2, 10):
                 '--dataroot', DATAROOT,
                 '--modelszoo', MODELSZOO,
                 '--seed', str(i),
-                '--n_moves', '200',
+                '--n_moves', '512',
                 '--n_simulation', '200']
             p = subprocess.Popen(command)
             processes.append(p)

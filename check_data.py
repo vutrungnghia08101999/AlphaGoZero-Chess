@@ -8,7 +8,7 @@ def read_pkl(filepath: str):
         return pickle.load(f)
 
 
-ROOT = '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/3'
+ROOT = '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/4'
 
 files = list(os.listdir(ROOT))
 for filename in files[0:]:
