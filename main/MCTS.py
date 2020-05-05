@@ -124,6 +124,7 @@ class MCTSNode(object):
                 # print('case 1.2')
                 # s1 = time.time() * 1000
                 predictions, v = predict_p_and_v(self.model, self.tensor_board)
+                # print(len(predictions))
                 noise = np.random.dirichlet(np.zeros([len(predictions)], dtype=np.float32) + 192)
                 # print(noise)
                 for i in range(len(predictions)):

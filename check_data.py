@@ -8,10 +8,13 @@ def read_pkl(filepath: str):
         return pickle.load(f)
 
 
-ROOT = '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/4'
+ROOT = '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/5'
 
 files = list(os.listdir(ROOT))
 for filename in files[0:]:
     s = read_pkl(os.path.join(ROOT, filename))
+    print('First value', s[0][2])
     s = TensorBoard.decode_tensor_to_board(s[-1][0][:, :, 0:26])
     s['board'].display()
+    print('Current Turn: ', s['turn'])
+    print('*********************')

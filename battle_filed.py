@@ -168,7 +168,7 @@ from chess_rules.Rules import Rules
 #         break
 
 # ************************ REINFORCEMENT LEARNING VS MINIMAX || PLAYER ***********************
-MODEL_PATH = '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL/2.pth'
+MODEL_PATH = '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL/4.pth'
 DEPTH = 4
 N_SIMULATIONS = 200
 model = ChessModel()
@@ -251,3 +251,5 @@ while True:
     elif Rules.is_draw(turn, board):
         print('draw')
         break
+
+# ******************* TEST ***********************
