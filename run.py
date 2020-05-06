@@ -4,9 +4,9 @@ DATAROOT = '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinfo
 MODELSZOO = '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL'
 # DATAROOT = '/home/nghiavt/workspace/nghia/dataset'
 # MODELSZOO = '/home/nghiavt/workspace/nghia/models'/
-N_GAMES = 4
+N_GAMES = 32
 
-for iteration in range(1, 10):
+for iteration in range(1, 20):
     processes = []
     for i in range(N_GAMES):
         command = [
