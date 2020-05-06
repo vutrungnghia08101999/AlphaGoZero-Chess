@@ -1,32 +1,30 @@
 import subprocess
 
+DATAROOT = '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning'
+MODELSZOO = '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL'
+# DATAROOT = '/home/nghiavt/workspace/nghia/dataset'
+# MODELSZOO = '/home/nghiavt/workspace/nghia/models'/
+N_GAMES = 4
 
-# DATAROOT = '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning'
-# MODELSZOO = '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL'
-DATAROOT = '/home/nghiavt/workspace/nghia/dataset'
-MODELSZOO = '/home/nghiavt/workspace/nghia/models'
-N_GAMES = 32
-
-for iteration in range(4, 10):
-    if iteration != 2:
-        processes = []
-        for i in range(N_GAMES):
-            command = [
-                'taskset',
-                '--cpu-list', str(i),
-                'python',
-                '-m', 'main.self_play',
-                '--last_iter', str(iteration - 1),
-                '--game_id', str(i),
-                '--dataroot', DATAROOT,
-                '--modelszoo', MODELSZOO,
-                '--seed', str(i),
-                '--n_moves', '512',
-                '--n_simulation', '200']
-            p = subprocess.Popen(command)
-            processes.append(p)
-        for process in processes:
-            process.wait()
+for iteration in range(1, 10):
+    processes = []
+    for i in range(N_GAMES):
+        command = [
+            'taskset',
+            '--cpu-list', str(i),
+            'python',
+            '-m', 'main.self_play',
+            '--last_iter', str(iteration - 1),
+            '--game_id', str(i),
+            '--dataroot', DATAROOT,
+            '--modelszoo', MODELSZOO,
+            '--seed', str(i),
+            '--n_moves', '512',
+            '--n_simulation', '100']
+        p = subprocess.Popen(command)
+        processes.append(p)
+    for process in processes:
+        process.wait()
         print('==============================================')
 
     command = ['python',

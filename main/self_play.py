@@ -56,17 +56,23 @@ def self_play(latest_model: ChessModel, game_id: int, iter_path: str, n_moves=51
     for move in tqdm(range(n_moves)):
         # logging.info(f'Turn: {tensor_board.turn}')
         root = MCTSNode(
-            tensor_board=tensor_board,
+            move=None,
             model=latest_model,
             index=-1,
             perspective=tensor_board.turn,
-            parent=None)
+            parent=None,
+            tensor_board=tensor_board)
         root.expand_and_backpropagate()
 
         # logging.info(f'Run {n_simulation} simulations in MCTS')
         for idx in range(n_simulation):  # tqdm(range(n_simulation)):
+            # s1 = time.time() * 1000
             best_child = root.traverse()
+            # s2 = time.time() * 1000
             best_child.expand_and_backpropagate()
+            # s3 = time.time() * 1000
+            # print(s3 - s2)
+            # exit()
         pi_policy, mv = root.get_pi_policy_and_most_visited_move()
         board, _, _ = tensor_board.encode_to_tensor()
         game.append([

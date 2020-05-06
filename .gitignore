@@ -1,3 +1,5 @@
 .vscode/
 __pycache/
 .idea/
+main/__pycache__/
+chess_rules/__pycache__/

@@ -67,17 +67,17 @@ class OutBlock(nn.Module):
         return p, v
 
 class ChessModel(nn.Module):
-    def __init__(self):
+    def __init__(self, n_blocks=5):
         super(ChessModel, self).__init__()
-
+        self.n_blocks= n_blocks
         self.conv = ConvBlock()
-        for block in range(19):
+        for block in range(self.n_blocks):
             setattr(self, "res_%i" % block, ResBlock())
         self.outblock = OutBlock()
 
     def forward(self, s):
         s = self.conv(s)
-        for block in range(19):
+        for block in range(self.n_blocks):
             s = getattr(self, "res_%i" % block)(s)
         p, v = self.outblock(s)
         return p, v

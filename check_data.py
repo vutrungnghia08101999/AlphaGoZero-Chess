@@ -19,7 +19,7 @@ def decode(index: int) -> Move:
     return move[0]
 
 
-ROOT = '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/5'
+ROOT = '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1'
 
 files = list(os.listdir(ROOT))
 for filename in files[0:]:

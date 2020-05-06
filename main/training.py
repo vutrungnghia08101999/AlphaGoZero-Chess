@@ -103,7 +103,7 @@ for epoch in range(args.epochs):
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-        with torch.no_grad():
+        if batch_id % 10 == 0:
             logging.info(f'value loss: {l1.item()} - prob loss: {l2.item()}')
 
 OUT_MODEL_PATH = os.path.join(args.modelszoo, str(args.last_iter + 1) + '.pth')

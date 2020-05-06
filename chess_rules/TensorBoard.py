@@ -1,6 +1,6 @@
 import copy
 import numbers
-
+import time
 import numpy as np
 
 from chess_rules.Rules import Rules
