@@ -35,7 +35,7 @@ public class Main {
             if(turn == 0){
                 System.out.println("Turn: TERMINATOR - AI");
                 long start_time = System.currentTimeMillis();
-                move = cpu.searchNextMove(board, turn, Config.TREE_DEPTH, true);
+                move = cpu.searchNextMove(board, turn, Config.TREE_DEPTH);
                 long end_time = System.currentTimeMillis();
                 System.out.println("Runtime: " + (end_time-start_time) + "(ms)");
             }
