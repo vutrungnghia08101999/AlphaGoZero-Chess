@@ -91,4 +91,68 @@ public class Board {
         boardTMP.board = tmp;
         return boardTMP;
     }
+    private int[][] toMatrix() {
+    	int[][] tmp = new int[9][9];
+    	for(int row = 1; row <= 8; ++row){
+            for(int col = 1; col <= 8; ++col){
+                if(board[row][col] == null){
+                    tmp[row][col] = 0;
+                }
+                else if(board[row][col] instanceof King){
+                    tmp[row][col] = 1;
+                    if (board[row][col].getTeam() == 1) 
+                    	tmp[row][col] *= -1;
+                }
+                else if(board[row][col] instanceof Queen){
+                    tmp[row][col] = 2;
+                    if (board[row][col].getTeam() == 1) 
+                    	tmp[row][col] *= -1;
+                }
+                else if(board[row][col] instanceof Bishop){
+                    tmp[row][col] = 3;
+                    if (board[row][col].getTeam() == 1) 
+                    	tmp[row][col] *= -1;
+                }
+                else if(board[row][col] instanceof Knight){
+                    tmp[row][col] = 4;
+                    if (board[row][col].getTeam() == 1) 
+                    	tmp[row][col] *= -1;
+                }
+                else if(board[row][col] instanceof Rook){
+                    tmp[row][col] = 5;
+                    if (board[row][col].getTeam() == 1) 
+                    	tmp[row][col] *= -1;
+                }
+                else if(board[row][col] instanceof Pawn){
+                    tmp[row][col] = 6;
+                    if (board[row][col].getTeam() == 1) 
+                    	tmp[row][col] *= -1;
+                }
+            }
+        }
+    	return tmp;
+    }
+    @Override
+    public int hashCode() {
+    	int[][] tmp = this.toMatrix();
+    	int hash = 0;
+    	for (int i = 1; i <= 8; i++) 
+    		for (int j = 1; j <= 8; j++)
+    			hash += i * j * tmp[i][j];
+    	return hash;
+    }
+    @Override
+    public boolean equals(Object b) {
+    	Board board = (Board) b;
+    	int[][] tmp2 = board.toMatrix();
+    	int[][] tmp1 = this.toMatrix();
+    	for (int i = 1; i <= 8; i++) {
+    		for (int j = 1; j <= 8; j++) {
+    			if (tmp1[i][j] != tmp2[i][j]) {
+    				return false;
+    			}
+    		}
+    	}
+    	return true;
+    }
 }

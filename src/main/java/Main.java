@@ -25,55 +25,55 @@ public class Main {
         while(true){
 
             /**************** COMPUTER VS COMPUTER *********************/
-            System.out.println("Turn: " + turn);
-            long start_time = System.currentTimeMillis();
-            move = cpu.searchNextMove(board, turn, Config.TREE_DEPTH);
-            long end_time = System.currentTimeMillis();
-            System.out.println("Runtime: " + (end_time-start_time) + "(ms)");
+//            System.out.println("Turn: " + turn);
+//            long start_time = System.currentTimeMillis();
+//            move = cpu.searchNextMove(board, turn, Config.TREE_DEPTH);
+//            long end_time = System.currentTimeMillis();
+//            System.out.println("Runtime: " + (end_time-start_time) + "(ms)");
 
             /**************** COMPUTER VS PLAYER *********************/
-//            if(turn == 0){
-//                System.out.println("Turn: TERMINATOR - AI");
-//                long start_time = System.currentTimeMillis();
-//                move = cpu.searchNextMove(board, turn, Config.TREE_DEPTH);
-//                long end_time = System.currentTimeMillis();
-//                System.out.println("Runtime: " + (end_time-start_time) + "(ms)");
-//            }
-//            else{
-//                System.out.println("Player turn: ");
-//                do{
-//                    ArrayList<Spot> userClicks = new ArrayList<Spot>();
-//                    while(userClicks.size() < 2){
-//                        Thread.sleep(50);
-//                        userClicks = gui.getUserClicks();
-//                    }
-//                    for(int i = 0; i < userClicks.size() - 1; ++i){
-//                        Spot start = userClicks.get(i);
-//                        Spot end = userClicks.get(i+1);
-//                        Piece piece = board.board[start.getRow()][start.getCol()];
-//                        if(piece instanceof Pawn && end.getRow() == 1)
-//                            move = new Move(start, end, false, true);
-//                        else if(piece instanceof King && Math.abs(end.getCol() - start.getCol()) == 2)
-//                            move = new Move(start, end, true, false);
-//                        else
-//                            move = new Move(start, end);
-//                        if(cpu.isValidMove(move,board, turn))
-//                            break;
-//                        else
-//                            move = null;
-//                    }
-//                }while (move == null);
-//                gui.clearBuffer();
-//            }
+            if(turn == 0){
+                System.out.println("Turn: TERMINATOR - AI");
+                long start_time = System.currentTimeMillis();
+                move = cpu.searchNextMove(board, turn, Config.TREE_DEPTH);
+                long end_time = System.currentTimeMillis();
+                System.out.println("Runtime: " + (end_time-start_time) + "(ms)");
+            }
+            else{
+                System.out.println("Player turn: ");
+                do{
+                    ArrayList<Spot> userClicks = new ArrayList<Spot>();
+                    while(userClicks.size() < 2){
+                        Thread.sleep(50);
+                        userClicks = gui.getUserClicks();
+                    }
+                    for(int i = 0; i < userClicks.size() - 1; ++i){
+                        Spot start = userClicks.get(i);
+                        Spot end = userClicks.get(i+1);
+                        Piece piece = board.board[start.getRow()][start.getCol()];
+                        if(piece instanceof Pawn && end.getRow() == 1)
+                            move = new Move(start, end, false, true);
+                        else if(piece instanceof King && Math.abs(end.getCol() - start.getCol()) == 2)
+                            move = new Move(start, end, true, false);
+                        else
+                            move = new Move(start, end);
+                        if(cpu.isValidMove(move,board, turn))
+                            break;
+                        else
+                            move = null;
+                    }
+                }while (move == null);
+                gui.clearBuffer();
+            }
             /**********************************************************/
             System.out.println(move);
             board = cpu.getNextState(board, move);
-            board.displayBoard();
+//            board.displayBoard();
             gui.display(board, Math.abs(1- turn));
             gui.displayLastMove(move.getStart(), move.getEnd());
             if(cpu.isChecked(board, Math.abs(1-turn)))
                 gui.displayCheck(Utils.getKingPosition(board, Math.abs(1-turn)));
-
+		
             turn = Math.abs(1-turn);
             if(cpu.isCheckedMate(board, turn)){
                 System.out.println(String.format("Team %d won.", Math.abs(1-turn)));

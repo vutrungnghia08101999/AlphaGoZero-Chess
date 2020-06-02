@@ -1,21 +1,37 @@
 package engine;
 
-import chessobjects.*;
-import rules.AbstractRules;
-import rules.Config;
-import utils.Move;
-import utils.Spot;
-import java.lang.*;
-
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Hashtable;
-import java.util.Random;
+import java.util.HashMap;
+
+import chessobjects.Board;
+import chessobjects.King;
+import chessobjects.Pawn;
+import chessobjects.Piece;
+import chessobjects.Queen;
+import chessobjects.Rook;
+import rules.AbstractRules;
+import ttable.Config;
+import ttable.LRUCache;
+import ttable.NodeTT;
+import ttable.Value;
+import utils.Move;
+import utils.Spot;
 
 public class CPU {
-    private int DFSCalls;
+    private int alphaBetaCall, negaScoutCall, alphaBetaTTCall, TTCall;
     private Move nextMoves;
 
+    private LRUCache<Board, Value> team = new LRUCache<Board, Value>(Config.CAP);
+    
+    public CPU() {
+    	this.alphaBetaCall = 0;
+    	this.negaScoutCall = 0;
+    	this.alphaBetaTTCall = 0;
+    	this.TTCall = 0;
+    	this.team.map = new HashMap<Board, NodeTT<Board, Value>>();
+    }
+    
     public boolean isValidMove(Move playerMove, Board board, int team) {
         assert playerMove != null;
         assert playerMove.getStart() != null;
@@ -31,12 +47,27 @@ public class CPU {
     }
 
     public Move searchNextMove(Board board, int team, int ROOT_TREE_DEPTH){
-        DFSCalls = 0;
+    	alphaBetaCall = 0;
+    	negaScoutCall = 0;
+    	this.TTCall = 0;
+    	this.alphaBetaTTCall = 0;
         int maximum;
-        maximum = dfsAlphaBeta(board, team, ROOT_TREE_DEPTH, team, ROOT_TREE_DEPTH, -100000000, 100000000);
+        if (team == 0) {
+//        	maximum = this.dfsAlphaBeta(board, team, ROOT_TREE_DEPTH, team, ROOT_TREE_DEPTH, -100000000, 100000000);
+//        	int firstG = this.iterativeDeepening(board, 4, team);
+        	maximum = this.MTDf(board, 0, ROOT_TREE_DEPTH, team);
+//            System.out.println("Alpha Beta: " + this.alphaBetaCall);
+//        	System.out.println("First Guess Values: " + firstG);
+        	System.out.println("Rate of TT: " + this.TTCall * 1.0 / this.alphaBetaTTCall + " --- " + this.team.map.size() + " --- " + this.alphaBetaTTCall);
+            System.out.println("Minimize-maximize algorithm metrics: " + maximum);
+        } else {
+        	maximum = this.negaScout(board, team, ROOT_TREE_DEPTH, team, ROOT_TREE_DEPTH, -100000000, 100000000);
+            System.out.println("Nega Scout: " + this.negaScoutCall);
+            System.out.println("Minimize-maximize algorithm metrics: " + maximum);
+        }
+        	
 
-        System.out.println("DFSCalls: " + DFSCalls);
-        System.out.println("Minimize-maximize algorithm metrics: " + maximum);
+
         return nextMoves;
     }
 
@@ -91,7 +122,7 @@ public class CPU {
     /*********************** DFS FUNCTIONS *********************************/
 
     private int dfsAlphaBeta(Board board, int flag, int depth, int team,int ROOT_TREE_DEPTH, int alpha, int beta){
-        DFSCalls++;
+        this.alphaBetaCall++;
         if(depth == 1)
             return this.evaluate(board, team);
 
@@ -129,6 +160,171 @@ public class CPU {
             return minimum;
         }
     }
+    
+    private int negaScout(Board board, int flag, int depth, int team, int ROOT_TREE_DEPTH, int alpha, int beta) {
+    	this.negaScoutCall++;
+    	if (depth == 1) {
+    		return this.evaluate(board, team);
+    	}
+    	ArrayList<Move> moves = this.getAllValidMoves(board, flag);
+        if(moves.size() == 0)
+            return this.evaluate(board, team);
+        int nextTeam = Math.abs(1 - flag);
+        
+        if (flag == team) {
+        	int m = -100000000;
+        	Board B = this.getNextState(board, moves.get(0));
+        	m = Math.max(m, negaScout(B, nextTeam, depth - 1, team, ROOT_TREE_DEPTH, alpha, beta));
+        	
+        	if (depth == ROOT_TREE_DEPTH) 
+        		nextMoves = moves.get(0);
+        	if (m >= beta) {
+        		if(depth == ROOT_TREE_DEPTH) {
+        			return m;
+        		}
+                    
+        	}
+ 	
+        	for (int i = 1; i < moves.size(); i++) {
+        		B = this.getNextState(board, moves.get(i));
+        		int t = negaScout(B, nextTeam, depth - 1, team, ROOT_TREE_DEPTH, m, m + 1);
+        		if (t > m) {
+        			if (depth == ROOT_TREE_DEPTH) 
+        				nextMoves = moves.get(i);
+        			if (depth < 3 || t >= beta) {
+        				m = t;
+        			} else {
+        				m = negaScout(B, nextTeam, depth - 1, team, ROOT_TREE_DEPTH, t, beta);
+        			}
+        		}
+        		if (m >= beta) {
+        			if(depth == ROOT_TREE_DEPTH) {
+        				nextMoves = moves.get(i);
+        				return m;
+        			}
+                        
+        			
+        		}
+        			
+        	}
+        	return m;
+        }
+        else {
+        	int m = 100000000;
+        	Board B = this.getNextState(board, moves.get(0));
+        	m = Math.min(m, negaScout(B, nextTeam, depth - 1, team, ROOT_TREE_DEPTH, alpha, beta));
+        	
+        	if (m <= alpha)
+        		return m;
+        	for (int i = 1; i < moves.size(); i++) {
+        		B = this.getNextState(board, moves.get(i));
+        		int t = negaScout(B, nextTeam, depth - 1, team, ROOT_TREE_DEPTH, m - 1, m);
+        		
+        		if (t < m) {
+        			if (depth < 3 || t <= alpha) {
+        				m = t;
+        			} else {
+        				m = negaScout(B, nextTeam, depth - 1, team, ROOT_TREE_DEPTH, alpha, t);
+        			}
+        		}
+        		if (m <= alpha) 
+        			return m;      		
+        	}
+        	return m;
+        }
+        
+    }
+    
+    private int alphaBetaTT(Board board,int flag, int depth, int team, int alpha, int beta) {
+    	this.alphaBetaTTCall++;
+    	int value;
+    	Value v = this.team.get(board);
+    	ArrayList<Move> moves = this.getAllValidMoves(board, team);
+    	
+    	if (v != null && v.depth >= depth) {
+    		this.TTCall += 1;
+    		if (v.lower >= beta)
+    			return v.lower;
+    		if (v.upper <= alpha)
+    			return alpha;
+    		alpha = Math.max(alpha, v.lower);
+    		beta = Math.min(beta, v.upper);
+    	}
+    	
+    	if (depth == 1 || moves.size() == 0) {
+    		int val = this.evaluate(board, team);
+    		this.team.put(board, new Value(depth, val, val));
+    		return val;
+    	}
+    	int g;
+    	int nextTeam = 1 - flag;
+    	if (flag == team) {
+    		g = Integer.MIN_VALUE;
+        	int a = alpha;
+        	for (Move move: moves) {
+        		Board B = this.getNextState(board, move);
+        		int g_tmp = this.alphaBetaTT(B, nextTeam, depth - 1, team, a, beta);
+        		if (g <= g_tmp) {
+        			if (depth == rules.Config.TREE_DEPTH)
+        				this.nextMoves = move;
+        			g = g_tmp;
+        		}
+        		a = Math.max(a, g);
+        		if (g >= beta)
+        			break;
+        	}
+    	} else {
+    		g = Integer.MAX_VALUE;
+    		int b = beta;
+    		for (Move move : moves) {
+    			Board B = this.getNextState(board, move);
+    			g = Math.min(g, this.alphaBetaTT(B, nextTeam, depth - 1, team, alpha, b));
+    			b = Math.min(g, b);
+    			if (g <= alpha) {
+    				break;
+    			}
+    		}
+    	}
+    	Value newV = new Value(depth);
+    	if (g <= alpha) {
+    		newV.upper = g;
+    		this.team.put(board, newV);
+    	}
+    	else if (g < beta) {
+    		newV.lower = g;
+    		newV.upper = g;
+    		this.team.put(board, newV);
+    	} else {
+    		newV.lower = g;
+    		this.team.put(board, newV);
+    	}
+    	return g;
+    		
+    }
+    
+    public int MTDf(Board board, int first, int depth, int team) {
+    	int g = first;
+    	int beta;
+    	int lowerB = Integer.MIN_VALUE, upperB = Integer.MAX_VALUE;
+    	do {
+    		if (g == lowerB) {
+    			beta = g + 1;
+    		} else {
+    			beta = g;
+    		}
+    		g = this.alphaBetaTT(board, team, depth, team, beta - 1, beta);
+    		if (g < beta) {
+    			upperB = g;
+    		} else {
+    			lowerB = g;
+    		}
+    	} while (lowerB < upperB);
+    	return g;
+    }
+    
+    private int iterativeDeepening(Board board, int depth, int team) {
+    	return this.dfsAlphaBeta(board, team, depth, team, rules.Config.TREE_DEPTH, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
     /************************ SUPPORTED FUNCTIONS **************************/
 
     private ArrayList<Move> getAllValidMoves(Board board, int team){
@@ -145,7 +341,7 @@ public class CPU {
             }
         }
 
-        Collections.shuffle(allValidMoves);
+//        Collections.shuffle(allValidMoves);
         return allValidMoves;
     }
 
@@ -180,7 +376,7 @@ public class CPU {
             validMoves.addAll(castlingSpots);
         }
 
-        Collections.shuffle(validMoves);
+//        Collections.shuffle(validMoves);
         return validMoves;
     }
 
