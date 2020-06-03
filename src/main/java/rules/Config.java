@@ -9,5 +9,5 @@ public class Config {
     public static final int ROOK_POINT = 5;
     public static final int QUEEN_POINT = 9;
     public static final int KING_POINT = 4;
-    public static final int TREE_DEPTH = 6; // using minimum-maximum algorithm
+    public static final int TREE_DEPTH = 5; // using minimum-maximum algorithm
 }

@@ -98,25 +98,39 @@ public class CPU {
             B.board[start_row][start_col] = null;
             ((King)B.board[end_row][end_col]).setCastlingDone(true);
 
+            B.digitBoard[end_row][end_col] = B.digitBoard[start_row][start_col];
+            B.digitBoard[start_row][start_col] = 0;
             if(end_col == 2){
                 B.board[end_row][3] = B.board[end_row][1];
                 B.board[end_row][1] = null;
                 ((Rook)B.board[end_row][3]).setCastlingPossible(false);
+
+                B.digitBoard[end_row][3] = B.digitBoard[end_row][1];
+                B.digitBoard[end_row][1] = 0;
             }
             else if(end_col == 6){
                 B.board[end_row][5] = B.board[end_row][8];
                 B.board[end_row][8] = null;
                 ((Rook)B.board[end_row][5]).setCastlingPossible(false);
+
+                B.digitBoard[end_row][5] = B.digitBoard[end_row][8];
+                B.digitBoard[end_row][8] = 0;
             }
 
         }
         else if(move.isPromoted()){
             B.board[start_row][start_col] = null;
             B.board[end_row][end_col] = new Queen(team);
+
+            B.digitBoard[start_row][start_col] = 0;
+            B.digitBoard[end_row][end_col] = B.QUEEN + team * 6;
         }
         else{
             B.board[end_row][end_col] = B.board[start_row][start_col];
             B.board[start_row][start_col] = null;
+
+            B.digitBoard[end_row][end_col] = B.digitBoard[start_row][start_col];
+            B.digitBoard[start_row][start_col] = 0;
         }
         return B;
     }

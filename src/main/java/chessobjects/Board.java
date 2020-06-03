@@ -2,6 +2,13 @@ package chessobjects;
 
 public class Board {
 	public Piece[][] board;
+	public int[][] digitBoard;
+	public int KING = 1;
+	public int QUEEN = 2;
+	public int ROOK = 3;
+	public int BISHOP = 4;
+	public int KNIGHT = 5;
+	public int PAWN = 6;
 	public static int call = 0;
 
 	public Board() {
@@ -28,6 +35,33 @@ public class Board {
 		board[8][8] = new Rook(1);
 		for (int i = 1; i <= 8; ++i)
 			board[7][i] = new Pawn(1);
+
+		digitBoard = new int[9][9];
+		digitBoard[1][1] = ROOK;
+		digitBoard[1][2] = KNIGHT;
+		digitBoard[1][3] = BISHOP;
+		digitBoard[1][4] = KING;
+		digitBoard[1][5] = QUEEN;
+		digitBoard[1][6] = BISHOP;
+		digitBoard[1][7] = KNIGHT;
+		digitBoard[1][8] = ROOK;
+		for (int i = 1; i <= 8; ++i)
+			digitBoard[2][i] = PAWN;
+
+		digitBoard[8][1] = ROOK + 6;
+		digitBoard[8][2] = KNIGHT + 6;
+		digitBoard[8][3] = BISHOP + 6;
+		digitBoard[8][4] = KING + 6;
+		digitBoard[8][5] = QUEEN + 6;
+		digitBoard[8][6] = BISHOP + 6;
+		digitBoard[8][7] = KNIGHT + 6;
+		digitBoard[8][8] = ROOK + 6;
+		for (int i = 1; i <= 8; ++i)
+			digitBoard[7][i] = PAWN + 6;
+
+		for (int row = 3; row <= 6; ++row)
+			for (int col = 1; col <= 8; ++col)
+				digitBoard[row][col] = 0;
 	}
 
 	public void displayBoard() {
@@ -45,6 +79,21 @@ public class Board {
 			System.out.println("\t\t\t  |________|________|________|________|________|________|________|________|");
 		}
 		System.out.println();
+		System.out.println("\n\t\t\t  ____1________2________3________4________5________6________7________8____");
+		for (int row = 1; row <= 8; ++row) {
+			System.out.println("\t\t\t  |        |        |        |        |        |        |        |        |");
+			String s = String.format("\t\t\t%d |", row);
+			for (int col = 1; col <= 8; ++col) {
+				if (board[row][col] == null)
+					s = s + "        |";
+				else
+					s = s + String.format(" %-7d|", digitBoard[row][col]);
+			}
+			System.out.println(s);
+			System.out.println("\t\t\t  |________|________|________|________|________|________|________|________|");
+		}
+		System.out.println();
+
 	}
 
 	public Piece getPiece(int row, int col) {
@@ -82,8 +131,14 @@ public class Board {
 			}
 		}
 
+		int[][] tmpDigit = new int[9][9];
+		for (int row = 1; row <= 8; ++row)
+			for (int col = 1; col <= 8; ++col)
+				tmpDigit[row][col] = digitBoard[row][col];
+
 		Board boardTMP = new Board();
 		boardTMP.board = tmp;
+		boardTMP.digitBoard = tmpDigit;
 		return boardTMP;
 	}
 
