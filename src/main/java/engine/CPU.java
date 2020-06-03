@@ -54,12 +54,13 @@ public class CPU {
         int maximum;
         if (team == 0) {
 //        	maximum = this.dfsAlphaBeta(board, team, ROOT_TREE_DEPTH, team, ROOT_TREE_DEPTH, -100000000, 100000000);
-//        	int firstG = this.iterativeDeepening(board, 4, team);
-        	maximum = this.MTDf(board, 0, ROOT_TREE_DEPTH, team);
-//            System.out.println("Alpha Beta: " + this.alphaBetaCall);
-//        	System.out.println("First Guess Values: " + firstG);
+        	int firstG = this.iterativeDeepening(board, 4, team);
+        	maximum = this.MTDf(board, firstG, ROOT_TREE_DEPTH, team);
+////            System.out.println("Alpha Beta: " + this.alphaBetaCall);
+        	System.out.println("First Guess Values: " + firstG);
         	System.out.println("Rate of TT: " + this.TTCall * 1.0 / this.alphaBetaTTCall + " --- " + this.team.map.size() + " --- " + this.alphaBetaTTCall);
             System.out.println("Minimize-maximize algorithm metrics: " + maximum);
+            System.out.println("Number cal Matrix: " + Board.call);
         } else {
         	maximum = this.negaScout(board, team, ROOT_TREE_DEPTH, team, ROOT_TREE_DEPTH, -100000000, 100000000);
             System.out.println("Nega Scout: " + this.negaScoutCall);
@@ -239,32 +240,37 @@ public class CPU {
     	this.alphaBetaTTCall++;
     	int value;
     	Value v = this.team.get(board);
-    	ArrayList<Move> moves = this.getAllValidMoves(board, team);
+    	ArrayList<Move> moves = this.getAllValidMoves(board, flag);
     	
     	if (v != null && v.depth >= depth) {
     		this.TTCall += 1;
     		if (v.lower >= beta)
     			return v.lower;
     		if (v.upper <= alpha)
-    			return alpha;
+    			return v.upper;
     		alpha = Math.max(alpha, v.lower);
     		beta = Math.min(beta, v.upper);
     	}
-    	
-    	if (depth == 1 || moves.size() == 0) {
+    	if (depth == 1) {
+    		int val = this.evaluate(board, team);
+    		this.team.put(board, new Value(depth, val, val));
+    		return val;
+    	}
+    	if (moves.size() == 0) {
     		int val = this.evaluate(board, team);
     		this.team.put(board, new Value(depth, val, val));
     		return val;
     	}
     	int g;
     	int nextTeam = 1 - flag;
+    	
     	if (flag == team) {
     		g = Integer.MIN_VALUE;
         	int a = alpha;
         	for (Move move: moves) {
         		Board B = this.getNextState(board, move);
         		int g_tmp = this.alphaBetaTT(B, nextTeam, depth - 1, team, a, beta);
-        		if (g <= g_tmp) {
+        		if (g < g_tmp) {
         			if (depth == rules.Config.TREE_DEPTH)
         				this.nextMoves = move;
         			g = g_tmp;
@@ -305,19 +311,18 @@ public class CPU {
     public int MTDf(Board board, int first, int depth, int team) {
     	int g = first;
     	int beta;
-    	int lowerB = Integer.MIN_VALUE, upperB = Integer.MAX_VALUE;
+    	int lowerB = -100000000, upperB = 100000000;
     	do {
-    		if (g == lowerB) {
-    			beta = g + 1;
-    		} else {
-    			beta = g;
-    		}
+    		System.out.println("Lower:= " + lowerB + " ----- " + "Upper:= " + upperB);
+    		beta = (lowerB + upperB + 1) / 2;
     		g = this.alphaBetaTT(board, team, depth, team, beta - 1, beta);
+    		System.out.println("Lower:= " + lowerB + " ----- " + "Upper:= " + upperB + " --- Returned:= " + g + " --- Beta:= " + beta);
     		if (g < beta) {
     			upperB = g;
     		} else {
     			lowerB = g;
     		}
+    		
     	} while (lowerB < upperB);
     	return g;
     }
@@ -457,7 +462,7 @@ public class CPU {
 
     /*************************** OBJECTIVES **************************************
      https://chessfox.com/free-chess-course-chessfox-com/introduction-to-the-5-main-objectives-of-a-chess-game/ */
-    private int evaluate(Board board, int team){
+    public int evaluate(Board board, int team){
         int materialScore = this.getMaterialScore(board, team);
 //        float developmentScore = this.getDevelopmentScore(board, team);
 //        float centerControlScore = this.getCenterControlScore(board, team);

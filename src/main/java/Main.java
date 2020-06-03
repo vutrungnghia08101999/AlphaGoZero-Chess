@@ -68,6 +68,7 @@ public class Main {
             /**********************************************************/
             System.out.println(move);
             board = cpu.getNextState(board, move);
+            System.out.println("TEAM CPU Metrics: " + cpu.evaluate(board, 0));
 //            board.displayBoard();
             gui.display(board, Math.abs(1- turn));
             gui.displayLastMove(move.getStart(), move.getEnd());

@@ -2,6 +2,7 @@ package chessobjects;
 
 public class Board {
     public Piece[][] board;
+    public static int call = 0;
 
     public Board(){
         board = new Piece[9][9];
@@ -92,6 +93,7 @@ public class Board {
         return boardTMP;
     }
     private int[][] toMatrix() {
+    	call++;
     	int[][] tmp = new int[9][9];
     	for(int row = 1; row <= 8; ++row){
             for(int col = 1; col <= 8; ++col){
@@ -132,13 +134,32 @@ public class Board {
         }
     	return tmp;
     }
+    public static long powF(long a, long b) {
+        long re = 1;
+        while (b > 0) {
+            if ((b & 1) == 1) {
+                re *= a;        
+            }
+            b >>= 1;
+            a *= a; 
+        }
+        return re;
+    }
     @Override
     public int hashCode() {
     	int[][] tmp = this.toMatrix();
     	int hash = 0;
     	for (int i = 1; i <= 8; i++) 
-    		for (int j = 1; j <= 8; j++)
-    			hash += i * j * tmp[i][j];
+    		for (int j = 1; j <= 8; j++) {
+    			if (tmp[i][j] != 0) {
+    				long p = Board.powF((long) 2, (long) i + j);
+        			p %= 1000000007;
+        			p *= tmp[i][j];
+        			p %= 1000000007;
+        			hash +=  (int) p;
+    			}
+    			
+    		}	
     	return hash;
     }
     @Override

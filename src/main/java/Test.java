@@ -17,7 +17,17 @@ public class Test {
 //	public int hashCode() {
 //		return a + b;
 //	}
-	
+	public static long pow2(long a, long b) {
+        long re = 1;
+        while (b > 0) {
+            if ((b & 1) == 1) {
+                re *= a;        
+            }
+            b >>= 1;
+            a *= a; 
+        }
+        return re;
+    }
 	public static void main(String[] args) {
 		Test san = new Test(1, 2);
 		if (san.equals(new Test(1, 2)))
@@ -29,7 +39,7 @@ public class Test {
 			System.out.println("OK - 1");
 		if (map.containsKey(san)) 
 			System.out.println("Ok - 2");
-		
+		System.out.println(Test.pow2(2, 32));
 	}
 	
 }
