@@ -9,30 +9,28 @@ import copy
 
 import torch
 
-from chess_rules.ChessObjects import Board
-from chess_rules.TensorBoard import TensorBoard
-from main.MCTS import MCTSNode
-from main.model import ChessModel
+from MCTS import MCTSNode
+from model import ChessModel
+from TensorBoard import TensorChessBoard
 
-logging.basicConfig(filename='main/logs.txt',
+logging.basicConfig(filename='logs.txt',
                     filemode='a',
                     format='%(asctime)s, %(levelname)s: %(message)s',
                     datefmt='%y-%m-%d %H:%M:%S',
-                    level=logging.DEBUG)
+                    level=logging.INFO)
 console = logging.StreamHandler()
 console.setLevel(logging.INFO)
 logging.getLogger().addHandler(console)
-# logging.basicConfig(level=logging.INFO)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dataroot', type=str)
-parser.add_argument('--modelszoo', type=str)
+parser.add_argument('--models', type=str)
 parser.add_argument('--last_iter', type=int)
 parser.add_argument('--game_id', type=int)
 parser.add_argument('--seed', type=int)
 
 parser.add_argument('--n_moves', type=int, default=512)
-parser.add_argument('--n_simulation', type=int, default=400)
+parser.add_argument('--n_simulations', type=int, default=400)
 args = parser.parse_args()
 
 np.random.seed(args.seed)
@@ -48,46 +46,36 @@ def save_file(game: list, filepath: str):
 def self_play(latest_model: ChessModel, game_id: int, iter_path: str, n_moves=512, n_simulation=400) -> None:
     game = []
     filepath = os.path.join(iter_path, str(game_id) + '.pkl')
-    # latest_model.eval()
-    tensor_board = TensorBoard(Board(), Board(), 1)
-    # tensor_board.boards[-1].display()
+    tensor_board = TensorChessBoard()
     latest_model.eval()
-    logging.info('1-white-move first')
+    logging.info('True-white moves first')
     for move in tqdm(range(n_moves)):
         # logging.info(f'Turn: {tensor_board.turn}')
         root = MCTSNode(
-            move=None,
             model=latest_model,
             index=-1,
-            perspective=tensor_board.turn,
             parent=None,
+            perspective=tensor_board.turn,
+            is_game_over=tensor_board.is_game_over,
+            is_checkmate=tensor_board.is_checkmate,
+            is_draw=tensor_board.is_draw,
             tensor_board=tensor_board)
-        root.expand_and_backpropagate()
 
         # logging.info(f'Run {n_simulation} simulations in MCTS')
-        for idx in range(n_simulation):  # tqdm(range(n_simulation)):
-            # s1 = time.time() * 1000
+        for idx in range(n_simulation):
             best_child = root.traverse()
-            # s2 = time.time() * 1000
             best_child.expand_and_backpropagate()
-            # s3 = time.time() * 1000
-            # print(s3 - s2)
-            # exit()
         pi_policy, mv = root.get_pi_policy_and_most_visited_move()
-        board, _, _ = tensor_board.encode_to_tensor()
+        board = tensor_board.encode()
         game.append([
             board,
             pi_policy
         ])
-        # logging.info(f'Most visit move: {mv}')
-        # moves = tensor_board.get_valid_moves()
-        # print(len(moves))
-        # for move in moves:
-        #     print(move)
         tensor_board = tensor_board.get_next_state(mv)
-        # tensor_board.boards[-1].display()
-        if tensor_board.is_checkmate():
-            logging.info(f'{abs(1 - tensor_board.turn)} won')
+        # for u in str(tensor_board.board).split('\n'):
+        #     print(u)
+        if tensor_board.is_checkmate:
+            logging.info(f'{not tensor_board.turn} won')
             value = (tensor_board.turn == 1) * (-1) + (tensor_board.turn == 0) * 1
             logging.info(f'{value} for tem 1 and {-1*value} for team 0')
             for i in range(len(game)):
@@ -97,7 +85,7 @@ def self_play(latest_model: ChessModel, game_id: int, iter_path: str, n_moves=51
                     game[i].append(-1 * value)
             save_file(game, filepath=filepath)
             return
-        elif tensor_board.is_draw():
+        elif tensor_board.is_draw:
             logging.info('Draw')
             logging.info('0 for both team')
             for tup in game:
@@ -112,8 +100,11 @@ def self_play(latest_model: ChessModel, game_id: int, iter_path: str, n_moves=51
     return
 
 model = ChessModel()
+if torch.cuda.is_available():
+    model = model.cuda()
+
 if args.last_iter != 0:
-    path = os.path.join(args.modelszoo, str(args.last_iter) + '.pth')
+    path = os.path.join(args.models, str(args.last_iter) + '.pth')
     checkpoint = torch.load(path)
     logging.info(f'Load model: {path}')
     model.load_state_dict(checkpoint['state_dict'])
@@ -122,5 +113,5 @@ model.eval()
 iter_path = os.path.join(args.dataroot, str(args.last_iter + 1))
 os.makedirs(iter_path, exist_ok=True)
 
-self_play(model, args.game_id, iter_path, args.n_moves, args.n_simulation)
+self_play(model, args.game_id, iter_path, args.n_moves, args.n_simulations)
 logging.info(f'Completed self play - game_id: {args.game_id}\n\n')
