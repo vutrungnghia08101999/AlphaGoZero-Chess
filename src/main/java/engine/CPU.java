@@ -54,9 +54,10 @@ public class CPU {
         int maximum;
         if (team == 0) {
 //        	maximum = this.dfsAlphaBeta(board, team, ROOT_TREE_DEPTH, team, ROOT_TREE_DEPTH, -100000000, 100000000);
+//        	System.out.println("Alpha Beta: " + this.alphaBetaCall);
         	int firstG = this.iterativeDeepening(board, 4, team);
         	maximum = this.MTDf(board, firstG, ROOT_TREE_DEPTH, team);
-////            System.out.println("Alpha Beta: " + this.alphaBetaCall);
+            
         	System.out.println("First Guess Values: " + firstG);
         	System.out.println("Rate of TT: " + this.TTCall * 1.0 / this.alphaBetaTTCall + " --- " + this.team.map.size() + " --- " + this.alphaBetaTTCall);
             System.out.println("Minimize-maximize algorithm metrics: " + maximum);
