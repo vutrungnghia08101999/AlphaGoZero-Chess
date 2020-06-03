@@ -9,7 +9,7 @@ from torch.utils.data import Dataset
 class ConvBlock(nn.Module):
     def __init__(self):
         super(ConvBlock, self).__init__()
-        self.conv = nn.Conv2d(in_channels=76, out_channels=256, kernel_size=(3, 3), stride=1, padding=1)
+        self.conv = nn.Conv2d(in_channels=77, out_channels=256, kernel_size=(3, 3), stride=1, padding=1)
         self.batchNorm = nn.BatchNorm2d(num_features=256)
 
     def forward(self, s):

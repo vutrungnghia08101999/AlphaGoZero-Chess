@@ -87,7 +87,8 @@ class TensorChessBoard(object):
     def encode(self):
         s1 = self.encode_board()
         s2 = self.encode_moves()
-        return np.concatenate((s1, s2), axis=2)
+        turn = np.ones((8, 8, 1)) * self.board.turn
+        return np.concatenate((s1, s2, turn), axis=2)
 
     def get_next_state(self, move):
         board = copy.deepcopy(self.board)

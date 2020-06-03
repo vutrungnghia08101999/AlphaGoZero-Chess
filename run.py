@@ -5,11 +5,11 @@ import subprocess
 # MODELSZOO = '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL'
 DATAROOT = '/home/hieu123/workspace/dataset'
 MODELSZOO = '/home/hieu123/workspace/models'
-N_PROCESSES = 8
+N_PROCESSES = 10
 for iteration in range(1, 20):
     logs = f'logs/{iteration}'
     os.makedirs(logs, exist_ok=True)
-    for batch in range(0, 3):
+    for batch in range(0, 2):
         start = 0 + N_PROCESSES * batch
         end = N_PROCESSES + N_PROCESSES * batch
         processes = []
@@ -32,13 +32,13 @@ for iteration in range(1, 20):
             process.wait()
             print('==============================================')
 
-        command = ['python',
-                   'evaluate_data.py',
-                   '--dataroot', DATAROOT,
-                   '--last_iter', str(iteration - 1)]
+    command = ['python',
+                'evaluate_data.py',
+                '--dataroot', DATAROOT,
+                '--last_iter', str(iteration - 1)]
 
-        p = subprocess.Popen(command)
-        p.wait()
+    p = subprocess.Popen(command)
+    p.wait()
     print('==============================================')
     command = ['taskset',
                '--cpu-list', '0,1,2,3,4,5,6,7',
