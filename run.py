@@ -1,12 +1,15 @@
+import os
 import subprocess
 
 # DATAROOT = '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning'
 # MODELSZOO = '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL'
-DATAROOT = '/home/hieu123/workspace/nghia/dataset'
-MODELSZOO = '/home/hieu123/workspace/nghia/models'
-N_PROCESSES = 12
+DATAROOT = '/home/hieu123/workspace/dataset'
+MODELSZOO = '/home/hieu123/workspace/models'
+N_PROCESSES = 8
 for iteration in range(1, 20):
-    for batch in range(0, 2):
+    logs = f'logs/{iteration}'
+    os.makedirs(logs, exist_ok=True)
+    for batch in range(0, 3):
         start = 0 + N_PROCESSES * batch
         end = N_PROCESSES + N_PROCESSES * batch
         processes = []

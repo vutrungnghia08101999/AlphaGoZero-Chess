@@ -4,19 +4,19 @@ import os
 import pickle
 from tqdm import tqdm
 
-logging.basicConfig(filename='logs.txt',
-                    filemode='a',
+parser = argparse.ArgumentParser()
+parser.add_argument('--dataroot', type=str)
+parser.add_argument('--last_iter', type=int)
+args = parser.parse_args()
+
+logging.basicConfig(filename=f'logs/{args.last_iter + 1}/eval_data.txt',
+                    filemode='w',
                     format='%(asctime)s, %(levelname)s: %(message)s',
                     datefmt='%y-%m-%d %H:%M:%S',
                     level=logging.INFO)
 console = logging.StreamHandler()
 console.setLevel(logging.INFO)
 logging.getLogger().addHandler(console)
-
-parser = argparse.ArgumentParser()
-parser.add_argument('--dataroot', type=str)
-parser.add_argument('--last_iter', type=int)
-args = parser.parse_args()
 
 logging.info('\n\n********* EVALUATE DATA *********\n\n')
 logging.info(args._get_kwargs())

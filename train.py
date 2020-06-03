@@ -13,15 +13,6 @@ from torchvision.transforms import ToTensor
 from model import ChessModel
 from utils import AverageMeter
 
-logging.basicConfig(filename='logs.txt',
-                    filemode='a',
-                    format='%(asctime)s, %(levelname)s: %(message)s',
-                    datefmt='%y-%m-%d %H:%M:%S',
-                    level=logging.INFO)
-console = logging.StreamHandler()
-console.setLevel(logging.INFO)
-logging.getLogger().addHandler(console)
-
 parser = argparse.ArgumentParser()
 parser.add_argument('--dataroot', type=str)
 parser.add_argument('--models', type=str)
@@ -30,6 +21,15 @@ parser.add_argument('--lr', type=float, default=0.001)
 parser.add_argument('--epochs', type=int, default=10)
 parser.add_argument('--batch_size', type=int, default=200)
 args = parser.parse_args()
+
+logging.basicConfig(filename=f'logs/{args.last_iter + 1}/train.txt',
+                    filemode='w',
+                    format='%(asctime)s, %(levelname)s: %(message)s',
+                    datefmt='%y-%m-%d %H:%M:%S',
+                    level=logging.INFO)
+console = logging.StreamHandler()
+console.setLevel(logging.INFO)
+logging.getLogger().addHandler(console)
 
 logging.info('\n\n********* TRAINING *********\n\n')
 logging.info(args._get_kwargs())
@@ -100,6 +100,8 @@ for epoch in range(args.epochs):
         if torch.cuda.is_available():
             state = state.cuda()
             state = state.type(torch.cuda.FloatTensor)
+            pi = pi.type(torch.cuda.FloatTensor)
+            value = value.type(torch.cuda.FloatTensor)
         else:
             state = state.type(torch.FloatTensor)
         p, v = model(state)

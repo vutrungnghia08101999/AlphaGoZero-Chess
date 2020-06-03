@@ -13,14 +13,6 @@ from MCTS import MCTSNode
 from model import ChessModel
 from TensorBoard import TensorChessBoard
 
-logging.basicConfig(filename='logs.txt',
-                    filemode='a',
-                    format='%(asctime)s, %(levelname)s: %(message)s',
-                    datefmt='%y-%m-%d %H:%M:%S',
-                    level=logging.INFO)
-console = logging.StreamHandler()
-console.setLevel(logging.INFO)
-logging.getLogger().addHandler(console)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dataroot', type=str)
@@ -32,6 +24,15 @@ parser.add_argument('--seed', type=int)
 parser.add_argument('--n_moves', type=int, default=512)
 parser.add_argument('--n_simulations', type=int, default=400)
 args = parser.parse_args()
+
+logging.basicConfig(filename=f'logs/{args.last_iter + 1}/{args.game_id}.txt',
+                    filemode='w',
+                    format='%(asctime)s, %(levelname)s: %(message)s',
+                    datefmt='%y-%m-%d %H:%M:%S',
+                    level=logging.INFO)
+console = logging.StreamHandler()
+console.setLevel(logging.INFO)
+logging.getLogger().addHandler(console)
 
 np.random.seed(args.seed)
 
