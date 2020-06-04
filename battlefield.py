@@ -8,12 +8,12 @@ from TensorBoard import TensorChessBoard
 from MCTS import MCTSNode
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--weights', type=str, default='/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL/1.pth')
+parser.add_argument('--weights', type=str, default='/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL/5.pth')
 parser.add_argument('--n_simulation', type=int, default=1000)
 args = parser.parse_args()
 
 model = ChessModel()
-checkpoint = torch.load(args.weights)
+checkpoint = torch.load(args.weights, map_location=torch.device('cpu'))
 model.load_state_dict(checkpoint['state_dict'])
 model.eval()
 
@@ -27,6 +27,7 @@ while True:
         move = input('UCI move: ')
 
     tensor_board = tensor_board.get_next_state(move)
+    tensor_board.display()
     if tensor_board.is_game_over:
         print(f'{True} won')
         break

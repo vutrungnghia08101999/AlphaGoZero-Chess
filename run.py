@@ -9,7 +9,7 @@ N_PROCESSES = 10
 for iteration in range(1, 20):
     logs = f'logs/{iteration}'
     os.makedirs(logs, exist_ok=True)
-    for batch in range(0, 2):
+    for batch in range(0, 10):
         start = 0 + N_PROCESSES * batch
         end = N_PROCESSES + N_PROCESSES * batch
         processes = []
@@ -47,7 +47,7 @@ for iteration in range(1, 20):
                '--dataroot', DATAROOT,
                '--last_iter', str(iteration - 1),
                '--models', MODELSZOO,
-               '--epochs', '10',
+               '--epochs', '20',
                '--batch_size', '200']
     p = subprocess.Popen(command)
     p.wait()
