@@ -17,8 +17,8 @@ public class Board {
 		board[1][1] = new Rook(0);
 		board[1][2] = new Knight(0);
 		board[1][3] = new Bishop(0);
-		board[1][4] = new King(0);
-		board[1][5] = new Queen(0);
+		board[1][4] = new Queen(0);
+		board[1][5] = new King(0);
 		board[1][6] = new Bishop(0);
 		board[1][7] = new Knight(0);
 		board[1][8] = new Rook(0);
@@ -28,8 +28,8 @@ public class Board {
 		board[8][1] = new Rook(1);
 		board[8][2] = new Knight(1);
 		board[8][3] = new Bishop(1);
-		board[8][4] = new King(1);
-		board[8][5] = new Queen(1);
+		board[8][4] = new Queen(1);
+		board[8][5] = new King(1);
 		board[8][6] = new Bishop(1);
 		board[8][7] = new Knight(1);
 		board[8][8] = new Rook(1);
@@ -40,8 +40,8 @@ public class Board {
 		digitBoard[1][1] = ROOK;
 		digitBoard[1][2] = KNIGHT;
 		digitBoard[1][3] = BISHOP;
-		digitBoard[1][4] = KING;
-		digitBoard[1][5] = QUEEN;
+		digitBoard[1][4] = QUEEN;
+		digitBoard[1][5] = KING;
 		digitBoard[1][6] = BISHOP;
 		digitBoard[1][7] = KNIGHT;
 		digitBoard[1][8] = ROOK;
@@ -51,8 +51,8 @@ public class Board {
 		digitBoard[8][1] = ROOK + 6;
 		digitBoard[8][2] = KNIGHT + 6;
 		digitBoard[8][3] = BISHOP + 6;
-		digitBoard[8][4] = KING + 6;
-		digitBoard[8][5] = QUEEN + 6;
+		digitBoard[8][4] = QUEEN + 6;
+		digitBoard[8][5] = KING + 6;
 		digitBoard[8][6] = BISHOP + 6;
 		digitBoard[8][7] = KNIGHT + 6;
 		digitBoard[8][8] = ROOK + 6;
@@ -79,21 +79,21 @@ public class Board {
 			System.out.println("\t\t\t  |________|________|________|________|________|________|________|________|");
 		}
 		System.out.println();
-		System.out.println("\n\t\t\t  ____1________2________3________4________5________6________7________8____");
-		for (int row = 1; row <= 8; ++row) {
-			System.out.println("\t\t\t  |        |        |        |        |        |        |        |        |");
-			String s = String.format("\t\t\t%d |", row);
-			for (int col = 1; col <= 8; ++col) {
-				if (board[row][col] == null)
-//					s = s + "        |";
-					s = s + String.format(" %-7d|", digitBoard[row][col]);
-				else
-					s = s + String.format(" %-7d|", digitBoard[row][col]);
-			}
-			System.out.println(s);
-			System.out.println("\t\t\t  |________|________|________|________|________|________|________|________|");
-		}
-		System.out.println();
+//		System.out.println("\n\t\t\t  ____1________2________3________4________5________6________7________8____");
+//		for (int row = 1; row <= 8; ++row) {
+//			System.out.println("\t\t\t  |        |        |        |        |        |        |        |        |");
+//			String s = String.format("\t\t\t%d |", row);
+//			for (int col = 1; col <= 8; ++col) {
+//				if (board[row][col] == null)
+////					s = s + "        |";
+//					s = s + String.format(" %-7d|", digitBoard[row][col]);
+//				else
+//					s = s + String.format(" %-7d|", digitBoard[row][col]);
+//			}
+//			System.out.println(s);
+//			System.out.println("\t\t\t  |________|________|________|________|________|________|________|________|");
+//		}
+//		System.out.println();
 
 	}
 

@@ -1,5 +1,6 @@
 package engine;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -11,6 +12,7 @@ import chessobjects.Piece;
 import chessobjects.Queen;
 import chessobjects.Rook;
 import rules.AbstractRules;
+import sun.nio.ch.Util;
 import ttable.Config;
 import ttable.LRUCache;
 import ttable.NodeTT;
@@ -19,8 +21,9 @@ import utils.Move;
 import utils.Spot;
 
 public class CPU {
-	private int alphaBetaCall, negaScoutCall, alphaBetaTTCall, TTCall;
+	private int alphaBetaCall, negaScoutCall, alphaBetaTTCall, TTCall, getAlphaBetaCall;
 	private Move nextMoves;
+	private ArrayList<Move> history = new ArrayList<Move>();
 
 	private LRUCache<Board, Value> team = new LRUCache<Board, Value>(Config.CAP);
 
@@ -47,7 +50,8 @@ public class CPU {
 	}
 
 	public Move searchNextMove(Board board, int team, int ROOT_TREE_DEPTH) {
-		alphaBetaCall = 0;
+		this.nextMoves = null;
+		this.alphaBetaCall = 0;
 		negaScoutCall = 0;
 		this.TTCall = 0;
 		this.alphaBetaTTCall = 0;
@@ -56,15 +60,20 @@ public class CPU {
 //        	maximum = this.dfsAlphaBeta(board, team, ROOT_TREE_DEPTH, team, ROOT_TREE_DEPTH, -100000000, 100000000);
 //        	System.out.println("Alpha Beta: " + this.alphaBetaCall);
 //		int firstG = this.iterativeDeepening(board, ROOT_TREE_DEPTH, team);
-		if (team == 0)
-			maximum = this.MTDf(board, 0, ROOT_TREE_DEPTH + 1, team);
-		else 
-			maximum = this.dfsAlphaBeta(board, team, ROOT_TREE_DEPTH, team, ROOT_TREE_DEPTH, -100000000, 100000000);
+//		if (team == 0)
+//			maximum = this.MTDf(board, 0, ROOT_TREE_DEPTH + 1, team);
+//		else
+		maximum = this.dfsAlphaBeta(board, team, ROOT_TREE_DEPTH, team, ROOT_TREE_DEPTH, -100000000, 100000000);
 //        	System.out.println("First Guess Values: " + firstG);
 //        	System.out.println("Rate of TT: " + this.TTCall * 1.0 / this.alphaBetaTTCall + " --- " + this.team.map.size() + " --- " + this.alphaBetaTTCall);
 		System.out.println("Minimize-maximize algorithm metrics: " + maximum);
-//            System.out.println("Number cal Matrix: " + Board.call);
-
+//		System.out.println("Number cal Matrix: " + Board.call);
+		System.out.println("Number of DFS Calls: " + this.alphaBetaCall);
+		ArrayList<Move> tmp = new ArrayList<Move>();
+		for (int i = Math.max(0, history.size() - 9); i < history.size(); ++i)  // avoid repeated moves
+			tmp.add(history.get(i));
+		history = tmp;
+		history.add(nextMoves);
 		return nextMoves;
 	}
 
@@ -97,19 +106,19 @@ public class CPU {
 
 			B.digitBoard[end_row][end_col] = B.digitBoard[start_row][start_col];
 			B.digitBoard[start_row][start_col] = 0;
-			if (end_col == 2) {
-				B.board[end_row][3] = B.board[end_row][1];
+			if (end_col == 3) {
+				B.board[end_row][4] = B.board[end_row][1];
 				B.board[end_row][1] = null;
-				((Rook) B.board[end_row][3]).setCastlingPossible(false);
+				((Rook) B.board[end_row][4]).setCastlingPossible(false);
 
-				B.digitBoard[end_row][3] = B.digitBoard[end_row][1];
+				B.digitBoard[end_row][4] = B.digitBoard[end_row][1];
 				B.digitBoard[end_row][1] = 0;
-			} else if (end_col == 6) {
-				B.board[end_row][5] = B.board[end_row][8];
+			} else if (end_col == 7) {
+				B.board[end_row][6] = B.board[end_row][8];
 				B.board[end_row][8] = null;
-				((Rook) B.board[end_row][5]).setCastlingPossible(false);
+				((Rook) B.board[end_row][6]).setCastlingPossible(false);
 
-				B.digitBoard[end_row][5] = B.digitBoard[end_row][8];
+				B.digitBoard[end_row][6] = B.digitBoard[end_row][8];
 				B.digitBoard[end_row][8] = 0;
 			}
 
@@ -137,8 +146,12 @@ public class CPU {
 			return this.evaluate(board, team);
 
 		ArrayList<Move> moves = this.getAllValidMoves(board, flag);
-		if (moves.size() == 0)
-			return this.evaluate(board, team);
+		if (moves.size() == 0){
+			if (flag == team)
+				return -(1000 + depth);
+			else
+				return 1000 + depth;
+		}
 
 		int nextTeam = Math.abs(1 - flag);
 		if (flag == team) {
@@ -146,6 +159,8 @@ public class CPU {
 			for (Move move : moves) {
 				Board B = this.getNextState(board, move);
 				int metric = dfsAlphaBeta(B, nextTeam, depth - 1, team, ROOT_TREE_DEPTH, alpha, beta);
+				if (depth == ROOT_TREE_DEPTH && Utils.isContainedMove(this.history, move) && moves.size() != 1)
+					metric = -100000000;
 				if (metric > maximum) {
 					maximum = metric;
 					if (depth == ROOT_TREE_DEPTH)
@@ -465,37 +480,38 @@ public class CPU {
 			return castlingMoves;
 
 		if (king.isCastlingPossible()) {
-			assert col == 4;
-			if (board.board[row][1] instanceof Rook && board.board[row][2] == null && board.board[row][3] == null) {
-				Rook rook = (Rook) board.board[row][1];
+			assert col == 5;
+			// right 0-0
+			if (board.board[row][8] instanceof Rook && board.board[row][6] == null && board.board[row][7] == null) {
+				Rook rook = (Rook) board.board[row][8];
 				if (rook.isCastlingPossible()) {
 					Board B1 = board.clone();
-					B1.board[row][3] = B1.board[row][col];
+					B1.board[row][6] = B1.board[row][col];
 					B1.board[row][col] = null;
 					if (!this.isChecked(B1, team)) {
 						Board B2 = board.clone();
-						B2.board[row][2] = B2.board[row][col];
+						B2.board[row][7] = B2.board[row][col];
 						B2.board[row][col] = null;
 						if (!this.isChecked(B2, team)) {
-							Move move = new Move(start, new Spot(row, 2), true, false);
+							Move move = new Move(start, new Spot(row, 7), true, false);
 							castlingMoves.add(move);
 						}
 					}
 				}
 			}
-			if (board.board[row][8] instanceof Rook && board.board[row][5] == null && board.board[row][6] == null
-					&& board.board[row][7] == null) {
-				Rook rook = (Rook) board.board[row][8];
+			if (board.board[row][1] instanceof Rook && board.board[row][2] == null && board.board[row][3] == null
+					&& board.board[row][4] == null) {
+				Rook rook = (Rook) board.board[row][1];
 				if (rook.isCastlingPossible()) {
 					Board B1 = board.clone();
-					B1.board[row][5] = B1.board[row][col];
+					B1.board[row][4] = B1.board[row][col];
 					B1.board[row][col] = null;
 					if (!this.isChecked(B1, team)) {
 						Board B2 = board.clone();
-						B2.board[row][6] = B2.board[row][col];
+						B2.board[row][3] = B2.board[row][col];
 						B2.board[row][col] = null;
 						if (!this.isChecked(B2, team)) {
-							Move move = new Move(start, new Spot(row, 6), true, false);
+							Move move = new Move(start, new Spot(row, 3), true, false);
 							castlingMoves.add(move);
 						}
 					}
@@ -510,12 +526,16 @@ public class CPU {
 	 * https://chessfox.com/free-chess-course-chessfox-com/introduction-to-the-5-main-objectives-of-a-chess-game/
 	 */
 	public int evaluate(Board board, int team) {
+//		if (this.isCheckedMate(board, team))
+//			return -1000;
+//		else if (this.isCheckedMate(board, 1 - team))
+//			return 1000;
 		int materialScore = this.getMaterialScore(board, team);
 //        float developmentScore = this.getDevelopmentScore(board, team);
 //        float centerControlScore = this.getCenterControlScore(board, team);
-		int kingSafetyScore = this.getKingSafetyScore(board, team);
+//		int kingSafetyScore = this.getKingSafetyScore(board, team);
 //        float pawnStructureScore = this.getPawnStructureScore(board, team);
-		return 99 * materialScore + 1 * kingSafetyScore;
+		return materialScore;
 	}
 
 	private int getMaterialScore(Board board, int team) {

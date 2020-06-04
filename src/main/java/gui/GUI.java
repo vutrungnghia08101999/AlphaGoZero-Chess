@@ -115,7 +115,7 @@ public class GUI {
 
     private Image getImage(Piece piece){
         assert piece != null;
-        int team = Math.abs(1 - piece.getTeam());
+        int team = piece.getTeam();
         if(piece instanceof King)
             return chessPieceImages[team][0];
         else if(piece instanceof Queen)
@@ -145,9 +145,9 @@ public class GUI {
 //                    matrixButton.setActivate(false);
                 //set color
                 if ((col % 2 == 1 && row % 2 == 1) || (col % 2 == 0 && row % 2 == 0))
-                    matrixButton.setBackground(Color.WHITE);
-                else
                     matrixButton.setBackground(Color.BLACK);
+                else
+                    matrixButton.setBackground(Color.WHITE);
 
                 // set icon
                 if(board.board[row + 1][col + 1] == null)

@@ -2,7 +2,6 @@ ttable/TTEntry.class
 rules/RookRules.class
 ttable/Value.class
 rules/KingRules.class
-Test.class
 gui/MatrixButton.class
 Main.class
 rules/QueenRules.class
