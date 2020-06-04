@@ -33,7 +33,7 @@ public class LRUCache<K, V> {
 			offerNode(t);
 		} else {
 			if (map.size() >= cap) {
-				// del head
+				// delete head
 				map.remove(head.key);
 				removeNode(head);
 			}
@@ -51,7 +51,7 @@ public class LRUCache<K, V> {
 		if (n.next != null) {
 			n.next.prev = n.prev;
 		} else {
-			tail = n.prev;
+			this.tail = n.prev;
 		}
 	}
 	private void offerNode(NodeTT<K, V> n) {

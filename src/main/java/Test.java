@@ -1,5 +1,10 @@
 import java.util.HashMap;
 
+import chessobjects.Board;
+import ttable.LRUCache;
+import ttable.NodeTT;
+import ttable.Value;
+
 public class Test {
 	public int a, b;
 	public Test(int a, int b) {
@@ -29,17 +34,14 @@ public class Test {
         return re;
     }
 	public static void main(String[] args) {
-		Test san = new Test(1, 2);
-		if (san.equals(new Test(1, 2)))
-			System.out.println("San an com");
-		HashMap<Test, Integer> map = new HashMap<Test, Integer>();
-		map.put(san, 12);
+		Board b1 = new Board();
+		Board b2 = b1.clone();
+		LRUCache<Board, Value> san = new LRUCache<Board, Value>(10000);
+		san.map = new HashMap<Board, NodeTT<Board, Value>>();
+		san.put(b1, new Value(3));
+		if (san.get(b2) != null)
+			System.out.println(san.get(b2));
 		
-		if (map.containsKey(new Test(1, 2))) 
-			System.out.println("OK - 1");
-		if (map.containsKey(san)) 
-			System.out.println("Ok - 2");
-		System.out.println(Test.pow2(2, 32));
 	}
 	
 }
