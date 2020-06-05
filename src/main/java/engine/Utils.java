@@ -59,10 +59,10 @@ public class Utils {
         assert row >= 1 && row <= 8;
         assert col >= 1 && col <= 8;
 
-        if(row < 4 || row > 5)
+        if(row < 3 || row > 6)
             return false;
 
-        if(col < 4 || col > 5)
+        if(col < 3 || col > 6)
             return false;
         return true;
     }

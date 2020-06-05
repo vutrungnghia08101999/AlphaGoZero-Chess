@@ -1,6 +1,5 @@
 package engine;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,7 +11,6 @@ import chessobjects.Piece;
 import chessobjects.Queen;
 import chessobjects.Rook;
 import rules.AbstractRules;
-import sun.nio.ch.Util;
 import ttable.Config;
 import ttable.LRUCache;
 import ttable.NodeTT;
@@ -23,7 +21,7 @@ import utils.Spot;
 public class CPU {
 	private int alphaBetaCall, negaScoutCall, alphaBetaTTCall, TTCall, getAlphaBetaCall;
 	private Move nextMoves;
-	private ArrayList<Move> history = new ArrayList<Move>();
+	private ArrayList<Move> recentMoves = null;
 
 	private LRUCache<Board, Value> team = new LRUCache<Board, Value>(Config.CAP);
 
@@ -49,14 +47,15 @@ public class CPU {
 		return allValidMoves.size() == 0;
 	}
 
-	public Move searchNextMove(Board board, int team, int ROOT_TREE_DEPTH) {
+	public Move searchNextMove(Board board, int team, int ROOT_TREE_DEPTH, ArrayList<Move> recentMoves) {
+		this.recentMoves = recentMoves;
 		this.nextMoves = null;
 		this.alphaBetaCall = 0;
 		negaScoutCall = 0;
 		this.TTCall = 0;
 		this.alphaBetaTTCall = 0;
 		Board.call = 0;
-		int maximum;
+		float maximum;
 //        	maximum = this.dfsAlphaBeta(board, team, ROOT_TREE_DEPTH, team, ROOT_TREE_DEPTH, -100000000, 100000000);
 //        	System.out.println("Alpha Beta: " + this.alphaBetaCall);
 //		int firstG = this.iterativeDeepening(board, ROOT_TREE_DEPTH, team);
@@ -69,12 +68,7 @@ public class CPU {
 //		System.out.println("Minimize-maximize algorithm metrics: " + maximum);
 //		System.out.println("Number cal Matrix: " + Board.call);
 //		System.out.println("Number of DFS Calls: " + this.alphaBetaCall);
-		ArrayList<Move> tmp = new ArrayList<Move>();
-		for (int i = Math.max(0, history.size() - 9); i < history.size(); ++i)  // avoid repeated moves
-			tmp.add(history.get(i));
-		history = tmp;
-		history.add(nextMoves);
-		return nextMoves;
+		return this.nextMoves;
 	}
 
 	public Board getNextState(Board board, Move move) {
@@ -140,7 +134,7 @@ public class CPU {
 
 	/*********************** DFS FUNCTIONS *********************************/
 
-	private int dfsAlphaBeta(Board board, int flag, int depth, int team, int ROOT_TREE_DEPTH, int alpha, int beta) {
+	private float dfsAlphaBeta(Board board, int flag, int depth, int team, int ROOT_TREE_DEPTH, float alpha, float beta) {
 		this.alphaBetaCall++;
 		if (depth == 1)
 			return this.evaluate(board, team);
@@ -155,11 +149,11 @@ public class CPU {
 
 		int nextTeam = Math.abs(1 - flag);
 		if (flag == team) {
-			int maximum = -100000000;
+			float maximum = -100000000;
 			for (Move move : moves) {
 				Board B = this.getNextState(board, move);
-				int metric = dfsAlphaBeta(B, nextTeam, depth - 1, team, ROOT_TREE_DEPTH, alpha, beta);
-				if (depth == ROOT_TREE_DEPTH && Utils.isContainedMove(this.history, move) && moves.size() != 1)
+				float metric = dfsAlphaBeta(B, nextTeam, depth - 1, team, ROOT_TREE_DEPTH, alpha, beta);
+				if (depth == ROOT_TREE_DEPTH && Utils.isContainedMove(this.recentMoves, move) && moves.size() != 1)
 					metric = -100000000;
 				if (metric > maximum) {
 					maximum = metric;
@@ -172,10 +166,10 @@ public class CPU {
 			}
 			return maximum;
 		} else {
-			int minimum = 100000000;
+			float minimum = 100000000;
 			for (Move move : moves) {
 				Board B = this.getNextState(board, move);
-				int metric = dfsAlphaBeta(B, nextTeam, depth - 1, team, ROOT_TREE_DEPTH, alpha, beta);
+				float metric = dfsAlphaBeta(B, nextTeam, depth - 1, team, ROOT_TREE_DEPTH, alpha, beta);
 				minimum = Math.min(minimum, metric);
 				beta = Math.min(beta, metric);
 				if (beta <= alpha)
@@ -185,213 +179,9 @@ public class CPU {
 		}
 	}
 
-	private int negaScout(Board board, int flag, int depth, int team, int ROOT_TREE_DEPTH, int alpha, int beta) {
-		this.negaScoutCall++;
-		if (depth == 1) {
-			return this.evaluate(board, team);
-		}
-		ArrayList<Move> moves = this.getAllValidMoves(board, flag);
-		if (moves.size() == 0)
-			return this.evaluate(board, team);
-		int nextTeam = Math.abs(1 - flag);
-
-		if (flag == team) {
-			int m = -100000000;
-			Board B = this.getNextState(board, moves.get(0));
-			m = Math.max(m, negaScout(B, nextTeam, depth - 1, team, ROOT_TREE_DEPTH, alpha, beta));
-
-			if (depth == ROOT_TREE_DEPTH)
-				nextMoves = moves.get(0);
-			if (m >= beta) {
-				if (depth == ROOT_TREE_DEPTH) {
-					return m;
-				}
-
-			}
-
-			for (int i = 1; i < moves.size(); i++) {
-				B = this.getNextState(board, moves.get(i));
-				int t = negaScout(B, nextTeam, depth - 1, team, ROOT_TREE_DEPTH, m, m + 1);
-				if (t > m) {
-					if (depth == ROOT_TREE_DEPTH)
-						nextMoves = moves.get(i);
-					if (depth < 3 || t >= beta) {
-						m = t;
-					} else {
-						m = negaScout(B, nextTeam, depth - 1, team, ROOT_TREE_DEPTH, t, beta);
-					}
-				}
-				if (m >= beta) {
-					if (depth == ROOT_TREE_DEPTH) {
-						nextMoves = moves.get(i);
-						return m;
-					}
-
-				}
-
-			}
-			return m;
-		} else {
-			int m = 100000000;
-			Board B = this.getNextState(board, moves.get(0));
-			m = Math.min(m, negaScout(B, nextTeam, depth - 1, team, ROOT_TREE_DEPTH, alpha, beta));
-
-			if (m <= alpha)
-				return m;
-			for (int i = 1; i < moves.size(); i++) {
-				B = this.getNextState(board, moves.get(i));
-				int t = negaScout(B, nextTeam, depth - 1, team, ROOT_TREE_DEPTH, m - 1, m);
-
-				if (t < m) {
-					if (depth < 3 || t <= alpha) {
-						m = t;
-					} else {
-						m = negaScout(B, nextTeam, depth - 1, team, ROOT_TREE_DEPTH, alpha, t);
-					}
-				}
-				if (m <= alpha)
-					return m;
-			}
-			return m;
-		}
-
-	}
-
-	private int alphaBetaTT(Board board, int flag, int depth, int team, int alpha, int beta) {
-		this.alphaBetaTTCall++;
-		int value;
-		Value v = this.team.get(board);
-		if (depth == 1) {
-//			if (v != null && v.depth == depth)
-//				return v.lower;
-			int val = this.evaluate(board, team);
-    		this.team.put(board, new Value(depth, val, val));
-			return val;
-		}
-		
-		if (v != null && v.depth >= depth) {
-			this.TTCall += 1;
-			if (v.lower >= beta)
-				return v.lower;
-			if (v.upper <= alpha)
-				return v.upper;
-			alpha = Math.max(alpha, v.lower);
-			beta = Math.min(beta, v.upper);
-		}
-
-		
-		
-		ArrayList<Move> moves = this.getAllValidMoves(board, flag);
-
-		if (moves.size() == 0) {
-//			if (v != null && v.depth == depth)
-//				return v.lower;
-			int val = this.evaluate(board, team);
-    		this.team.put(board, new Value(depth, val, val));
-			return val;
-		}
-		
-		int g;
-		int nextTeam = 1 - flag;
-
-		if (flag == team) {
-			g = Integer.MIN_VALUE;
-			int a = alpha;
-			for (Move move : moves) {
-				Board B = this.getNextState(board, move);
-				int g_tmp = this.alphaBetaTT(B, nextTeam, depth - 1, team, a, beta);
-				if (g < g_tmp) {
-					if (depth == rules.Config.TREE_DEPTH + 1)
-						this.nextMoves = move;
-					g = g_tmp;
-				}
-				a = Math.max(a, g);
-				if (g >= beta)
-					break;
-			}
-		} else {
-			g = Integer.MAX_VALUE;
-			int b = beta;
-			for (Move move : moves) {
-				Board B = this.getNextState(board, move);
-//    			System.out.println("Hash COde:= " + B.hashCode());
-				g = Math.min(g, this.alphaBetaTT(B, nextTeam, depth - 1, team, alpha, b));
-				b = Math.min(g, b);
-				if (g <= alpha) {
-					break;
-				}
-			}
-		}
-
-		Value newV = new Value(depth);
-		if (g <= alpha) {
-			newV.upper = g;
-			this.team.put(board, newV);
-		} else if (g < beta) {
-			newV.lower = g;
-			newV.upper = g;
-			this.team.put(board, newV);
-		} else {
-			newV.lower = g;
-			this.team.put(board, newV);
-		}
-
-		return g;
-
-	}
-
-	public int MTDf(Board board, int first, int depth, int team) {
-		int g = first;
-		int beta;
-		int lowerB = -100000000, upperB = 100000000;
-		do {
-
-			long t1 = System.currentTimeMillis();
-			this.alphaBetaTTCall = 0;
-			this.TTCall = 0;
-			System.out.println("Lower:= " + lowerB + " ----- " + "Upper:= " + upperB);
-
-//    		beta = (lowerB + upperB + 1) / 2;
-			if (g == lowerB)
-				beta = g + 1;
-			else
-				beta = g;
-			g = this.alphaBetaTT(board, team, depth, team, beta - 1, beta);
-    		System.out.println("Lower:= " + lowerB + " ----- " + "Upper:= " + upperB + " --- Returned:= " + g + " --- Beta:= " + beta);
-			if (g < beta) {
-				upperB = g;
-			} else {
-				lowerB = g;
-			}
-
-			long t2 = System.currentTimeMillis();
-			System.out.println(" --- Time for one loop:= " + (t2 - t1));
-			System.out.println("Rate of TT: " + this.TTCall * 1.0 / this.alphaBetaTTCall + " --- "
-					+ this.team.map.size() + " --- " + this.alphaBetaTTCall);
-			System.out.println(" **-------------------------------------------** ");
-
-		} while (lowerB < upperB);
-		return g;
-	}
-
-	private int iterativeDeepening(Board board, int depth, int team) {
-		long t = 1500;
-		System.out.println("... Time Start For Iterative Deepening ...");
-		long beg = System.currentTimeMillis();
-		int first = 0;
-		for (int d = 1; d <= depth; d++) {
-			first = this.MTDf(board, first, d, team);
-			long t2 = System.currentTimeMillis();
-			if (t2 - beg > t)
-				break;
-		}
-		System.out.println("... Time Out For Iterative Deepening ...");
-		return first;
-	}
-
 	/************************ SUPPORTED FUNCTIONS **************************/
 
-	private ArrayList<Move> getAllValidMoves(Board board, int team) {
+	public ArrayList<Move> getAllValidMoves(Board board, int team) {
 		ArrayList<Move> allValidMoves = new ArrayList<Move>();
 		for (int row = 1; row <= 8; ++row) {
 			for (int col = 1; col <= 8; ++col) {
@@ -405,7 +195,7 @@ public class CPU {
 			}
 		}
 
-//        Collections.shuffle(allValidMoves);
+        Collections.shuffle(allValidMoves);
 		return allValidMoves;
 	}
 
@@ -440,7 +230,7 @@ public class CPU {
 			validMoves.addAll(castlingSpots);
 		}
 
-//        Collections.shuffle(validMoves);
+        Collections.shuffle(validMoves);
 		return validMoves;
 	}
 
@@ -525,47 +315,49 @@ public class CPU {
 	 * OBJECTIVES **************************************
 	 * https://chessfox.com/free-chess-course-chessfox-com/introduction-to-the-5-main-objectives-of-a-chess-game/
 	 */
-	public int evaluate(Board board, int team) {
+	public float evaluate(Board board, int team) {
 //		if (this.isCheckedMate(board, team))
 //			return -1000;
 //		else if (this.isCheckedMate(board, 1 - team))
 //			return 1000;
-		int materialScore = this.getMaterialScore(board, team);
+		float materialScore = this.getMaterialScore(board, team);
 //        float developmentScore = this.getDevelopmentScore(board, team);
-//        float centerControlScore = this.getCenterControlScore(board, team);
+//        int centerControlScore = this.getCenterControlScore(board, team);
 //		int kingSafetyScore = this.getKingSafetyScore(board, team);
 //        float pawnStructureScore = this.getPawnStructureScore(board, team);
-		return materialScore;
+		return materialScore; // + centerControlScore;
 	}
 
-	private int getMaterialScore(Board board, int team) {
-		int ourPoint = 0;
-		int opponentPoint = 0;
+	private float getMaterialScore(Board board, int team) {
+		float ourPoint = 0;
+		float opponentPoint = 0;
 		for (int row = 1; row <= 8; ++row) {
 			for (int col = 1; col <= 8; ++col) {
 				if (board.board[row][col] == null)
 					continue;
+				if (board.board[row][col] instanceof King)
+					continue;
 
+				float centralScore = 0.5f / (float)Math.sqrt((4.5 - row) * (4.5 - row) + (4.5 - col) * (4.5 - col));
 				Piece piece = board.board[row][col];
 				if (board.board[row][col].getTeam() != team) {
 					if (piece instanceof Pawn)
-						opponentPoint += ((Pawn) piece).getPoint(row);
+						opponentPoint += ((Pawn) piece).getPoint(row) + centralScore;
 					else
-						opponentPoint += piece.getPoint();
+						opponentPoint += piece.getPoint() + centralScore;
 				} else {
 					if (piece instanceof Pawn)
-						ourPoint += ((Pawn) piece).getPoint(row);
+						ourPoint += ((Pawn) piece).getPoint(row) + centralScore;
 					else
-						ourPoint += piece.getPoint();
+						ourPoint += piece.getPoint() + centralScore;
 				}
+
 			}
 		}
 		return ourPoint - opponentPoint;
 	}
 
-	private float getCenterControlScore(Board board, int team) {
-		int MAXIMUM_VALUE = 10; // 4 pawns + 4 other pieces for influence and 2 for occupied, this is my
-								// assumption
+	private int getCenterControlScore(Board board, int team) {
 		int ourPieces = 0;
 		int opponentPieces = 0;
 
@@ -583,21 +375,9 @@ public class CPU {
 					else
 						opponentPieces++;
 				}
-
-				AbstractRules rules = Utils.chooseRules(piece);
-				ArrayList<Spot> influenceSpots = rules.getInfluenceSpots(new Spot(row, col), board);
-				for (Spot spot : influenceSpots) {
-					if (Utils.isInCenter(spot)) {
-						if (piece.getTeam() == team)
-							ourPieces++;
-						else
-							opponentPieces++;
-						break;
-					}
-				}
 			}
 		}
-		return ((float) (ourPieces - opponentPieces)) / MAXIMUM_VALUE;
+		return ourPieces - opponentPieces;
 	}
 
 	private int getKingSafetyScore(Board board, int team) {

@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
+        ArrayList<Move> history = new ArrayList<Move>();
         Board board = new Board();
         int turn = 1;
         Move move = null;
@@ -24,6 +25,12 @@ public class Main {
         gui.display(board, turn);
 //        gui.display(board);
         while(true){
+            ArrayList<Move> recentMoves = new ArrayList<Move>();
+            int n = Math.max(0, history.size() - 9);
+            for(int i = n; i < history.size(); ++i){
+                Move mv = history.get(i);
+                recentMoves.add(new Move(mv.getStart(), mv.getEnd(), mv.isCastling(), mv.isPromoted()));
+            }
 
             /**************** COMPUTER VS COMPUTER *********************/
 //            System.out.println("Turn: " + turn);
@@ -37,7 +44,7 @@ public class Main {
             if(turn == 0){
                 System.out.println("Turn: TERMINATOR - AI");
                 long start_time = System.currentTimeMillis();
-                move = cpu.searchNextMove(board, turn, Config.TREE_DEPTH);
+                move = cpu.searchNextMove(board, turn, Config.TREE_DEPTH, recentMoves);
                 long end_time = System.currentTimeMillis();
                 System.out.println("Runtime: " + (end_time-start_time) + "(ms)");
             }
@@ -68,6 +75,7 @@ public class Main {
                 gui.clearBuffer();
             }
             /**********************************************************/
+            history.add(move);
             System.out.println(move);
             board = cpu.getNextState(board, move);
             System.out.println("TEAM CPU Metrics: " + cpu.evaluate(board, 0));

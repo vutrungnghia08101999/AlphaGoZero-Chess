@@ -1,4 +1,5 @@
 import chessobjects.Board;
+import chessobjects.King;
 import chessobjects.Pawn;
 import chessobjects.Piece;
 import engine.CPU;
@@ -6,7 +7,7 @@ import rules.Config;
 import utils.Move;
 import utils.Spot;
 
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -21,6 +22,7 @@ public class UCIInterface{
 class UCI {
     private Board board = null;
     private int turn;
+    private ArrayList<Move> history = new ArrayList<Move>();
     CPU cpu = new CPU();
     UCIMove uciMove = new UCIMove();
     private String ENGINE_NAME = "Lusheeta-Engine";
@@ -46,18 +48,11 @@ class UCI {
     private void inputUCI() {
         System.out.println("id name " + this.ENGINE_NAME);
         System.out.println("id author " + this.AUTHOR);
-        // options if any
-        this.board = new Board();
-        this.turn = 1;
         System.out.println("uciok");
-//        this.board.displayBoard();
     }
 
     private void isReady() {
-        this.board = new Board();
-        this.turn = 1;
         System.out.println("readyok");
-//        this.board.displayBoard();
     }
 
     private void newGame() {
@@ -66,22 +61,25 @@ class UCI {
     }
 
     private void go() {
-        Move mv = cpu.searchNextMove(this.board, this.turn, Config.TREE_DEPTH);
-        this.board = this.cpu.getNextState(this.board, mv);
-        this.turn = 1 - this.turn;
-//        System.out.println(mv);
+        ArrayList<Move> recentMoves = new ArrayList<Move>();
+        int n = Math.max(0, this.history.size() - 9);
+        for(int i = n; i < this.history.size(); ++i){
+            Move mv = this.history.get(i);
+            recentMoves.add(new Move(mv.getStart(), mv.getEnd(), mv.isCastling(), mv.isPromoted()));
+        }
+
+        Move mv = cpu.searchNextMove(this.board, this.turn, Config.TREE_DEPTH, recentMoves);
         String move = this.uciMove.indexToUci(mv);
         System.out.println("bestmove "+ move);
-//        this.board.displayBoard();
     }
 
     private void quit() {
         System.out.println("Good game");
-//        this.board.displayBoard();
     }
 
     private void newPosition(String input) {
-        input=input.substring(9).concat(" ");
+        this.history.clear();
+        input = input.substring(9).concat(" ");
         if (input.contains("startpos ")) {
             input = input.substring(9);
             this.board = new Board();
@@ -99,19 +97,22 @@ class UCI {
                 Piece piece = this.board.board[start.getRow()][start.getCol()];
                 if(piece instanceof Pawn && (end.getRow() == 1 || end.getRow() == 8))
                     move = new Move(start, end, false, true);
+                else if(piece instanceof King && end.getCol() - start.getCol() == 2)
+                    move = new Move(start, end, true, false);
+
                 if (cpu.isValidMove(move, this.board, this.turn)){
+                    this.history.add(move);
                     this.board = cpu.getNextState(this.board, move);
                     this.turn = 1 - this.turn;
                 }
                 else{
+                    System.out.println("Invalid move: " + mv + " - " + move);
                     this.board = new Board();
                     this.turn = 1;
-                    continue;
+                    break;
                 }
             }
         }
-
-//        this.board.displayBoard();
     }
 }
 
