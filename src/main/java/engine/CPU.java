@@ -338,7 +338,7 @@ public class CPU {
 				if (board.board[row][col] instanceof King)
 					continue;
 
-				float centralScore = 0.5f / (float)Math.sqrt((4.5 - row) * (4.5 - row) + (4.5 - col) * (4.5 - col));
+				float centralScore = 0; //0.5f / (float)Math.sqrt((4.5 - row) * (4.5 - row) + (4.5 - col) * (4.5 - col));
 				Piece piece = board.board[row][col];
 				if (board.board[row][col].getTeam() != team) {
 					if (piece instanceof Pawn)

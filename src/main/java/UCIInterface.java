@@ -97,7 +97,7 @@ class UCI {
                 Piece piece = this.board.board[start.getRow()][start.getCol()];
                 if(piece instanceof Pawn && (end.getRow() == 1 || end.getRow() == 8))
                     move = new Move(start, end, false, true);
-                else if(piece instanceof King && end.getCol() - start.getCol() == 2)
+                else if(piece instanceof King && Math.abs(end.getCol() - start.getCol()) == 2)
                     move = new Move(start, end, true, false);
 
                 if (cpu.isValidMove(move, this.board, this.turn)){
