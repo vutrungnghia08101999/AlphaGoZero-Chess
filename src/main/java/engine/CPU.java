@@ -1,8 +1,6 @@
 package engine;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.*;
 
 import chessobjects.Board;
 import chessobjects.King;
@@ -56,10 +54,10 @@ public class CPU {
 //        	maximum = this.dfsAlphaBeta(board, team, ROOT_TREE_DEPTH, team, ROOT_TREE_DEPTH, -100000000, 100000000);
 //        	System.out.println("Alpha Beta: " + this.alphaBetaCall);
 //		int firstG = this.iterativeDeepening(board, ROOT_TREE_DEPTH, team);
-		if (team == 0)
-			maximum = this.MTDf(board, 0, ROOT_TREE_DEPTH + 1, team);
-		else 
-			maximum = this.dfsAlphaBeta(board, team, ROOT_TREE_DEPTH, team, ROOT_TREE_DEPTH, -100000000, 100000000);
+//		if (team == 0)
+		maximum = this.MTDf(board, 0, ROOT_TREE_DEPTH, team);
+//		else 
+//			maximum = this.dfsAlphaBeta(board, team, ROOT_TREE_DEPTH, team, ROOT_TREE_DEPTH, -100000000, 100000000);
 //        	System.out.println("First Guess Values: " + firstG);
 //        	System.out.println("Rate of TT: " + this.TTCall * 1.0 / this.alphaBetaTTCall + " --- " + this.team.map.size() + " --- " + this.alphaBetaTTCall);
 		System.out.println("Minimize-maximize algorithm metrics: " + maximum);
@@ -247,8 +245,10 @@ public class CPU {
 		int value;
 		Value v = this.team.get(board);
 		if (depth == 1) {
-//			if (v != null && v.depth == depth)
-//				return v.lower;
+			if (v != null && v.depth == depth) {
+				this.TTCall += 1;
+				return v.lower;
+			}
 			int val = this.evaluate(board, team);
     		this.team.put(board, new Value(depth, val, val));
 			return val;
@@ -286,7 +286,7 @@ public class CPU {
 				Board B = this.getNextState(board, move);
 				int g_tmp = this.alphaBetaTT(B, nextTeam, depth - 1, team, a, beta);
 				if (g < g_tmp) {
-					if (depth == rules.Config.TREE_DEPTH + 1)
+					if (depth == rules.Config.TREE_DEPTH)
 						this.nextMoves = move;
 					g = g_tmp;
 				}
@@ -328,19 +328,20 @@ public class CPU {
 	public int MTDf(Board board, int first, int depth, int team) {
 		int g = first;
 		int beta;
-		int lowerB = -100000000, upperB = 100000000;
+		int lowerB = -10000, upperB = 10000;
 		do {
+				
+//			long t1 = System.currentTimeMillis();
+//			this.alphaBetaTTCall = 0;
+//			this.TTCall = 0;
+//			Board.call = 0;
+//			System.out.println("Lower:= " + lowerB + " ----- " + "Upper:= " + upperB);
 
-			long t1 = System.currentTimeMillis();
-			this.alphaBetaTTCall = 0;
-			this.TTCall = 0;
-			System.out.println("Lower:= " + lowerB + " ----- " + "Upper:= " + upperB);
-
-//    		beta = (lowerB + upperB + 1) / 2;
-			if (g == lowerB)
-				beta = g + 1;
-			else
-				beta = g;
+    		beta = (lowerB + upperB + 1) / 2;
+//			if (g == lowerB)
+//				beta = g + 1;
+//			else
+//				beta = g;
 			g = this.alphaBetaTT(board, team, depth, team, beta - 1, beta);
     		System.out.println("Lower:= " + lowerB + " ----- " + "Upper:= " + upperB + " --- Returned:= " + g + " --- Beta:= " + beta);
 			if (g < beta) {
@@ -349,11 +350,12 @@ public class CPU {
 				lowerB = g;
 			}
 
-			long t2 = System.currentTimeMillis();
-			System.out.println(" --- Time for one loop:= " + (t2 - t1));
-			System.out.println("Rate of TT: " + this.TTCall * 1.0 / this.alphaBetaTTCall + " --- "
-					+ this.team.map.size() + " --- " + this.alphaBetaTTCall);
-			System.out.println(" **-------------------------------------------** ");
+//			long t2 = System.currentTimeMillis();
+//			System.out.println(" --- Time for one loop:= " + (t2 - t1));
+//			System.out.println("Rate of TT: " + this.TTCall * 1.0 / this.alphaBetaTTCall + " --- "
+//					+ this.team.map.size() + " --- " + this.alphaBetaTTCall);
+//			System.out.println("Board's Hash and Equals called:= " + Board.call);
+//			System.out.println(" **-------------------------------------------** ");
 
 		} while (lowerB < upperB);
 		return g;

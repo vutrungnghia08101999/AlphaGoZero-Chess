@@ -36,11 +36,13 @@ public class Test {
 	public static void main(String[] args) {
 		Board b1 = new Board();
 		Board b2 = b1.clone();
+		Board b3 = new Board();
+		
 		LRUCache<Board, Value> san = new LRUCache<Board, Value>(10000);
 		san.map = new HashMap<Board, NodeTT<Board, Value>>();
 		san.put(b1, new Value(3));
-		if (san.get(b2) != null)
-			System.out.println(san.get(b2));
+		if (san.get(b3) != null)
+			System.out.println(san.get(b3));
 		
 	}
 	

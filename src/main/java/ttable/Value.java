@@ -10,8 +10,8 @@ public class Value {
 	public Value(int depth) {
 		super();
 		this.depth = depth;
-		lower = Integer.MIN_VALUE;
-		upper = Integer.MAX_VALUE;
+		lower = -10000;
+		upper = 10000;
 	}
 
 

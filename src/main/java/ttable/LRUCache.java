@@ -1,9 +1,9 @@
 package ttable;
-import java.util.HashMap;
+import java.util.Map;
 
 public class LRUCache<K, V> {
 	public NodeTT<K, V> head, tail;
-	public HashMap<K, NodeTT<K, V>> map = null;
+	public Map<K, NodeTT<K, V>> map = null;
 	int cap = 0;
 	
 	public LRUCache(int capacity) {

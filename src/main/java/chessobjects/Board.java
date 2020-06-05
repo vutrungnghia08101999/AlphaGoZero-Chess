@@ -163,6 +163,7 @@ public class Board {
 		int hash = 0;
 		for (int i = 1; i <= 8; i++)
 			for (int j = 1; j <= 8; j++) {
+//				sig *= -1;
 				if (tmp[i][j] != 0) {
 					long p = Board.powF((long) 2, (long) i * j - 2);
 					p *= tmp[i][j];
