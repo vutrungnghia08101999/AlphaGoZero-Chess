@@ -66,9 +66,9 @@ public class CPU {
 		maximum = this.dfsAlphaBeta(board, team, ROOT_TREE_DEPTH, team, ROOT_TREE_DEPTH, -100000000, 100000000);
 //        	System.out.println("First Guess Values: " + firstG);
 //        	System.out.println("Rate of TT: " + this.TTCall * 1.0 / this.alphaBetaTTCall + " --- " + this.team.map.size() + " --- " + this.alphaBetaTTCall);
-		System.out.println("Minimize-maximize algorithm metrics: " + maximum);
+//		System.out.println("Minimize-maximize algorithm metrics: " + maximum);
 //		System.out.println("Number cal Matrix: " + Board.call);
-		System.out.println("Number of DFS Calls: " + this.alphaBetaCall);
+//		System.out.println("Number of DFS Calls: " + this.alphaBetaCall);
 		ArrayList<Move> tmp = new ArrayList<Move>();
 		for (int i = Math.max(0, history.size() - 9); i < history.size(); ++i)  // avoid repeated moves
 			tmp.add(history.get(i));

@@ -11,6 +11,7 @@
 /media/vutrungnghia/New Volume/ArtificialIntelligence/AlphaGoZero-Chess/src/main/java/chessobjects/Knight.java
 /media/vutrungnghia/New Volume/ArtificialIntelligence/AlphaGoZero-Chess/src/main/java/rules/BishopRules.java
 /media/vutrungnghia/New Volume/ArtificialIntelligence/AlphaGoZero-Chess/src/main/java/utils/Spot.java
+/media/vutrungnghia/New Volume/ArtificialIntelligence/AlphaGoZero-Chess/src/main/java/UCIInterface.java
 /media/vutrungnghia/New Volume/ArtificialIntelligence/AlphaGoZero-Chess/src/main/java/rules/AbstractRules.java
 /media/vutrungnghia/New Volume/ArtificialIntelligence/AlphaGoZero-Chess/src/main/java/chessobjects/Pawn.java
 /media/vutrungnghia/New Volume/ArtificialIntelligence/AlphaGoZero-Chess/src/main/java/chessobjects/Queen.java
@@ -21,7 +22,6 @@
 /media/vutrungnghia/New Volume/ArtificialIntelligence/AlphaGoZero-Chess/src/main/java/chessobjects/Rook.java
 /media/vutrungnghia/New Volume/ArtificialIntelligence/AlphaGoZero-Chess/src/main/java/rules/QueenRules.java
 /media/vutrungnghia/New Volume/ArtificialIntelligence/AlphaGoZero-Chess/src/main/java/ttable/LRUCache.java
-/media/vutrungnghia/New Volume/ArtificialIntelligence/AlphaGoZero-Chess/src/main/java/Test.java
 /media/vutrungnghia/New Volume/ArtificialIntelligence/AlphaGoZero-Chess/src/main/java/rules/RookRules.java
 /media/vutrungnghia/New Volume/ArtificialIntelligence/AlphaGoZero-Chess/src/main/java/ttable/Config.java
 /media/vutrungnghia/New Volume/ArtificialIntelligence/AlphaGoZero-Chess/src/main/java/chessobjects/Board.java

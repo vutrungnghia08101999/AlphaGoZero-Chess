@@ -1,6 +1,7 @@
 ttable/TTEntry.class
 rules/RookRules.class
 ttable/Value.class
+UCIMove.class
 rules/KingRules.class
 gui/MatrixButton.class
 Main.class
@@ -20,8 +21,10 @@ gui/GUI.class
 rules/PawnRules.class
 gui/GUI$1.class
 ttable/NodeTT.class
+UCIInterface.class
 engine/CPU.class
 utils/Spot.class
+UCI.class
 chessobjects/Knight.class
 rules/Config.class
 chessobjects/King.class
