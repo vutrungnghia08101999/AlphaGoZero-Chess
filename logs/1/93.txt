@@ -1,0 +1,14 @@
+20-06-04 18:55:19, INFO: 
+
+********* SELF PLAY *********
+
+
+20-06-04 18:55:19, INFO: [('dataroot', '/home/hieu123/workspace/dataset'), ('game_id', 93), ('last_iter', 0), ('models', '/home/hieu123/workspace/models'), ('n_moves', 256), ('n_simulations', 200), ('seed', 93)]
+20-06-04 18:55:23, INFO: True-white moves first
+20-06-04 19:02:33, INFO: case 2.2
+20-06-04 19:06:58, INFO: Finish after 256 moves
+20-06-04 19:06:58, INFO: 0 for both team
+20-06-04 19:06:58, INFO: Save game at /home/hieu123/workspace/dataset/1/93.pkl
+20-06-04 19:06:58, INFO: Completed self play - game_id: 93
+
+

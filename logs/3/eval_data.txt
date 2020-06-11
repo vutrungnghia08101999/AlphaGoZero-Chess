@@ -1,0 +1,209 @@
+20-06-05 02:28:51, INFO: 
+
+********* EVALUATE DATA *********
+
+
+20-06-05 02:28:51, INFO: [('dataroot', '/home/hieu123/workspace/dataset'), ('last_iter', 2)]
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/16.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/50.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/71.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/90.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/82.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/12.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/48.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/17.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/57.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/31.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/18.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/41.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/32.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/79.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/89.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/26.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/74.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/91.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/72.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/46.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/60.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/85.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/43.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/95.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/27.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/93.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/21.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/37.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/62.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/92.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/22.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/42.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/51.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/83.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/69.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/81.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/2.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/59.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/63.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/3.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/61.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/49.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/76.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/10.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/47.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/99.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/6.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/23.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/30.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/5.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/80.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/96.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/39.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/78.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/54.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/67.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/58.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/66.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/52.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/14.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/56.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/29.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/44.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/75.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/11.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/28.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/15.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/1.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/8.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/24.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/98.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/36.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/73.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/25.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/38.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/45.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/97.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/77.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/84.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/68.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/9.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/0.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/34.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/70.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/87.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/55.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/40.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/33.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/13.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/64.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/94.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/86.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/35.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/19.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/7.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/20.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/53.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/4.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/65.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Load /home/hieu123/workspace/dataset/3/88.pkl
+20-06-05 02:28:51, INFO: Value of team 1: 0 - team 0: 0
+20-06-05 02:28:51, INFO: Evaluate Sucessfully
+
+

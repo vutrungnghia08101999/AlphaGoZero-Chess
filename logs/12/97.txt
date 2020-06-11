@@ -1,0 +1,8 @@
+20-06-06 08:19:26, INFO: 
+
+********* SELF PLAY *********
+
+
+20-06-06 08:19:26, INFO: [('dataroot', '/home/hieu123/workspace/dataset'), ('game_id', 97), ('last_iter', 11), ('models', '/home/hieu123/workspace/models'), ('n_moves', 256), ('n_simulations', 200), ('seed', 97)]
+20-06-06 08:19:30, INFO: Load model: /home/hieu123/workspace/models/11.pth
+20-06-06 08:19:30, INFO: True-white moves first

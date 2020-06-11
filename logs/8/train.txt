@@ -1,0 +1,150 @@
+20-06-05 17:44:42, INFO: 
+
+********* TRAINING *********
+
+
+20-06-05 17:44:42, INFO: [('batch_size', 200), ('dataroot', '/home/hieu123/workspace/dataset'), ('epochs', 20), ('last_iter', 7), ('lr', 0.001), ('models', '/home/hieu123/workspace/models')]
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/16.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/50.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/71.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/90.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/82.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/12.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/48.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/17.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/57.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/31.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/18.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/41.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/32.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/79.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/89.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/26.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/74.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/91.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/72.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/46.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/60.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/85.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/43.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/95.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/27.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/93.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/21.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/37.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/62.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/92.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/22.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/42.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/51.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/83.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/69.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/81.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/2.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/59.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/63.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/3.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/61.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/49.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/76.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/10.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/47.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/99.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/6.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/23.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/30.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/5.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/80.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/96.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/39.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/78.pkl
+20-06-05 17:44:42, INFO: Load: /home/hieu123/workspace/dataset/8/54.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/67.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/58.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/66.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/52.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/14.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/56.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/29.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/44.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/75.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/11.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/28.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/15.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/1.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/8.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/24.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/98.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/36.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/73.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/25.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/38.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/45.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/97.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/77.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/84.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/68.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/9.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/0.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/34.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/70.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/87.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/55.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/40.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/33.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/13.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/64.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/94.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/86.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/35.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/19.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/7.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/20.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/53.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/4.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/65.pkl
+20-06-05 17:44:43, INFO: Load: /home/hieu123/workspace/dataset/8/88.pkl
+20-06-05 17:44:43, INFO: Train on 23695 positions
+20-06-05 17:44:44, INFO: Load model: /home/hieu123/workspace/models/7.pth
+20-06-05 17:44:44, INFO: EPOCH: 0
+20-06-05 17:44:48, INFO: value_loss: 0.019404033198952675 - policy_loss: 2.458169460296631
+20-06-05 17:44:48, INFO: EPOCH: 1
+20-06-05 17:44:51, INFO: value_loss: 0.014815147966146469 - policy_loss: 2.2967405319213867
+20-06-05 17:44:51, INFO: EPOCH: 2
+20-06-05 17:44:54, INFO: value_loss: 0.014228562824428082 - policy_loss: 2.116732120513916
+20-06-05 17:44:54, INFO: EPOCH: 3
+20-06-05 17:44:57, INFO: value_loss: 0.018009835854172707 - policy_loss: 2.0734570026397705
+20-06-05 17:44:57, INFO: EPOCH: 4
+20-06-05 17:45:00, INFO: value_loss: 0.030105603858828545 - policy_loss: 2.0870893001556396
+20-06-05 17:45:00, INFO: EPOCH: 5
+20-06-05 17:45:03, INFO: value_loss: 0.0003726007998920977 - policy_loss: 2.0808498859405518
+20-06-05 17:45:03, INFO: EPOCH: 6
+20-06-05 17:45:06, INFO: value_loss: 0.012742430903017521 - policy_loss: 2.0580039024353027
+20-06-05 17:45:06, INFO: EPOCH: 7
+20-06-05 17:45:10, INFO: value_loss: 0.031521912664175034 - policy_loss: 1.9904224872589111
+20-06-05 17:45:10, INFO: EPOCH: 8
+20-06-05 17:45:13, INFO: value_loss: 0.0006761744734831154 - policy_loss: 2.1695823669433594
+20-06-05 17:45:13, INFO: EPOCH: 9
+20-06-05 17:45:16, INFO: value_loss: 0.03183809295296669 - policy_loss: 1.8976460695266724
+20-06-05 17:45:16, INFO: EPOCH: 10
+20-06-05 17:45:19, INFO: value_loss: 0.0013005477376282215 - policy_loss: 1.9895113706588745
+20-06-05 17:45:19, INFO: EPOCH: 11
+20-06-05 17:45:22, INFO: value_loss: 0.01137519720941782 - policy_loss: 1.9086940288543701
+20-06-05 17:45:22, INFO: EPOCH: 12
+20-06-05 17:45:25, INFO: value_loss: 0.02377043105661869 - policy_loss: 1.9670064449310303
+20-06-05 17:45:25, INFO: EPOCH: 13
+20-06-05 17:45:28, INFO: value_loss: 0.004402025602757931 - policy_loss: 1.971386194229126
+20-06-05 17:45:28, INFO: EPOCH: 14
+20-06-05 17:45:32, INFO: value_loss: 0.017470210790634155 - policy_loss: 1.9902582168579102
+20-06-05 17:45:32, INFO: EPOCH: 15
+20-06-05 17:45:35, INFO: value_loss: 0.007222108077257872 - policy_loss: 1.8940472602844238
+20-06-05 17:45:35, INFO: EPOCH: 16
+20-06-05 17:45:38, INFO: value_loss: 0.001825916231609881 - policy_loss: 2.2523374557495117
+20-06-05 17:45:38, INFO: EPOCH: 17
+20-06-05 17:45:41, INFO: value_loss: 0.01979019306600094 - policy_loss: 2.0161492824554443
+20-06-05 17:45:41, INFO: EPOCH: 18
+20-06-05 17:45:44, INFO: value_loss: 0.008408964611589909 - policy_loss: 2.0490365028381348
+20-06-05 17:45:44, INFO: EPOCH: 19
+20-06-05 17:45:48, INFO: value_loss: 0.023546194657683372 - policy_loss: 1.9227213859558105
+20-06-05 17:45:48, INFO: Save model at: /home/hieu123/workspace/models/8.pth
+20-06-05 17:45:48, INFO: Completed training

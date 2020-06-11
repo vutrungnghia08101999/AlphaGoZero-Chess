@@ -9,7 +9,7 @@ N_PROCESSES = 10
 for iteration in range(1, 20):
     logs = f'logs/{iteration}'
     os.makedirs(logs, exist_ok=True)
-    for batch in range(0, 10):
+    for batch in range(0, 1):
         start = 0 + N_PROCESSES * batch
         end = N_PROCESSES + N_PROCESSES * batch
         processes = []

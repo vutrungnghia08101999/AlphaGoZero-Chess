@@ -1,0 +1,88 @@
+20-06-04 16:59:14, INFO: 
+
+********* SELF PLAY *********
+
+
+20-06-04 16:59:14, INFO: [('dataroot', '/home/hieu123/workspace/dataset'), ('game_id', 14), ('last_iter', 0), ('models', '/home/hieu123/workspace/models'), ('n_moves', 256), ('n_simulations', 200), ('seed', 14)]
+20-06-04 16:59:18, INFO: True-white moves first
+20-06-04 17:04:54, INFO: case 2.1
+20-06-04 17:04:54, INFO: case 2.1
+20-06-04 17:04:54, INFO: case 2.1
+20-06-04 17:04:54, INFO: case 2.1
+20-06-04 17:04:54, INFO: case 2.1
+20-06-04 17:04:54, INFO: case 2.1
+20-06-04 17:04:54, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:55, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: case 2.1
+20-06-04 17:04:56, INFO: Draw
+20-06-04 17:04:56, INFO: 0 for both team
+20-06-04 17:04:56, INFO: Save game at /home/hieu123/workspace/dataset/1/14.pkl
+20-06-04 17:04:56, INFO: Completed self play - game_id: 14
+
+

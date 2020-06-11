@@ -1,0 +1,57 @@
+20-06-05 04:50:29, INFO: 
+
+********* SELF PLAY *********
+
+
+20-06-05 04:50:29, INFO: [('dataroot', '/home/hieu123/workspace/dataset'), ('game_id', 41), ('last_iter', 4), ('models', '/home/hieu123/workspace/models'), ('n_moves', 256), ('n_simulations', 200), ('seed', 41)]
+20-06-05 04:50:33, INFO: Load model: /home/hieu123/workspace/models/4.pth
+20-06-05 04:50:33, INFO: True-white moves first
+20-06-05 04:52:38, INFO: case 2.1
+20-06-05 04:52:42, INFO: case 2.1
+20-06-05 04:52:44, INFO: case 2.1
+20-06-05 04:52:45, INFO: case 2.1
+20-06-05 04:52:45, INFO: case 2.1
+20-06-05 04:52:45, INFO: case 2.1
+20-06-05 04:52:45, INFO: case 2.1
+20-06-05 04:52:48, INFO: case 2.1
+20-06-05 04:52:48, INFO: case 2.1
+20-06-05 04:52:48, INFO: case 2.1
+20-06-05 04:52:49, INFO: case 2.1
+20-06-05 04:52:50, INFO: case 2.1
+20-06-05 04:52:50, INFO: case 2.1
+20-06-05 04:52:51, INFO: case 2.1
+20-06-05 04:52:51, INFO: case 2.1
+20-06-05 04:52:51, INFO: case 2.1
+20-06-05 04:52:51, INFO: case 2.1
+20-06-05 04:52:52, INFO: case 2.1
+20-06-05 04:52:53, INFO: case 2.1
+20-06-05 04:52:53, INFO: case 2.1
+20-06-05 04:52:54, INFO: case 2.1
+20-06-05 04:52:54, INFO: case 2.1
+20-06-05 04:52:54, INFO: case 2.1
+20-06-05 04:52:55, INFO: case 2.1
+20-06-05 04:52:55, INFO: case 2.1
+20-06-05 04:52:55, INFO: case 2.1
+20-06-05 04:52:56, INFO: case 2.1
+20-06-05 04:52:56, INFO: case 2.1
+20-06-05 04:52:56, INFO: case 2.1
+20-06-05 04:52:56, INFO: case 2.1
+20-06-05 04:52:57, INFO: case 2.1
+20-06-05 04:52:57, INFO: case 2.1
+20-06-05 04:52:57, INFO: case 2.1
+20-06-05 04:52:58, INFO: case 2.1
+20-06-05 04:52:58, INFO: case 2.1
+20-06-05 04:52:58, INFO: case 2.1
+20-06-05 04:52:59, INFO: case 2.1
+20-06-05 04:52:59, INFO: case 2.1
+20-06-05 04:53:00, INFO: case 2.1
+20-06-05 04:53:00, INFO: case 2.1
+20-06-05 04:53:00, INFO: case 2.1
+20-06-05 04:53:00, INFO: case 2.1
+20-06-05 04:53:01, INFO: case 2.1
+20-06-05 04:53:01, INFO: Draw
+20-06-05 04:53:01, INFO: 0 for both team
+20-06-05 04:53:01, INFO: Save game at /home/hieu123/workspace/dataset/5/41.pkl
+20-06-05 04:53:01, INFO: Completed self play - game_id: 41
+
+

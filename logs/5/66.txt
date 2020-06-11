@@ -1,0 +1,53 @@
+20-06-05 05:19:31, INFO: 
+
+********* SELF PLAY *********
+
+
+20-06-05 05:19:31, INFO: [('dataroot', '/home/hieu123/workspace/dataset'), ('game_id', 66), ('last_iter', 4), ('models', '/home/hieu123/workspace/models'), ('n_moves', 256), ('n_simulations', 200), ('seed', 66)]
+20-06-05 05:19:35, INFO: Load model: /home/hieu123/workspace/models/4.pth
+20-06-05 05:19:35, INFO: True-white moves first
+20-06-05 05:21:54, INFO: case 2.1
+20-06-05 05:21:55, INFO: case 2.1
+20-06-05 05:21:55, INFO: case 2.1
+20-06-05 05:21:56, INFO: case 2.1
+20-06-05 05:21:57, INFO: case 2.1
+20-06-05 05:21:58, INFO: case 2.1
+20-06-05 05:21:58, INFO: case 2.1
+20-06-05 05:22:00, INFO: case 2.1
+20-06-05 05:22:00, INFO: case 2.1
+20-06-05 05:22:00, INFO: case 2.1
+20-06-05 05:22:00, INFO: case 2.1
+20-06-05 05:22:00, INFO: case 2.1
+20-06-05 05:22:00, INFO: case 2.1
+20-06-05 05:22:01, INFO: case 2.1
+20-06-05 05:22:01, INFO: case 2.1
+20-06-05 05:22:02, INFO: case 2.1
+20-06-05 05:22:02, INFO: case 2.1
+20-06-05 05:22:03, INFO: case 2.1
+20-06-05 05:22:03, INFO: case 2.1
+20-06-05 05:22:03, INFO: case 2.1
+20-06-05 05:22:03, INFO: case 2.1
+20-06-05 05:22:04, INFO: case 2.1
+20-06-05 05:22:04, INFO: case 2.1
+20-06-05 05:22:04, INFO: case 2.1
+20-06-05 05:22:04, INFO: case 2.1
+20-06-05 05:22:05, INFO: case 2.1
+20-06-05 05:22:05, INFO: case 2.1
+20-06-05 05:22:06, INFO: case 2.1
+20-06-05 05:22:06, INFO: case 2.1
+20-06-05 05:22:06, INFO: case 2.1
+20-06-05 05:22:06, INFO: case 2.1
+20-06-05 05:22:07, INFO: case 2.1
+20-06-05 05:22:07, INFO: case 2.1
+20-06-05 05:22:07, INFO: case 2.1
+20-06-05 05:22:07, INFO: case 2.1
+20-06-05 05:22:07, INFO: case 2.1
+20-06-05 05:22:08, INFO: case 2.1
+20-06-05 05:22:08, INFO: case 2.1
+20-06-05 05:22:08, INFO: case 2.1
+20-06-05 05:22:08, INFO: Draw
+20-06-05 05:22:08, INFO: 0 for both team
+20-06-05 05:22:08, INFO: Save game at /home/hieu123/workspace/dataset/5/66.pkl
+20-06-05 05:22:08, INFO: Completed self play - game_id: 66
+
+

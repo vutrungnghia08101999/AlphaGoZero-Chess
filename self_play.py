@@ -12,7 +12,7 @@ import torch
 from MCTS import MCTSNode
 from model import ChessModel
 from TensorBoard import TensorChessBoard
-
+from utils import compute_material_scores
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dataroot', type=str)
@@ -49,7 +49,7 @@ def self_play(latest_model: ChessModel, game_id: int, iter_path: str, n_moves=51
     filepath = os.path.join(iter_path, str(game_id) + '.pkl')
     tensor_board = TensorChessBoard()
     latest_model.eval()
-    logging.info('True-white moves first')
+    logging.info(f'{True} - white moves first')
     for move in tqdm(range(n_moves)):
         # logging.info(f'Turn: {tensor_board.turn}')
         root = MCTSNode(
@@ -77,13 +77,13 @@ def self_play(latest_model: ChessModel, game_id: int, iter_path: str, n_moves=51
         #     print(u)
         if tensor_board.is_checkmate:
             logging.info(f'{not tensor_board.turn} won')
-            value = (tensor_board.turn == 1) * (-1) + (tensor_board.turn == 0) * 1
-            logging.info(f'{value} for tem 1 and {-1*value} for team 0')
+            white_reward = (tensor_board.turn == 1) * (-1) + (tensor_board.turn == 0) * 1
+            logging.info(f'{white_reward} for tem 1 and {-1*white_reward} for team 0')
             for i in range(len(game)):
                 if i % 2 == 0:
-                    game[i].append(value)
+                    game[i].append(white_reward)
                 else:
-                    game[i].append(-1 * value)
+                    game[i].append(-1 * white_reward)
             save_file(game, filepath=filepath)
             return
         elif tensor_board.is_draw:
@@ -93,10 +93,23 @@ def self_play(latest_model: ChessModel, game_id: int, iter_path: str, n_moves=51
                 tup.append(0)
             save_file(game, filepath=filepath)
             return
-    for tup in game:
-        tup.append(0)
+    material_scores = compute_material_scores(tensor_board.board)
+    black = material_scores['black']
+    white = material_scores['white']
+    if white > black:
+        white_reward = 1
+    elif black > white:
+        white_reward = -1
+    else:
+        white_reward = 0
+    logging.info(f'white: {white} - black: {black}')
+    logging.info(f'{white_reward} for team 1 and {-1*white_reward} for team 0')
+    for i in range(len(game)):
+        if i % 2 == 0:
+            game[i].append(white_reward)
+        else:
+            game[i].append(-1 * white_reward)
     logging.info(f'Finish after {n_moves} moves')
-    logging.info('0 for both team')
     save_file(game, filepath=filepath)
     return
 

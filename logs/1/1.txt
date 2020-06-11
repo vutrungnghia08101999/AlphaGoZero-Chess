@@ -1,0 +1,14 @@
+20-06-11 21:44:09, INFO: 
+
+********* SELF PLAY *********
+
+
+20-06-11 21:44:09, INFO: [('dataroot', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning'), ('game_id', 1), ('last_iter', 0), ('models', '/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL'), ('n_moves', 10), ('n_simulations', 100), ('seed', 0)]
+20-06-11 21:44:09, INFO: True - white moves first
+20-06-11 21:44:22, INFO: white: 43 - black: 44
+20-06-11 21:44:22, INFO: -1 for team 1 and 1 for team 0
+20-06-11 21:44:22, INFO: Finish after 10 moves
+20-06-11 21:44:22, INFO: Save game at /media/vutrungnghia/New Volume/ArtificialIntelligence/Dataset/reinforcement-learning/1/1.pkl
+20-06-11 21:44:22, INFO: Completed self play - game_id: 1
+
+
