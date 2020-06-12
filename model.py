@@ -38,10 +38,10 @@ class OutBlock(nn.Module):
     def __init__(self):
         super(OutBlock, self).__init__()
         # policy block
-        self.conv1 = nn.Conv2d(256, 2, kernel_size=(1, 1), stride=1)
-        self.batchNorm2d1 = nn.BatchNorm2d(2)
+        self.conv1 = nn.Conv2d(256, 8, kernel_size=(1, 1), stride=1)
+        self.batchNorm2d1 = nn.BatchNorm2d(8)
         # self.dropOut = nn.Dropout(p=0.5)
-        self.fc1 = nn.Linear(8 * 8 * 2, 8 * 8 * 64)
+        self.fc1 = nn.Linear(8 * 8 * 8, 8 * 8 * 64)
 
         # value block
         self.conv2 = nn.Conv2d(256, 1, kernel_size=1, stride=1)  # value head
@@ -52,7 +52,7 @@ class OutBlock(nn.Module):
     def forward(self, s):
         # policy block
         p = F.relu(self.batchNorm2d1(self.conv1(s)))
-        p = p.view(-1, 8 * 8 * 2)
+        p = p.view(-1, 8 * 8 * 8)
         p = self.fc1(p)
         p = F.softmax(p, dim=1)
 

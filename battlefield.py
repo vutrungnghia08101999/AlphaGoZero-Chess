@@ -9,7 +9,7 @@ from TensorBoard import TensorChessBoard
 from MCTS import MCTSNode
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--weights', type=str, default='/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL/5.pth')
+parser.add_argument('--weights', type=str, default='/media/vutrungnghia/New Volume/ArtificialIntelligence/Models/RL/10.pth')
 parser.add_argument('--n_simulation', type=int, default=1000)
 args = parser.parse_args()
 

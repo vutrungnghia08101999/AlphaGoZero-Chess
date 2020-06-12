@@ -12,6 +12,7 @@ from torchvision.transforms import ToTensor
 
 from TensorBoard import TensorChessBoard
 from model import ChessModel
+from utils import compute_material_scores
 
 def decode(index: int, legal_moves: list) -> str:
     assert index >= 0 and index < 8 * 8 * 64
@@ -129,7 +130,7 @@ class MCTSNode(object):
             for i in range(len(predictions)):
                 move, prob = predictions[i]
                 if self.parent is None:  # add dirichle noise to the root node
-                    prob = 0.6 * prob + 0.3 * noise[i]
+                    prob = 0.7 * prob + 0.3 * noise[i]
                 TB = self.tensor_board.get_next_state(move)
                 self.children[i] = {
                     'node': MCTSNode(
@@ -153,15 +154,28 @@ class MCTSNode(object):
             assert self.is_game_over
             assert (self.is_checkmate and self.is_draw) is False
             if self.is_draw:
-                v = 0
-                logging.info('case 2.1')
+                material_scores = compute_material_scores(self.tensor_board.board)
+                white = material_scores['white']
+                black = material_scores['black']
+                if white > black:
+                    white_reward = 1
+                elif white < black:
+                    white_reward = -1
+                else:
+                    white_reward = 0 
+                if self.perspective is True:
+                    v = white_reward
+                    logging.info(f'{self.tensor_board.board.turn} - case 2.1 - white_reward: {v}')
+                else:
+                    v = -1 * white_reward
+                    logging.info(f'{self.tensor_board.board.turn} - case 2.2 - black_reward: {v}')
             else:
                 if self.perspective == self.tensor_board.turn:
                     v = -1
-                    logging.info('case 2.2')
+                    logging.info(f'{self.tensor_board.board.turn} - case 2.3')
                 else:
                     v = 1
-                    logging.info('case 2.3')
+                    logging.info(f'{self.tensor_board.board.turn} - case 2.4')
         assert v is not None
         # print(v)
         current = self.parent

@@ -15,8 +15,8 @@ for iteration in range(1, 20):
         processes = []
         for i in range(start, end):
             command = [
-                'taskset',
-                '--cpu-list', str(i % N_PROCESSES),
+                # 'taskset',
+                # '--cpu-list', str(i % N_PROCESSES),
                 'python',
                 'self_play.py',
                 '--last_iter', str(iteration - 1),
